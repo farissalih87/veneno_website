@@ -82,7 +82,7 @@ const openBookingWithService = (serviceId) => {
           <span>Certified XPEL & Gyeon Installers</span>
         </div>
 
-        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-display uppercase italic tracking-wide text-white max-w-5xl mx-auto leading-[1.08]">
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-display font-semibold uppercase tracking-wider text-white max-w-5xl mx-auto leading-[1.15]">
           The Apex of Automotive <br class="hidden sm:inline" />
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-white to-red-400">
             Detailing & Protection
@@ -97,17 +97,17 @@ const openBookingWithService = (serviceId) => {
         <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
             @click="isBookingModalOpen = true"
-            class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-display text-base uppercase italic tracking-wider shadow-2xl shadow-red-600/40 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-3"
+            class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-display font-semibold text-sm uppercase tracking-wider shadow-2xl shadow-red-600/40 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-3"
           >
-            <Calendar class="w-5 h-5 not-italic" />
+            <Calendar class="w-4 h-4 not-italic" />
             <span>Book Studio Bay Slot</span>
           </button>
 
           <button
             @click="isAiQuoteModalOpen = true"
-            class="w-full sm:w-auto px-8 py-4 rounded-2xl glass-panel hover:bg-zinc-800/80 text-zinc-100 font-display text-base uppercase tracking-wider border border-zinc-700/80 hover:border-red-500/50 transition-all flex items-center justify-center gap-3 shadow-xl"
+            class="w-full sm:w-auto px-8 py-4 rounded-2xl glass-panel hover:bg-zinc-800/80 text-zinc-100 font-display font-semibold text-sm uppercase tracking-wider border border-zinc-700/80 hover:border-red-500/50 transition-all flex items-center justify-center gap-3 shadow-xl"
           >
-            <Sparkles class="w-5 h-5 text-red-400 animate-pulse" />
+            <Sparkles class="w-4 h-4 text-red-400 animate-pulse" />
             <span>Instant AI Appraisal</span>
           </button>
         </div>
@@ -115,19 +115,19 @@ const openBookingWithService = (serviceId) => {
         <!-- Trust Stats Banner -->
         <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
           <div class="glass-panel p-4 rounded-2xl border border-zinc-800 text-center">
-            <div class="text-3xl sm:text-4xl font-display italic text-white">2,500+</div>
+            <div class="text-2xl sm:text-3xl font-display font-bold italic text-white">2,500+</div>
             <div class="text-[11px] font-mono uppercase text-zinc-400 mt-1">Exotics Protected</div>
           </div>
           <div class="glass-panel p-4 rounded-2xl border border-zinc-800 text-center">
-            <div class="text-3xl sm:text-4xl font-display italic text-red-500">9H+</div>
+            <div class="text-2xl sm:text-3xl font-display font-bold italic text-red-500">9H+</div>
             <div class="text-[11px] font-mono uppercase text-zinc-400 mt-1">Graphene Matrix</div>
           </div>
           <div class="glass-panel p-4 rounded-2xl border border-zinc-800 text-center">
-            <div class="text-3xl sm:text-4xl font-display italic text-white">10-Yr</div>
+            <div class="text-2xl sm:text-3xl font-display font-bold italic text-white">10-Yr</div>
             <div class="text-[11px] font-mono uppercase text-zinc-400 mt-1">Certified Warranty</div>
           </div>
           <div class="glass-panel p-4 rounded-2xl border border-zinc-800 text-center">
-            <div class="text-3xl sm:text-4xl font-display italic text-amber-400">4.99 ★</div>
+            <div class="text-2xl sm:text-3xl font-display font-bold italic text-amber-400">4.99 ★</div>
             <div class="text-[11px] font-mono uppercase text-zinc-400 mt-1">Client Satisfaction</div>
           </div>
         </div>
@@ -139,7 +139,7 @@ const openBookingWithService = (serviceId) => {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-12">
           <span class="text-xs font-mono uppercase tracking-widest text-red-500 font-bold">Transformation Laboratory</span>
-          <h2 class="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mt-1">
+          <h2 class="text-2xl sm:text-3xl font-display font-semibold uppercase tracking-wider text-white mt-1">
             Concourse Mirror Clarity
           </h2>
           <p class="text-sm text-zinc-400 mt-2">
@@ -162,7 +162,7 @@ const openBookingWithService = (serviceId) => {
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
             <span class="text-xs font-mono uppercase tracking-widest text-red-500 font-bold">Services & Treatments</span>
-            <h2 class="text-3xl sm:text-5xl font-display uppercase tracking-wide text-white mt-2">
+            <h2 class="text-2xl sm:text-4xl font-display font-semibold uppercase tracking-wider text-white mt-2">
               Flagship Protection Suites
             </h2>
           </div>
@@ -203,7 +203,7 @@ const openBookingWithService = (serviceId) => {
             <!-- Content -->
             <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
               <div>
-                <h3 class="text-2xl font-display uppercase tracking-wide text-white group-hover:text-red-400 transition-colors">
+                <h3 class="text-lg sm:text-xl font-display font-semibold uppercase tracking-wide text-white group-hover:text-red-400 transition-colors">
                   {{ service.name }}
                 </h3>
                 <p class="text-xs text-zinc-400 mt-2 line-clamp-2 leading-relaxed">
@@ -227,7 +227,7 @@ const openBookingWithService = (serviceId) => {
               <div class="pt-4 border-t border-zinc-800/80 flex items-center justify-between">
                 <div>
                   <span class="text-[10px] font-mono uppercase text-zinc-500 block">Starting From</span>
-                  <div class="text-2xl font-display italic text-white">
+                  <div class="text-xl sm:text-2xl font-display font-bold italic text-white">
                     ${{ Number(service.price_sedan) }} <span class="text-xs text-zinc-500 font-sans not-italic font-normal">USD</span>
                   </div>
                 </div>
@@ -243,7 +243,7 @@ const openBookingWithService = (serviceId) => {
 
                   <button
                     @click="openBookingWithService(service.id)"
-                    class="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-display text-xs uppercase italic tracking-wider shadow-lg shadow-red-600/30 transition-all"
+                    class="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-display font-semibold text-xs uppercase tracking-wider shadow-lg shadow-red-600/30 transition-all"
                   >
                     Reserve Bay
                   </button>

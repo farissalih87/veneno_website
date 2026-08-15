@@ -8,8 +8,8 @@
 
 @theme {
     --font-sans: 'Outfit', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
-    --font-display: 'Anton', 'Outfit', sans-serif;
-    --font-heading: 'Anton', 'Outfit', sans-serif;
+    --font-display: 'Outfit', 'Plus Jakarta Sans', ui-sans-serif, sans-serif;
+    --font-heading: 'Outfit', 'Plus Jakarta Sans', ui-sans-serif, sans-serif;
     --color-gold-400: #fbbf24;
     --color-gold-500: #f59e0b;
     --color-gold-600: #d97706;
@@ -17,12 +17,14 @@
 
 .font-display {
     font-family: var(--font-display);
-    letter-spacing: 0.03em;
+    font-weight: 700;
+    letter-spacing: 0.04em;
 }
 
 .font-display-italic {
     font-family: var(--font-display);
-    letter-spacing: 0.03em;
+    font-weight: 700;
+    letter-spacing: 0.04em;
     font-style: italic;
 }
 
