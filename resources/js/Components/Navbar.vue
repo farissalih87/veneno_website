@@ -112,10 +112,10 @@ const handleLogout = () => {
           <!-- Book Now Trigger -->
           <button
             @click="emit('open-booking')"
-            class="relative group overflow-hidden px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-r from-red-600 via-red-500 to-red-700 hover:from-red-500 hover:to-red-600 shadow-lg shadow-red-600/30 transition-all duration-300 transform hover:-translate-y-0.5"
+            class="relative group overflow-hidden px-5 py-2.5 rounded-xl text-xs font-display uppercase italic tracking-wider text-white bg-gradient-to-r from-red-600 via-red-500 to-red-700 hover:from-red-500 hover:to-red-600 shadow-lg shadow-red-600/30 transition-all duration-300 transform hover:-translate-y-0.5"
           >
             <span class="relative z-10 flex items-center gap-2">
-              <Calendar class="w-3.5 h-3.5" />
+              <Calendar class="w-3.5 h-3.5 not-italic" />
               <span>Book Service</span>
             </span>
           </button>

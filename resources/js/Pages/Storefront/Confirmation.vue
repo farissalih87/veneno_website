@@ -26,7 +26,7 @@ const printReceipt = () => {
 
       <div>
         <span class="text-xs font-mono uppercase tracking-widest text-emerald-400 font-bold">RESERVATION SECURED</span>
-        <h1 class="text-3xl sm:text-4xl font-black text-white mt-1">Booking {{ booking.booking_code }} Confirmed</h1>
+        <h1 class="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mt-1">Booking {{ booking.booking_code }} Confirmed</h1>
         <p class="text-xs text-zinc-400 mt-2">
           Your studio appointment is confirmed at our Al Quoz Detailing Studio.
         </p>

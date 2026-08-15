@@ -58,7 +58,7 @@ const updateJobStage = (booking, newStage) => {
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h1 class="text-2xl font-black text-white">Technician Bay Floor</h1>
+              <h1 class="text-2xl font-display uppercase tracking-wide text-white">Technician Bay Floor</h1>
               <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-mono font-bold uppercase">
                 Bay 1-4 Active
               </span>

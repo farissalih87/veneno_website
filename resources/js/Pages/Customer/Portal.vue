@@ -77,7 +77,7 @@ const isStageCompleted = (stageName, currentStatus) => {
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h1 class="text-2xl font-black text-white">Alex Sterling</h1>
+              <h1 class="text-2xl font-display uppercase tracking-wide text-white">Alex Sterling</h1>
               <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-mono font-bold uppercase">
                 {{ loyalty?.tier || 'VIP Platinum' }}
               </span>
@@ -90,7 +90,7 @@ const isStageCompleted = (stageName, currentStatus) => {
         <div class="p-4 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center gap-4 text-xs font-mono">
           <div>
             <div class="text-[10px] text-zinc-500 uppercase">Loyalty Balance</div>
-            <div class="text-xl font-black text-amber-400">{{ loyalty?.points || 3450 }} PTS</div>
+            <div class="text-2xl font-display italic text-amber-400">{{ loyalty?.points || 3450 }} PTS</div>
           </div>
           <div class="text-right border-l border-zinc-800 pl-4">
             <div class="text-[10px] text-zinc-500 uppercase">Next Reward</div>

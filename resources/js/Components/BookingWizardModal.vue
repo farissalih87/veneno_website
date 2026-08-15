@@ -347,8 +347,8 @@ const resetWizard = () => {
         <!-- Live Price Footer -->
         <div class="p-4 rounded-2xl bg-zinc-900/90 border border-zinc-800 flex items-center justify-between text-xs">
           <div>
-            <span class="text-zinc-400">Total Calculated Estimate:</span>
-            <div class="text-lg font-black text-white">${{ calculatedTotalPrice }}</div>
+            <span class="text-zinc-400 font-mono text-[10px] uppercase block">Total Calculated Estimate:</span>
+            <div class="text-2xl font-display italic text-white">${{ calculatedTotalPrice }}</div>
           </div>
           <div class="flex items-center gap-2">
             <button
@@ -359,10 +359,10 @@ const resetWizard = () => {
             </button>
             <button
               @click="step = 3"
-              class="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold uppercase tracking-wider flex items-center gap-2"
+              class="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-display uppercase italic tracking-wider flex items-center gap-2 shadow-lg shadow-red-600/30"
             >
               <span>Choose Date & Time</span>
-              <ChevronRight class="w-4 h-4" />
+              <ChevronRight class="w-4 h-4 not-italic" />
             </button>
           </div>
         </div>

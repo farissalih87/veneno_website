@@ -111,7 +111,7 @@ const handleUpdateInquiry = (inquiryId, status) => {
             <span>Total YTD Revenue</span>
             <DollarSign class="w-4 h-4 text-emerald-400" />
           </div>
-          <div class="text-2xl font-black text-white">${{ Number(stats?.totalRevenue || 360100).toLocaleString() }}</div>
+          <div class="text-3xl font-display italic text-white">${{ Number(stats?.totalRevenue || 360100).toLocaleString() }}</div>
           <div class="text-[11px] text-emerald-400 font-mono">+18.4% vs previous quarter</div>
         </div>
 
@@ -120,7 +120,7 @@ const handleUpdateInquiry = (inquiryId, status) => {
             <span>Active Bay Jobs</span>
             <Car class="w-4 h-4 text-red-400" />
           </div>
-          <div class="text-2xl font-black text-red-400">{{ stats?.activeJobs || 4 }} Cars</div>
+          <div class="text-3xl font-display italic text-red-400">{{ stats?.activeJobs || 4 }} Cars</div>
           <div class="text-[11px] text-zinc-500 font-mono">Bays operating at 92% capacity</div>
         </div>
 
@@ -129,7 +129,7 @@ const handleUpdateInquiry = (inquiryId, status) => {
             <span>Average Ticket Size</span>
             <TrendingUp class="w-4 h-4 text-amber-400" />
           </div>
-          <div class="text-2xl font-black text-amber-400">${{ stats?.averageTicket || 1246 }}</div>
+          <div class="text-3xl font-display italic text-amber-400">${{ stats?.averageTicket || 1246 }}</div>
           <div class="text-[11px] text-zinc-500 font-mono">Ceramic & PPF high margin mix</div>
         </div>
 
@@ -138,7 +138,7 @@ const handleUpdateInquiry = (inquiryId, status) => {
             <span>New Leads & Inquiries</span>
             <MessageSquare class="w-4 h-4 text-blue-400" />
           </div>
-          <div class="text-2xl font-black text-blue-400">{{ inquiries?.filter(i => i.status === 'new').length || 1 }} New</div>
+          <div class="text-3xl font-display italic text-blue-400">{{ inquiries?.filter(i => i.status === 'new').length || 1 }} New</div>
           <div class="text-[11px] text-zinc-500 font-mono">WhatsApp instant channel</div>
         </div>
       </div>
