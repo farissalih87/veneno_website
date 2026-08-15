@@ -31,13 +31,15 @@ const handleQuickLogin = (role) => {
 
       <!-- Header -->
       <div class="text-center">
-        <div class="w-12 h-12 mx-auto rounded-2xl bg-gradient-to-br from-red-600 to-red-950 p-0.5 shadow-lg flex items-center justify-center mb-3">
-          <div class="w-full h-full bg-zinc-950 rounded-[10px] flex items-center justify-center">
-            <span class="text-red-500 font-black text-xl">V</span>
-          </div>
-        </div>
-        <h1 class="text-2xl font-black text-white">VENENO AUTO CARE</h1>
-        <p class="text-xs text-zinc-400 mt-1">Sign in to access VIP Garage, Bay Floor, or Management CRM</p>
+        <Link :href="route('home')" class="inline-block mb-4 group">
+          <img 
+            src="/images/logo.png" 
+            alt="Veneno Auto Care" 
+            title="Veneno Auto Care" 
+            class="h-12 w-auto mx-auto object-contain transition-transform duration-200 group-hover:scale-105" 
+          />
+        </Link>
+        <p class="text-xs text-zinc-400">Sign in to access VIP Garage, Bay Floor, or Management CRM</p>
       </div>
 
       <!-- Quick One-Click Demo Logins -->

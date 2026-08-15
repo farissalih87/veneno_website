@@ -43,19 +43,13 @@ const handleLogout = () => {
       <div class="flex items-center justify-between h-20">
         
         <!-- Logo -->
-        <Link :href="route('home')" class="flex items-center gap-3 group">
-          <div class="relative w-10 h-10 rounded-xl bg-gradient-to-br from-red-600 to-red-950 p-0.5 shadow-lg shadow-red-950/50 flex items-center justify-center">
-            <div class="w-full h-full bg-zinc-950 rounded-[10px] flex items-center justify-center">
-              <span class="text-red-500 font-black text-xl tracking-tighter">V</span>
-            </div>
-          </div>
-          <div>
-            <div class="flex items-center gap-1.5">
-              <span class="font-extrabold text-xl tracking-wider text-white font-sans">VENENO</span>
-              <span class="text-xs px-1.5 py-0.5 rounded bg-red-600/20 text-red-400 font-mono font-semibold border border-red-500/30">AUTO CARE</span>
-            </div>
-            <span class="text-[10px] tracking-widest text-zinc-400 font-mono uppercase block -mt-1">Luxury Detailing & Protection</span>
-          </div>
+        <Link :href="route('home')" class="flex items-center group">
+          <img 
+            src="/images/logo.png" 
+            alt="Veneno Auto Care" 
+            title="Veneno Auto Care" 
+            class="h-9 sm:h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-105" 
+          />
         </Link>
 
         <!-- Desktop Navigation -->

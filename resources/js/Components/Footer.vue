@@ -10,17 +10,14 @@ import { ShieldCheck, MapPin, Phone, Mail, Clock, Instagram, Youtube, Facebook }
         
         <!-- Brand column -->
         <div class="lg:col-span-2 space-y-4">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-red-600 to-red-950 p-0.5 shadow-lg flex items-center justify-center">
-              <div class="w-full h-full bg-zinc-950 rounded-[10px] flex items-center justify-center">
-                <span class="text-red-500 font-black text-lg">V</span>
-              </div>
-            </div>
-            <div>
-              <span class="font-extrabold text-lg tracking-wider text-white">VENENO AUTO CARE</span>
-              <span class="text-[10px] tracking-widest text-zinc-500 font-mono block -mt-1 uppercase">Exotic & Luxury Detailing</span>
-            </div>
-          </div>
+          <Link :href="route('home')" class="inline-block group">
+            <img 
+              src="/images/logo.png" 
+              alt="Veneno Auto Care" 
+              title="Veneno Auto Care" 
+              class="h-9 sm:h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-105" 
+            />
+          </Link>
           <p class="text-sm text-zinc-400 max-w-sm leading-relaxed">
             Dubai & Abu Dhabi's premier destination for self-healing paint protection film, 9H+ graphene ceramic coatings, and concourse-level automotive rejuvenation.
           </p>

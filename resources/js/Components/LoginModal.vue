@@ -56,12 +56,12 @@ const handleQuickLogin = (role) => {
 
       <!-- Header -->
       <div class="text-center mb-6">
-        <div class="w-12 h-12 mx-auto rounded-2xl bg-gradient-to-br from-red-600 to-red-950 p-0.5 shadow-lg flex items-center justify-center mb-3">
-          <div class="w-full h-full bg-zinc-950 rounded-[10px] flex items-center justify-center">
-            <span class="text-red-500 font-black text-xl">V</span>
-          </div>
-        </div>
-        <h2 class="text-xl font-extrabold text-white">VENENO AUTO CARE</h2>
+        <img 
+          src="/images/logo.png" 
+          alt="Veneno Auto Care" 
+          title="Veneno Auto Care" 
+          class="h-11 w-auto mx-auto object-contain mb-3" 
+        />
         <p class="text-xs text-zinc-400">Sign in to access VIP Garage, Technician Bay, or Management CRM</p>
       </div>
 
