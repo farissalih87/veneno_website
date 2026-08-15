@@ -59,17 +59,24 @@ const openBookingWithService = (serviceId) => {
     <!-- CINEMATIC VIDEO HERO SECTION -->
     <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-zinc-950">
       <!-- Background Video Overlay & Media -->
-      <div class="absolute inset-0 z-0">
-        <img
-          src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=2000&q=85"
-          alt="Luxury Supercar Detailing"
-          class="w-full h-full object-cover object-center scale-105 filter brightness-50 contrast-125"
-        />
-        <!-- Cinematic Dark Gradient Overlays -->
-        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/60 to-transparent"></div>
-        <div class="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/40 to-transparent"></div>
+      <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
+        <!-- YouTube Background Video -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] opacity-60 filter brightness-75 contrast-110">
+          <iframe
+            class="w-full h-full pointer-events-none"
+            src="https://www.youtube-nocookie.com/embed/I4cZjZX3S00?autoplay=1&mute=1&loop=1&playlist=I4cZjZX3S00&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1&playsinline=1"
+            title="Veneno Luxury Auto Care Hero Video"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <!-- Cinematic Dark Gradient & Spotlight Overlays -->
+        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/60 to-zinc-950/40"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-zinc-950/80 via-transparent to-zinc-950/80"></div>
         <!-- Radial Spotlight Glow -->
-        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-red-600/20 rounded-full blur-3xl pointer-events-none"></div>
       </div>
 
       <!-- Hero Content -->
