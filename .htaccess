@@ -1,4 +1,8 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    # Prevent infinite rewrite recursion when DocumentRoot is repository root
+    RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
+
