@@ -77,7 +77,7 @@ const priceForSelectedType = computed(() => {
           </span>
         </div>
 
-        <h1 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight">
+        <h1 class="text-3xl sm:text-5xl font-display uppercase italic tracking-wide text-white">
           {{ service.name }}
         </h1>
         <p class="text-base text-zinc-300 max-w-3xl leading-relaxed">
@@ -98,8 +98,8 @@ const priceForSelectedType = computed(() => {
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Left: Specifications & Features List -->
         <div class="lg:col-span-2 glass-panel p-8 rounded-3xl border border-zinc-800 space-y-6">
-          <h3 class="text-xl font-bold text-white flex items-center gap-2">
-            <ShieldCheck class="w-5 h-5 text-red-500" />
+          <h3 class="text-2xl font-display uppercase tracking-wide text-white flex items-center gap-2">
+            <ShieldCheck class="w-6 h-6 text-red-500" />
             <span>Certified Treatment Protocol</span>
           </h3>
 
@@ -138,9 +138,9 @@ const priceForSelectedType = computed(() => {
                 <span>Vehicle Body:</span>
                 <span class="text-white font-bold capitalize">{{ selectedType }}</span>
               </div>
-              <div class="text-xs text-zinc-400 flex justify-between">
+              <div class="text-xs text-zinc-400 flex items-center justify-between">
                 <span>Base Investment:</span>
-                <span class="text-2xl font-black text-white">${{ priceForSelectedType }}</span>
+                <span class="text-3xl font-display italic text-white">${{ priceForSelectedType }}</span>
               </div>
               <div class="text-[11px] text-zinc-500 pt-2 border-t border-zinc-800">
                 Deposit required to reserve bay: $250. Balance upon completion.
@@ -150,9 +150,9 @@ const priceForSelectedType = computed(() => {
 
           <button
             @click="isBookingModalOpen = true"
-            class="w-full py-4 rounded-2xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs uppercase tracking-wider shadow-xl shadow-red-600/30 flex items-center justify-center gap-2 transition-all"
+            class="w-full py-4 rounded-2xl bg-red-600 hover:bg-red-500 text-white font-display text-sm uppercase italic tracking-wider shadow-xl shadow-red-600/30 flex items-center justify-center gap-2 transition-all"
           >
-            <Calendar class="w-4 h-4" />
+            <Calendar class="w-4 h-4 not-italic" />
             <span>Book This Service (${{ priceForSelectedType }})</span>
           </button>
         </div>
