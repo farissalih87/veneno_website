@@ -95,8 +95,6 @@ const openQuoteWithService = (serviceName) => {
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border border-red-500/30 text-xs font-mono text-zinc-300 mb-6 shadow-xl shadow-black/60 animate-in fade-in slide-in-from-top-4 duration-300">
           <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
           <span class="text-red-400 font-bold uppercase tracking-wider">{{ t('hero.badge') }}</span>
-          <span class="text-zinc-600">|</span>
-          <span>{{ t('hero.installers') }}</span>
         </div>
 
         <h1 class="text-3xl sm:text-5xl lg:text-6xl font-display font-semibold uppercase tracking-wider text-white max-w-5xl mx-auto leading-[1.15]">
@@ -139,24 +137,37 @@ const openQuoteWithService = (serviceName) => {
             <div class="text-2xl sm:text-3xl font-display font-bold italic text-white">150+</div>
             <div class="text-[11px] font-mono uppercase text-zinc-400 mt-1">{{ t('hero.statTeam') }}</div>
           </div>
+          <!-- 3M Logo -->
           <div class="glass-panel p-4 rounded-2xl border border-zinc-800 text-center flex flex-col items-center justify-center">
-            <div class="h-8 flex items-center justify-center">
-              <svg class="h-6 w-auto text-red-600 fill-current" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <div class="h-12 flex items-center justify-center">
+              <svg class="h-10 w-auto text-red-500 fill-current" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="3M Logo">
                 <path fill="currentColor" d="M18.903 5.954L17.17 13.03l-1.739-7.076h-5.099v2.613C9.72 6.28 7.56 5.706 5.558 5.674 3.12 5.641.563 6.701.469 9.936h3.373c0-.977.747-1.536 1.588-1.523 1.032-.008 1.508.434 1.533 1.124-.036.597-.387 1.014-1.525 1.014H4.303V12.9h1.03c.584 0 1.399.319 1.431 1.155.04.995-.652 1.435-1.501 1.443-1.517-.053-1.763-1.225-1.763-2.23H0c.015.677-.151 5.091 5.337 5.059 2.629.025 4.464-1.085 5.003-2.613v2.342h3.455v-7.632l1.867 7.634h3.018l1.875-7.626v7.634H24V5.954h-5.097zm-8.561 7.06c-.429-.893-1.034-1.284-1.376-1.407.714-.319 1.09-.751 1.376-1.614v3.021z"/>
               </svg>
             </div>
             <div class="text-[11px] font-mono uppercase text-zinc-400 mt-1">{{ t('hero.statDealer') }}</div>
           </div>
+
+          <!-- GYEON Logo -->
           <div class="glass-panel p-4 rounded-2xl border border-zinc-800 text-center flex flex-col items-center justify-center">
-            <div class="h-8 flex items-center justify-center">
-              <svg class="h-5 w-auto text-white fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135.377 45.757" aria-label="Gyeon Logo" role="img">
+            <div class="h-12 flex items-center justify-center">
+              <svg class="h-9 w-auto text-white fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135.377 45.757" aria-label="GYEON Logo" role="img">
                 <path fill="currentColor" d="M79.865,44.962a10.235,10.235,0,0,1-3.63-2.153,11.023,11.023,0,0,1-2.36-3.328,16.684,16.684,0,0,1-1.332-4.2,27.788,27.788,0,0,1-.4-4.869v-14.8Q72.145,0,84.871,0,97.625,0,97.624,15.613V30.195a28.607,28.607,0,0,1-.387,4.882,16.874,16.874,0,0,1-1.318,4.246,11.5,11.5,0,0,1-2.372,3.412,10.064,10.064,0,0,1-3.642,2.215,16.118,16.118,0,0,1-10.041.013Zm3-37.486a3.448,3.448,0,0,0-1.209,1.639,10.453,10.453,0,0,0-.546,2.055,14.464,14.464,0,0,0-.157,2.214V32.422q0,6.483,3.919,6.483,3.944,0,3.945-6.483V13.385q0-6.508-3.945-6.51A3.312,3.312,0,0,0,82.864,7.476ZM6.836,44.889a9.063,9.063,0,0,1-3.17-2.3,13.055,13.055,0,0,1-2.093-3.363,17.538,17.538,0,0,1-1.21-3.953A23.343,23.343,0,0,1,0,31.125V15.612Q0,0,12.848,0a14.948,14.948,0,0,1,4.828.721,10.194,10.194,0,0,1,3.544,1.994,10.208,10.208,0,0,1,2.347,3.132A15.6,15.6,0,0,1,24.9,9.885a26.037,26.037,0,0,1,.411,4.8v3.2H16.889V14.192q0-1.148-.059-2.019a12.758,12.758,0,0,0-.3-1.932,5.974,5.974,0,0,0-.654-1.749A3.374,3.374,0,0,0,14.688,7.34a3.51,3.51,0,0,0-1.84-.465q-4.04,0-4.04,6.51V32.4q0,6.485,4.04,6.484,4.017,0,4.018-6.729v-2.3H14.373l-2.291-6.386H25.31V44.9H19.624l-1.113-3.083a8.177,8.177,0,0,1-3.169,2.852,8.96,8.96,0,0,1-4.235,1.089A10.259,10.259,0,0,1,6.836,44.889ZM52.3,44.9V17.583L56.954.856H70.043L68.251,7.29H61.108V18.964h6.406l-1.742,6.263H61.108v13.24h8.967l-1.8,6.434Zm-17.765,0V30.341L26.355.856h8.3l4.066,19.355q.75-3.18,2.25-9.677T43.2.856h8.058l-8.2,29.486V44.9Zm84.818,0-9.532-24.444V44.9h-7.576V.832h6.34l7.187,17.334,10.962,26.713V44.9Zm-1.209-34.737V.832h8.591V31.1Zm12.1-7.022a2.568,2.568,0,1,1,5.136,0,2.568,2.568,0,1,1-5.136,0Zm.4,0a2.168,2.168,0,1,0,4.336,0,2.168,2.168,0,1,0-4.336,0Zm2.975,1.444a.172.172,0,0,1-.134-.094l-.56-1.121h-.6c-.027,0-.042.013-.042.028V4.464a.112.112,0,0,1-.12.121h-.2a.107.107,0,0,1-.12-.121V1.792a.107.107,0,0,1,.12-.121h1.053a.815.815,0,0,1,.908.85.762.762,0,0,1-.56.8l.56,1.133c.054.095,0,.136-.079.136Zm-1.335-2.5v.85c0,.027.015.027.042.027H133c.361,0,.507-.161.507-.444s-.146-.46-.507-.46h-.679C132.3,2.061,132.282,2.076,132.282,2.088Z"></path>
               </svg>
             </div>
             <div class="text-[11px] font-mono uppercase text-zinc-400 mt-1">{{ t('hero.statMultiBrand') }}</div>
           </div>
-          <div class="glass-panel p-4 rounded-2xl border border-zinc-800 text-center">
-            <div class="text-2xl sm:text-3xl font-display font-bold italic text-amber-400">ISO</div>
+
+          <!-- ISO Official Logo -->
+          <div class="glass-panel p-4 rounded-2xl border border-zinc-800 text-center flex flex-col items-center justify-center">
+            <div class="h-12 flex items-center justify-center">
+              <!-- ISO official wordmark SVG -->
+              <svg class="h-10 w-auto" viewBox="0 0 90 40" xmlns="http://www.w3.org/2000/svg" aria-label="ISO Certified" role="img">
+                <!-- Red background rectangle -->
+                <rect width="90" height="40" rx="4" fill="#E2001A"/>
+                <!-- ISO white lettering -->
+                <text x="45" y="30" font-family="Arial Black, Arial, sans-serif" font-size="28" font-weight="900" fill="white" text-anchor="middle" letter-spacing="2">ISO</text>
+              </svg>
+            </div>
             <div class="text-[11px] font-mono uppercase text-zinc-400 mt-1">{{ t('hero.statIso') }}</div>
           </div>
         </div>
@@ -168,39 +179,22 @@ const openQuoteWithService = (serviceName) => {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          <!-- Image Collage from real workshop photos -->
-          <div class="lg:col-span-6 grid grid-cols-2 gap-4">
-            <div class="space-y-4">
-              <div class="rounded-3xl overflow-hidden glass-panel border border-zinc-800 h-64">
-                <img
-                  src="/images/services/ppf/IMG_5902.JPG"
-                  alt="VENENO Center Bay PPF"
-                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div class="rounded-3xl overflow-hidden glass-panel border border-zinc-800 h-44">
-                <img
-                  src="/images/services/detailing/IMG_5899.JPG"
-                  alt="VENENO Paint Correction Center"
-                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-            </div>
-            
-            <div class="space-y-4 pt-8">
-              <div class="rounded-3xl overflow-hidden glass-panel border border-zinc-800 h-44">
-                <img
-                  src="/images/services/ceramic/PHOTO-2024-07-12-14-12-51 15.JPG"
-                  alt="VENENO Ceramic Coating"
-                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div class="rounded-3xl overflow-hidden glass-panel border border-zinc-800 h-64">
-                <img
-                  src="/images/gallery/PHOTO-2024-07-12-14-12-51 24.JPG"
-                  alt="VENENO Concourse Finish"
-                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                />
+          <!-- Main Branch Photo -->
+          <div class="lg:col-span-6">
+            <div class="rounded-3xl overflow-hidden glass-panel border border-zinc-800 w-full h-[500px] relative group shadow-2xl shadow-black/60">
+              <img
+                src="/images/main-branch.webp"
+                alt="Veneno Auto Care Center — Main Branch Abu Dhabi"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <!-- Subtle overlay badge -->
+              <div class="absolute bottom-4 left-4 right-4">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl glass-panel border border-zinc-700/80 text-xs font-mono text-zinc-300 shadow-xl backdrop-blur-md">
+                  <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                  <span class="text-red-400 font-bold uppercase tracking-wider">Abu Dhabi</span>
+                  <span class="text-zinc-600">|</span>
+                  <span>Veneno Auto Care — Main Branch</span>
+                </div>
               </div>
             </div>
           </div>
