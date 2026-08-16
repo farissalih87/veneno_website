@@ -21,7 +21,14 @@ import {
   Mail,
   ArrowUpRight,
   Flame,
-  Wrench
+  Wrench,
+  Users,
+  Target,
+  Compass,
+  FileCheck,
+  BadgeCheck,
+  Zap,
+  HeartHandshake
 } from 'lucide-vue-next';
 import { useI18n } from '@/i18n';
 
@@ -58,7 +65,7 @@ const openQuoteWithService = (serviceName) => {
 </script>
 
 <template>
-  <Head :title="currentLocale === 'ar' ? 'فينيلو أوتو كير — استوديو حماية وتلميع السيارات الفارهة في أبوظبي' : 'Veneno Auto Care — Luxury Car Detailing, PPF & Ceramic Coating Studio in UAE'" />
+  <Head :title="currentLocale === 'ar' ? 'مركز فينينو للعناية بالسيارات — أضخم مركز متعدد العلامات في أبوظبي والإمارات' : 'Veneno Auto Care Center — The Ultimate Art of Care in UAE'" />
 
   <div class="min-h-screen flex flex-col bg-zinc-950 text-zinc-100 font-sans selection:bg-red-600 selection:text-white">
     <!-- Navbar -->
@@ -73,14 +80,14 @@ const openQuoteWithService = (serviceName) => {
           <iframe
             class="w-full h-full pointer-events-none"
             src="https://www.youtube-nocookie.com/embed/I4cZjZX3S00?autoplay=1&mute=1&loop=1&playlist=I4cZjZX3S00&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1&playsinline=1"
-            title="Veneno Luxury Auto Care Hero Video"
+            title="Veneno Auto Care Center Hero Video"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
           ></iframe>
         </div>
 
-        <!-- Dark Gradient & Spotlight Overlays -->
+        <!-- Dark Gradient Overlays -->
         <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/65 to-zinc-950/40"></div>
         <div class="absolute inset-0 bg-gradient-to-r from-zinc-950/85 via-transparent to-zinc-950/85"></div>
         <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-red-600/20 rounded-full blur-3xl pointer-events-none"></div>
@@ -130,29 +137,29 @@ const openQuoteWithService = (serviceName) => {
           </a>
         </div>
 
-        <!-- Trust Stats Banner -->
+        <!-- Trust Stats Banner (from PDF) -->
         <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
           <div class="glass-panel p-4 rounded-2xl border border-zinc-800 text-center">
-            <div class="text-2xl sm:text-3xl font-display font-bold italic text-white">2,500+</div>
-            <div class="text-[11px] font-mono uppercase text-zinc-400 mt-1">{{ t('hero.statExotics') }}</div>
+            <div class="text-2xl sm:text-3xl font-display font-bold italic text-white">150+</div>
+            <div class="text-[11px] font-mono uppercase text-zinc-400 mt-1">{{ t('hero.statTeam') }}</div>
           </div>
           <div class="glass-panel p-4 rounded-2xl border border-zinc-800 text-center">
-            <div class="text-2xl sm:text-3xl font-display font-bold italic text-red-500">9H+</div>
-            <div class="text-[11px] font-mono uppercase text-zinc-400 mt-1">{{ t('hero.statMatrix') }}</div>
+            <div class="text-2xl sm:text-3xl font-display font-bold italic text-red-500">3M Pro</div>
+            <div class="text-[11px] font-mono uppercase text-zinc-400 mt-1">{{ t('hero.statDealer') }}</div>
           </div>
           <div class="glass-panel p-4 rounded-2xl border border-zinc-800 text-center">
-            <div class="text-2xl sm:text-3xl font-display font-bold italic text-white">10-Yr</div>
-            <div class="text-[11px] font-mono uppercase text-zinc-400 mt-1">{{ t('hero.statWarranty') }}</div>
+            <div class="text-2xl sm:text-3xl font-display font-bold italic text-white">GYEON</div>
+            <div class="text-[11px] font-mono uppercase text-zinc-400 mt-1">{{ t('hero.statMultiBrand') }}</div>
           </div>
           <div class="glass-panel p-4 rounded-2xl border border-zinc-800 text-center">
-            <div class="text-2xl sm:text-3xl font-display font-bold italic text-amber-400">4.99 ★</div>
-            <div class="text-[11px] font-mono uppercase text-zinc-400 mt-1">{{ t('hero.statRating') }}</div>
+            <div class="text-2xl sm:text-3xl font-display font-bold italic text-amber-400">ISO</div>
+            <div class="text-[11px] font-mono uppercase text-zinc-400 mt-1">{{ t('hero.statIso') }}</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 2. ABOUT US SECTION -->
+    <!-- 2. ABOUT US & VISION / MISSION SECTION (Direct from PDF) -->
     <section id="about" class="py-24 bg-zinc-950 relative border-t border-zinc-900">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -163,14 +170,14 @@ const openQuoteWithService = (serviceName) => {
               <div class="rounded-3xl overflow-hidden glass-panel border border-zinc-800 h-64">
                 <img
                   src="/images/services/ppf/IMG_5902.JPG"
-                  alt="Veneno Workshop Bay PPF"
+                  alt="VENENO Center Bay PPF"
                   class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <div class="rounded-3xl overflow-hidden glass-panel border border-zinc-800 h-44">
                 <img
                   src="/images/services/detailing/IMG_5899.JPG"
-                  alt="Veneno Paint Correction Studio"
+                  alt="VENENO Paint Correction Center"
                   class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -180,21 +187,21 @@ const openQuoteWithService = (serviceName) => {
               <div class="rounded-3xl overflow-hidden glass-panel border border-zinc-800 h-44">
                 <img
                   src="/images/services/ceramic/PHOTO-2024-07-12-14-12-51 15.JPG"
-                  alt="Veneno Ceramic Coating"
+                  alt="VENENO Ceramic Coating"
                   class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <div class="rounded-3xl overflow-hidden glass-panel border border-zinc-800 h-64">
                 <img
                   src="/images/gallery/PHOTO-2024-07-12-14-12-51 24.JPG"
-                  alt="Veneno Concourse Finish"
+                  alt="VENENO Concourse Finish"
                   class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>
             </div>
           </div>
 
-          <!-- Story & Heritage Content -->
+          <!-- Story, Heritage & Vision/Mission Content -->
           <div class="lg:col-span-6 space-y-6">
             <div>
               <span class="text-xs font-mono uppercase tracking-widest text-red-500 font-bold">{{ t('about.tag') }}</span>
@@ -211,18 +218,22 @@ const openQuoteWithService = (serviceName) => {
               {{ t('about.p2') }}
             </p>
 
-            <!-- Key Pillars -->
+            <!-- Vision & Mission Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div class="p-4 rounded-2xl bg-zinc-900/70 border border-zinc-800">
-                <ShieldCheck class="w-5 h-5 text-red-500 mb-2" />
-                <h4 class="text-xs font-bold text-white uppercase tracking-wider">{{ t('about.pillar1Title') }}</h4>
-                <p class="text-xs text-zinc-400 mt-1">{{ t('about.pillar1Desc') }}</p>
+              <div class="p-4 rounded-2xl bg-zinc-900/70 border border-zinc-800 space-y-2">
+                <div class="flex items-center gap-2 text-red-500">
+                  <Compass class="w-5 h-5" />
+                  <h4 class="text-xs font-bold uppercase tracking-wider text-white">{{ t('about.visionTitle') }}</h4>
+                </div>
+                <p class="text-xs text-zinc-400 leading-relaxed">{{ t('about.visionText') }}</p>
               </div>
 
-              <div class="p-4 rounded-2xl bg-zinc-900/70 border border-zinc-800">
-                <Award class="w-5 h-5 text-amber-400 mb-2" />
-                <h4 class="text-xs font-bold text-white uppercase tracking-wider">{{ t('about.pillar2Title') }}</h4>
-                <p class="text-xs text-zinc-400 mt-1">{{ t('about.pillar2Desc') }}</p>
+              <div class="p-4 rounded-2xl bg-zinc-900/70 border border-zinc-800 space-y-2">
+                <div class="flex items-center gap-2 text-amber-400">
+                  <Target class="w-5 h-5" />
+                  <h4 class="text-xs font-bold uppercase tracking-wider text-white">{{ t('about.missionTitle') }}</h4>
+                </div>
+                <p class="text-xs text-zinc-400 leading-relaxed">{{ t('about.missionText') }}</p>
               </div>
             </div>
 
@@ -248,7 +259,177 @@ const openQuoteWithService = (serviceName) => {
       </div>
     </section>
 
-    <!-- 3. BEFORE / AFTER INTERACTIVE SHOWCASE -->
+    <!-- 3. WHY CHOOSE VENENO: 7 PILLARS (Directly from PDF Page 14) -->
+    <section id="why-us" class="py-24 bg-zinc-950 relative border-t border-zinc-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-xs font-mono uppercase tracking-widest text-red-500 font-bold">{{ t('whyUs.tag') }}</span>
+          <h2 class="text-3xl sm:text-4xl font-display font-semibold uppercase tracking-wider text-white mt-1">
+            {{ t('whyUs.title') }}
+          </h2>
+          <p class="text-xs sm:text-sm text-zinc-400 mt-2">
+            {{ t('whyUs.subtitle') }}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Pillar 1: Expertise -->
+          <div class="glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-2xl bg-red-600/20 text-red-400 border border-red-500/30 flex items-center justify-center mb-4">
+                <Users class="w-5 h-5" />
+              </div>
+              <span class="text-[10px] font-mono text-red-400 font-bold uppercase">01</span>
+              <h3 class="text-base font-bold text-white uppercase tracking-wide mt-1">{{ t('whyUs.p1Title') }}</h3>
+              <p class="text-xs text-zinc-400 mt-2 leading-relaxed">{{ t('whyUs.p1Desc') }}</p>
+            </div>
+          </div>
+
+          <!-- Pillar 2: Quality Service -->
+          <div class="glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center mb-4">
+                <Award class="w-5 h-5" />
+              </div>
+              <span class="text-[10px] font-mono text-amber-400 font-bold uppercase">02</span>
+              <h3 class="text-base font-bold text-white uppercase tracking-wide mt-1">{{ t('whyUs.p2Title') }}</h3>
+              <p class="text-xs text-zinc-400 mt-2 leading-relaxed">{{ t('whyUs.p2Desc') }}</p>
+            </div>
+          </div>
+
+          <!-- Pillar 3: Customer Satisfaction -->
+          <div class="glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mb-4">
+                <HeartHandshake class="w-5 h-5" />
+              </div>
+              <span class="text-[10px] font-mono text-emerald-400 font-bold uppercase">03</span>
+              <h3 class="text-base font-bold text-white uppercase tracking-wide mt-1">{{ t('whyUs.p3Title') }}</h3>
+              <p class="text-xs text-zinc-400 mt-2 leading-relaxed">{{ t('whyUs.p3Desc') }}</p>
+            </div>
+          </div>
+
+          <!-- Pillar 4: Attention to Detail -->
+          <div class="glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-2xl bg-blue-500/20 text-blue-400 border border-blue-500/30 flex items-center justify-center mb-4">
+                <Sparkles class="w-5 h-5" />
+              </div>
+              <span class="text-[10px] font-mono text-blue-400 font-bold uppercase">04</span>
+              <h3 class="text-base font-bold text-white uppercase tracking-wide mt-1">{{ t('whyUs.p4Title') }}</h3>
+              <p class="text-xs text-zinc-400 mt-2 leading-relaxed">{{ t('whyUs.p4Desc') }}</p>
+            </div>
+          </div>
+
+          <!-- Pillar 5: Best Prices -->
+          <div class="glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-2xl bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center mb-4">
+                <Zap class="w-5 h-5" />
+              </div>
+              <span class="text-[10px] font-mono text-purple-400 font-bold uppercase">05</span>
+              <h3 class="text-base font-bold text-white uppercase tracking-wide mt-1">{{ t('whyUs.p5Title') }}</h3>
+              <p class="text-xs text-zinc-400 mt-2 leading-relaxed">{{ t('whyUs.p5Desc') }}</p>
+            </div>
+          </div>
+
+          <!-- Pillar 6: Trusted Warranty -->
+          <div class="glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-2xl bg-red-600/20 text-red-400 border border-red-500/30 flex items-center justify-center mb-4">
+                <ShieldCheck class="w-5 h-5" />
+              </div>
+              <span class="text-[10px] font-mono text-red-400 font-bold uppercase">06</span>
+              <h3 class="text-base font-bold text-white uppercase tracking-wide mt-1">{{ t('whyUs.p6Title') }}</h3>
+              <p class="text-xs text-zinc-400 mt-2 leading-relaxed">{{ t('whyUs.p6Desc') }}</p>
+            </div>
+          </div>
+
+          <!-- Pillar 7: After Sales Support -->
+          <div class="lg:col-span-2 glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mb-4">
+                <BadgeCheck class="w-5 h-5" />
+              </div>
+              <span class="text-[10px] font-mono text-emerald-400 font-bold uppercase">07</span>
+              <h3 class="text-base font-bold text-white uppercase tracking-wide mt-1">{{ t('whyUs.p7Title') }}</h3>
+              <p class="text-xs text-zinc-400 mt-2 leading-relaxed">{{ t('whyUs.p7Desc') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. OFFICIAL BRAND PARTNERS (3M & GYEON ONLY) & ISO CERTIFICATES (PDF Page 18-20) -->
+    <section id="certificates" class="py-20 bg-zinc-950 relative border-t border-zinc-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-xs font-mono uppercase tracking-widest text-red-500 font-bold">{{ t('brands.tag') }}</span>
+          <h2 class="text-2xl sm:text-3xl font-display font-semibold uppercase tracking-wider text-white mt-1">
+            {{ t('brands.title') }}
+          </h2>
+          <p class="text-xs sm:text-sm text-zinc-400 mt-2">
+            {{ t('brands.subtitle') }}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- 3M Pro Shop Dealer Card -->
+          <div class="glass-panel p-6 rounded-3xl border border-zinc-800 text-center flex flex-col items-center justify-between space-y-4">
+            <div class="h-16 flex items-center justify-center">
+              <span class="text-3xl sm:text-4xl font-display font-black text-red-600 tracking-tighter">3M</span>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-white uppercase tracking-wider">3M Pro Shop Dealer</h4>
+              <p class="text-[11px] text-zinc-400 mt-1">{{ t('brands.dealer3M') }}</p>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-red-600/20 text-red-400 border border-red-500/30 text-[10px] font-mono">Certified Agent</span>
+          </div>
+
+          <!-- GYEON Certified Detailer Card -->
+          <div class="glass-panel p-6 rounded-3xl border border-zinc-800 text-center flex flex-col items-center justify-between space-y-4">
+            <div class="h-16 flex items-center justify-center">
+              <span class="text-2xl sm:text-3xl font-display font-bold text-white tracking-widest uppercase">GYEON</span>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-white uppercase tracking-wider">GYEON Certified Detailer</h4>
+              <p class="text-[11px] text-zinc-400 mt-1">{{ t('brands.gyeon') }}</p>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-zinc-800 text-zinc-300 border border-zinc-700 text-[10px] font-mono">Nano Ceramic Certified</span>
+          </div>
+
+          <!-- ISO 9001:2015 Card -->
+          <div class="glass-panel p-6 rounded-3xl border border-zinc-800 text-center flex flex-col items-center justify-between space-y-4">
+            <div class="h-16 flex items-center justify-center">
+              <div class="w-14 h-14 rounded-full border-2 border-red-500 flex items-center justify-center font-display font-bold text-white text-sm">
+                ISO 9001
+              </div>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-white uppercase tracking-wider">Quality Management</h4>
+              <p class="text-[11px] text-zinc-400 mt-1">{{ t('brands.iso9001') }}</p>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-red-950/60 text-red-300 border border-red-800/40 text-[10px] font-mono">45001:2018</span>
+          </div>
+
+          <!-- ISO 45001:2018 Card -->
+          <div class="glass-panel p-6 rounded-3xl border border-zinc-800 text-center flex flex-col items-center justify-between space-y-4">
+            <div class="h-16 flex items-center justify-center">
+              <div class="w-14 h-14 rounded-full border-2 border-emerald-500 flex items-center justify-center font-display font-bold text-white text-sm">
+                ISO 45001
+              </div>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-white uppercase tracking-wider">Health & Safety</h4>
+              <p class="text-[11px] text-zinc-400 mt-1">{{ t('brands.iso45001') }}</p>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[10px] font-mono">Certified Facility</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. BEFORE / AFTER INTERACTIVE SHOWCASE -->
     <section class="py-20 bg-zinc-950 relative border-t border-zinc-900">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-12">
@@ -270,7 +451,7 @@ const openQuoteWithService = (serviceName) => {
       </div>
     </section>
 
-    <!-- 4. OFFICIAL 9 CORE SERVICES GRID -->
+    <!-- 6. OFFICIAL 9 CORE SERVICES GRID -->
     <section id="services" class="py-24 bg-zinc-950 relative border-t border-zinc-900">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
@@ -289,7 +470,7 @@ const openQuoteWithService = (serviceName) => {
             class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-600/20 text-red-400 hover:text-white border border-red-500/40 text-xs font-mono uppercase tracking-wider transition-all"
           >
             <span>{{ t('services.catalogQuote') }}</span>
-            <ChevronRight class="w-4 h-4" />
+            <ChevronRight class="w-4 h-4 rtl:rotate-180" />
           </button>
         </div>
 
@@ -299,28 +480,22 @@ const openQuoteWithService = (serviceName) => {
             :key="service.id"
             class="group relative glass-panel rounded-3xl overflow-hidden border border-zinc-800/80 hover:border-red-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-red-950/20 flex flex-col"
           >
-            <!-- Service Image Banner -->
+            <!-- Service Image Banner (Plain Photo) -->
             <div class="relative h-56 overflow-hidden bg-zinc-900">
               <img
                 :src="service.image"
                 :alt="service.name"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
-              
-              <div class="absolute top-4 left-4 flex gap-2">
-                <span v-if="service.badge" class="px-3 py-1 rounded-full bg-red-600 text-white font-mono text-[10px] font-bold uppercase tracking-wider shadow-lg">
-                  {{ service.badge }}
-                </span>
-                <span v-if="service.warranty" class="px-3 py-1 rounded-full bg-zinc-900/90 text-zinc-300 font-mono text-[10px] border border-zinc-700 backdrop-blur-md">
-                  {{ service.warranty }}
-                </span>
-              </div>
             </div>
 
             <!-- Content -->
-            <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div class="p-6 flex-1 flex flex-col justify-between space-y-4 bg-zinc-950/90 border-t border-zinc-900">
               <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="text-[10px] font-mono text-red-400 font-bold uppercase">{{ service.badge }}</span>
+                  <span class="text-[10px] text-zinc-400 font-mono">{{ service.warranty }}</span>
+                </div>
                 <h3 class="text-lg sm:text-xl font-display font-semibold uppercase tracking-wide text-white group-hover:text-red-400 transition-colors">
                   {{ service.name }}
                 </h3>
@@ -348,7 +523,7 @@ const openQuoteWithService = (serviceName) => {
                   class="text-xs font-mono uppercase text-zinc-400 hover:text-white flex items-center gap-1 transition-colors"
                 >
                   <span>{{ t('services.explore') }}</span>
-                  <ArrowUpRight class="w-3.5 h-3.5" />
+                  <ArrowUpRight class="w-3.5 h-3.5 rtl:rotate-90" />
                 </Link>
 
                 <button
@@ -364,13 +539,13 @@ const openQuoteWithService = (serviceName) => {
       </div>
     </section>
 
-    <!-- 5. OUR WORKS: PHOTO & VIDEO GALLERY -->
+    <!-- 7. OUR WORKS: PHOTO & VIDEO GALLERY -->
     <WorksGallery @open-quote="isQuoteModalOpen = true" />
 
-    <!-- 6. GET A QUOTE SECTION -->
+    <!-- 8. GET A QUOTE SECTION -->
     <QuoteSection />
 
-    <!-- 7. CONTACT US & STUDIO HUB (2 BRANCHES: MUSAFFAH & AL QANA) -->
+    <!-- 9. CONTACT US & 2 ABU DHABI BRANCHES -->
     <section id="contact" class="py-24 bg-zinc-950 relative border-t border-zinc-900">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-2xl mx-auto mb-16">
@@ -462,7 +637,7 @@ const openQuoteWithService = (serviceName) => {
                   class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-display text-xs uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-md"
                 >
                   <span>{{ t('branches.openMaps') }}</span>
-                  <ArrowUpRight class="w-3.5 h-3.5" />
+                  <ArrowUpRight class="w-3.5 h-3.5 rtl:rotate-90" />
                 </a>
                 <a
                   href="tel:+97126344403"
@@ -517,7 +692,7 @@ const openQuoteWithService = (serviceName) => {
                   class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-display text-xs uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-md"
                 >
                   <span>{{ t('branches.openMaps') }}</span>
-                  <ArrowUpRight class="w-3.5 h-3.5" />
+                  <ArrowUpRight class="w-3.5 h-3.5 rtl:rotate-90" />
                 </a>
                 <a
                   href="tel:+97126344403"

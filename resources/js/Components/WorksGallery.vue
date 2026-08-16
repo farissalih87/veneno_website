@@ -10,94 +10,94 @@ const { t, currentLocale } = useI18n();
 const activeFilter = ref('all');
 const activeLightboxItem = ref(null);
 
-const galleryItems = [
+const galleryItems = computed(() => [
   {
     id: 1,
-    title: 'Porsche 911 Turbo S — Full Body PPF & 9H Graphene',
+    title: t('gallery.item1'),
     category: 'ppf',
     type: 'image',
     src: '/images/services/ppf/IMG_5902.JPG',
-    tag: 'Full Body PPF',
+    tag: t('gallery.ppf'),
   },
   {
     id: 2,
-    title: 'Mercedes-AMG G63 — Concourse Leveling & Dual Ceramic Shield',
+    title: t('gallery.item2'),
     category: 'ceramic',
     type: 'image',
     src: '/images/services/ceramic/PHOTO-2024-07-12-14-12-51 15.JPG',
-    tag: 'Ceramic 9H',
+    tag: t('gallery.ceramic'),
   },
   {
     id: 3,
-    title: 'Ferrari SF90 — Micro-Abrasive Paint Correction Lab',
+    title: t('gallery.item3'),
     category: 'detailing',
     type: 'image',
     src: '/images/services/detailing/IMG_5899.JPG',
-    tag: 'Paint Correction',
+    tag: t('gallery.detailing'),
   },
   {
     id: 4,
-    title: 'Lamborghini Urus — Nano-Ceramic Infrared Window Tinting',
+    title: t('gallery.item4'),
     category: 'tinting',
     type: 'image',
     src: '/images/services/tinting/IMG_5967.JPG',
-    tag: 'Ceramic Tint',
+    tag: t('gallery.tinting'),
   },
   {
     id: 5,
-    title: 'Rolls-Royce Ghost — Satin Metallic Cast Vinyl Wrap',
+    title: t('gallery.item5'),
     category: 'wrapping',
     type: 'image',
     src: '/images/gallery/PHOTO-2024-07-12-14-12-51 22.JPG',
-    tag: 'Custom Wrap',
+    tag: t('nav.services'),
   },
   {
     id: 6,
-    title: 'Aston Martin DBS — Multi-Stage Surface Restoration & Reflection',
+    title: t('gallery.item6'),
     category: 'detailing',
     type: 'image',
     src: '/images/gallery/PHOTO-2024-07-12-14-12-51 24.JPG',
-    tag: 'Mirror Gloss',
+    tag: t('gallery.detailing'),
   },
   {
     id: 7,
-    title: 'Bentley Continental GT — CNC Diamond Cut Rim Refurbishment',
+    title: t('gallery.item7'),
     category: 'rims',
     type: 'image',
     src: '/images/gallery/PHOTO-2024-07-12-14-12-51 21.JPG',
-    tag: 'Wheel Repair',
+    tag: t('nav.services'),
   },
   {
     id: 8,
-    title: 'McLaren 720S — Specialized Paintless Dent Repair (PDR)',
+    title: t('gallery.item8'),
     category: 'pdr',
     type: 'image',
     src: '/images/gallery/PHOTO-2024-07-12-14-12-51 17.JPG',
-    tag: 'Factory PDR',
+    tag: t('nav.services'),
   },
   {
     id: 9,
-    title: 'Supercar Bay Floor — Concourse Decon & Prep Process',
+    title: t('gallery.item9'),
     category: 'videos',
     type: 'video',
     src: '/videos/gallery/SaveInsta.App - 3239432449981201130.mp4',
     thumbnail: '/images/services/ppf/IMG_5965.JPG',
-    tag: 'Workshop Video',
+    tag: t('gallery.videos'),
   },
   {
     id: 10,
-    title: '9H Ceramic Hydrophobic Water Beading Test',
+    title: t('gallery.item10'),
     category: 'videos',
     type: 'video',
     src: '/videos/gallery/SaveInsta.App - 3384306979580878525.mp4',
     thumbnail: '/images/services/ceramic/PHOTO-2024-07-12-14-12-51 14.JPG',
-    tag: 'Hydrophobic Test',
+    tag: t('gallery.videos'),
   },
-];
+]);
 
 const filteredItems = computed(() => {
-  if (activeFilter.value === 'all') return galleryItems;
-  return galleryItems.filter((i) => i.category === activeFilter.value);
+  if (activeFilter.value === 'all') return galleryItems.value;
+  return galleryItems.value.filter((i) => i.category === activeFilter.value);
 });
 </script>
 
@@ -138,15 +138,15 @@ const filteredItems = computed(() => {
         </div>
       </div>
 
-      <!-- Gallery Grid -->
+      <!-- Gallery Grid: Clean Plain Photos -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div
           v-for="item in filteredItems"
           :key="item.id"
           @click="activeLightboxItem = item"
-          class="group relative rounded-3xl overflow-hidden glass-panel border border-zinc-800/80 hover:border-red-500/50 transition-all duration-300 cursor-pointer shadow-xl"
+          class="group relative rounded-3xl overflow-hidden glass-panel border border-zinc-800/80 hover:border-red-500/50 transition-all duration-300 cursor-pointer shadow-xl flex flex-col"
         >
-          <!-- Media Thumbnail -->
+          <!-- Plain Media Canvas (No Text Overlays) -->
           <div class="relative h-64 overflow-hidden bg-zinc-900">
             <img
               :src="item.type === 'video' ? item.thumbnail : item.src"
@@ -154,39 +154,35 @@ const filteredItems = computed(() => {
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
             
-            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent"></div>
-
-            <!-- Video Play Badge -->
+            <!-- Video Play Badge only for videos -->
             <div
               v-if="item.type === 'video'"
               class="absolute inset-0 flex items-center justify-center pointer-events-none"
             >
-              <div class="w-14 h-14 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
-                <Play class="w-6 h-6 fill-current translate-x-0.5" />
+              <div class="w-12 h-12 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
+                <Play class="w-5 h-5 fill-current translate-x-0.5" />
               </div>
             </div>
 
-            <!-- Category Tag -->
-            <div class="absolute top-4 left-4">
-              <span class="px-3 py-1 rounded-full bg-zinc-900/90 text-white text-[10px] font-mono font-bold uppercase border border-zinc-700 backdrop-blur-md shadow-lg">
-                {{ item.tag }}
-              </span>
-            </div>
-
-            <!-- Hover Overlay Action -->
-            <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-              <span class="p-2.5 rounded-xl bg-red-600 text-white flex items-center justify-center shadow-lg">
-                <Eye class="w-4 h-4" />
+            <!-- Hover Eye Indicator -->
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+              <span class="p-3 rounded-2xl bg-zinc-900/90 text-white border border-zinc-700 shadow-2xl">
+                <Eye class="w-5 h-5" />
               </span>
             </div>
           </div>
 
-          <!-- Caption -->
-          <div class="p-4 bg-zinc-950/80">
-            <h3 class="text-xs font-bold text-zinc-200 group-hover:text-red-400 transition-colors line-clamp-1">
-              {{ item.title }}
-            </h3>
-            <span class="text-[10px] text-zinc-500 font-mono mt-0.5 block">{{ t('gallery.locationTag') }}</span>
+          <!-- Structured Caption Card Below Photo (Clean & Fully Translated) -->
+          <div class="p-4 bg-zinc-950/90 flex-1 flex flex-col justify-between border-t border-zinc-900">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-1">
+                <span class="text-[10px] font-mono uppercase text-red-400 font-bold tracking-wider">{{ item.tag }}</span>
+                <span class="text-[10px] text-zinc-500 font-mono">Abu Dhabi</span>
+              </div>
+              <h3 class="text-xs font-bold text-zinc-200 group-hover:text-red-400 transition-colors line-clamp-1">
+                {{ item.title }}
+              </h3>
+            </div>
           </div>
         </div>
       </div>

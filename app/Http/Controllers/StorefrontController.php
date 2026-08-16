@@ -13,6 +13,7 @@ class StorefrontController extends Controller
 {
     /**
      * Official 9 Services Data Dictionary with Authentic Media Paths & Bilingual Support
+     * Fully aligned with official Veneno Profile (3M Pro Shop Dealer & GYEON Certified Detailer)
      */
     public static function getOfficialServices(string $locale = 'en'): array
     {
@@ -21,26 +22,26 @@ class StorefrontController extends Controller
         return [
             [
                 'id' => 1,
-                'name' => $isAr ? 'أفلام حماية الطلاء (PPF)' : 'Paint Protection Film (PPF)',
-                'tagline' => $isAr ? 'درع حماية بصري سمك 8 ميل معالج ذاتياً بضمان 10 سنوات' : 'Self-Healing 8mil Optical Armor with 10-Year Warranty',
+                'name' => $isAr ? 'أفلام حماية الطلاء (3M PPF)' : '3M Paint Protection Film (PPF)',
+                'tagline' => $isAr ? 'درع حماية بصري سمك 8 ميل معالج ذاتياً بضمان 10 سنوات من 3M' : 'Official 3M Self-Healing 8mil Optical Armor with 10-Year Warranty',
                 'slug' => 'paint-protection-film',
                 'category' => 'ppf',
-                'badge' => $isAr ? 'أقصى درجات الحماية' : 'Ultimate Protection',
+                'badge' => $isAr ? 'وكيل 3M المعتمد' : '3M Pro Shop Certified',
                 'popular' => true,
                 'description' => $isAr 
-                    ? 'فيلم بولي يوريثين بصري شفاف مقصوص بالكمبيوتر يعالج الخدوش الدقيقة ذاتياً بحرارة الشمس، ويحمي من الحصى وسافي الطرق السريعة.'
-                    : 'Precision computer-cut optical clear polyurethane film that self-heals swirl marks with sun heat. Protects against stone chips, highway sand abrasion, and road debris.',
+                    ? 'فيلم بولي يوريثين بصري شفاف فائق الجودة من 3M مقصوص بالكمبيوتر يعالج الخدوش الدقيقة ذاتياً بحرارة الشمس، ويحمي من الحصى وسافي الطرق السريعة.'
+                    : 'Precision computer-cut optical clear polyurethane film from 3M that self-heals swirl marks with ambient heat. Protects against stone chips, highway sand abrasion, and road debris.',
                 'image' => '/images/services/ppf/IMG_5902.JPG',
                 'before_image' => '/images/services/ppf/IMG_5968.JPG',
                 'after_image' => '/images/services/ppf/IMG_5965.JPG',
                 'warranty' => $isAr ? 'ضمان 10 سنوات' : '10-Year Warranty',
                 'duration_hours' => 12,
                 'features' => $isAr ? [
-                    'قص إلكتروني دقيق بدون استخدام شفرات على الطلاء مع ثني الحواف',
+                    'قص إلكتروني دقيق ببرامج 3M الرقمية وثني الحواف بدون شفرات',
                     'طبقة معالجة ذاتية فائقة المرونة تلتئم بالحرارة الطبيعية',
                     'حماية شاملة ضد ضربات الحصى وحبيبات الرمل المتطايرة',
                     'مقاومة الأشعة فوق البنفسجية واصفرار الفيلم مع وضوح بصري تام',
-                    'طبقة طاردة للماء والأوساخ لتسهيل الغسيل والصيانة الدورية',
+                    'طبقة هيدروفوبيك طاردة للماء والأوساخ لتسهيل الغسيل والصيانة',
                 ] : [
                     'Computer-cut digital plotters with wrapped seamless edges',
                     'Self-healing elastomeric top coat under ambient heat',
@@ -51,15 +52,15 @@ class StorefrontController extends Controller
             ],
             [
                 'id' => 2,
-                'name' => $isAr ? 'طلاء النانو سيراميك الماسي 9H+' : 'Diamond Ceramic Coating',
-                'tagline' => $isAr ? 'درع نانو جرافين متعدد الطبقات طارد فائق للماء' : '9H+ Multi-Layer Graphene Hydrophobic Shield',
+                'name' => $isAr ? 'نانو سيراميك GYEON الماسي 9H+' : 'GYEON Diamond Ceramic Coating',
+                'tagline' => $isAr ? 'درع نانو جرافين متعدد الطبقات طارد فائق للماء من GYEON' : '9H+ Multi-Layer GYEON Graphene Hydrophobic Shield',
                 'slug' => 'ceramic-coating',
                 'category' => 'ceramic',
-                'badge' => $isAr ? 'لمعان الوكالة الفائق' : 'Showroom Reflection',
+                'badge' => $isAr ? 'معتمد من GYEON' : 'GYEON Certified Detailer',
                 'popular' => true,
                 'description' => $isAr
-                    ? 'تركيبتنا الرائدة من النانو سيراميك والجرافين ترتبط جزيئياً بطبقة الطلاء الشفاف لتمنح مقاومة فائقة للماء بزاوية 115° ولمعاناً زجاجياً عميقاً.'
-                    : 'Our flagship 9H+ nano-ceramic formula bonds molecularly to automotive clear coat, delivering extreme 115° hydrophobic water beading, UV defense, and mirror reflection depth.',
+                    ? 'تركيبتنا المعتمدة من نانو سيراميك GYEON ترتبط جزيئياً بطبقة الطلاء الشفاف لتمنح مقاومة فائقة للماء بزاوية 115° ولمعاناً زجاجياً عميقاً وحماية ضد الخدوش.'
+                    : 'Our flagship GYEON 9H+ nano-ceramic formula bonds molecularly to automotive clear coat, delivering extreme 115° hydrophobic water beading, UV defense, and mirror reflection depth.',
                 'image' => '/images/services/ceramic/PHOTO-2024-07-12-14-12-51 15.JPG',
                 'before_image' => '/images/services/ceramic/PHOTO-2024-07-12-14-12-51 10.JPG',
                 'after_image' => '/images/services/ceramic/PHOTO-2024-07-12-14-12-51 14.JPG',
@@ -68,21 +69,21 @@ class StorefrontController extends Controller
                 'features' => $isAr ? [
                     'غسيل كيميائي شامل لإزالة الترسبات الحديدية واستخدام الصلصال الخاص',
                     'تصحيح الطلاء للمرحلة الأولى لإزالة الدوائر وتعظيم الانعكاس',
-                    'طبقة نانو جرافين وسيراميك 9H مزدوجة الحماية',
+                    'طبقة نانو جرافين وسيراميك GYEON 9H مزدوجة الحماية',
                     'حماية سيراميك خاصة للجنوط وكليبرات الفرامل وزجاج السيارة',
                     'معالجة حرارية بمصابيح الأشعة تحت الحمراء لأقصى درجات الصلابة',
                 ] : [
                     'Multi-stage chemical decontamination wash & clay bar',
                     'Stage 1 corrective polish to optimize surface reflection',
-                    'Dual-layer 9H nano-graphene ceramic base coat',
+                    'Dual-layer GYEON 9H nano-graphene ceramic base coat',
                     'Wheels, brake calipers & exterior glass ceramic barrier',
                     'IR curing lamps for maximum surface bond hardness',
                 ],
             ],
             [
                 'id' => 3,
-                'name' => $isAr ? 'تصحيح ومعالجة الطلاء الدقيقة' : 'Detailing & Paint Correction',
-                'tagline' => $isAr ? 'إزالة الدوائر والخدوش المجهرية واستعادة بريق الوكالة' : 'Concourse Swirl & Hologram Leveling',
+                'name' => $isAr ? 'تصحيح ومعالجة وتلميع الطلاء' : 'Detailing & Paint Correction',
+                'tagline' => $isAr ? 'إزالة الدوائر والخدوش المجهرية واستعادة بريق الوكالة' : 'Concourse Swirl & Hologram Leveling with GYEON',
                 'slug' => 'detailing-paint-correction',
                 'category' => 'detailing',
                 'badge' => $isAr ? 'تشطيب خالي من العيوب' : 'Flawless Finish',
@@ -111,15 +112,15 @@ class StorefrontController extends Controller
             ],
             [
                 'id' => 4,
-                'name' => $isAr ? 'العازل الحراري نانو سيراميك للزجاج' : 'Ceramic Window Tinting',
-                'tagline' => $isAr ? 'عزل حراري للأشعة تحت الحمراء بنسبة تصل إلى 98%' : 'Up to 98% Infrared Heat & 99% UV Rejection',
+                'name' => $isAr ? 'العازل الحراري نانو سيراميك 3M' : '3M Ceramic Window Tinting',
+                'tagline' => $isAr ? 'عزل حراري للأشعة تحت الحمراء بنسبة تصل إلى 98% من 3M' : 'Up to 98% Infrared Heat & 99% UV Rejection by 3M',
                 'slug' => 'window-tinting',
                 'category' => 'tinting',
-                'badge' => $isAr ? 'حماية حرارية فائقة' : 'Thermal Shield',
+                'badge' => $isAr ? 'عزل حراري معتمد' : '3M Thermal Shield',
                 'popular' => false,
                 'description' => $isAr
-                    ? 'أفلام نانو سيراميك متطورة مخصصة لمناخ الخليج والإمارات، تحافظ على برودة المقصورة وتمنع 99% من الأشعة فوق البنفسجية الضارة.'
-                    : 'Ultra-high heat rejection nano-ceramic window films designed specifically for Middle East climate. Keeps interior significantly cooler while blocking 99% UV rays.',
+                    ? 'أفلام نانو سيراميك أصلية من 3M مخصصة لمناخ الخليج والإمارات، تحافظ على برودة المقصورة وتمنع 99% من الأشعة فوق البنفسجية الضارة.'
+                    : 'Official 3M ultra-high heat rejection nano-ceramic window films designed for the Middle East climate. Keeps interior cooler while blocking 99% UV rays.',
                 'image' => '/images/services/tinting/IMG_5967.JPG',
                 'before_image' => '/images/services/tinting/IMG_5969.JPG',
                 'after_image' => '/images/services/tinting/IMG_5971.JPG',
@@ -140,14 +141,14 @@ class StorefrontController extends Controller
             [
                 'id' => 5,
                 'name' => $isAr ? 'تجليد وتغيير لون السيارات' : 'Vehicle Wrapping & Color Change',
-                'tagline' => $isAr ? 'أفلام فينيل فاخرة بتشطيبات لامعة ومطفية وساتان' : 'Premium Cast Vinyl in Gloss, Satin & Matte Finishes',
+                'tagline' => $isAr ? 'أفلام فينيل 3M فاخرة بتشطيبات لامعة ومطفية وساتان' : 'Premium 3M Cast Vinyl in Gloss, Satin & Matte Finishes',
                 'slug' => 'car-wrapping',
                 'category' => 'wrapping',
                 'badge' => $isAr ? 'لمسة تصميم حصرية' : 'Bespoke Styling',
                 'popular' => false,
                 'description' => $isAr
-                    ? 'غيّر مظهر سيارتك بالكامل بأفلام الفينيل الفاخرة من كبرى الشركات العالمية (3M، Avery Dennison، Inozetek) مع الحفاظ الكامل على صبغة الوكالة.'
-                    : 'Transform your vehicle aesthetics with world-class vinyl wraps from 3M, Avery Dennison, and Inozetek. Reversible protection with endless finish possibilities.',
+                    ? 'غيّر مظهر سيارتك بالكامل بأفلام الفينيل الفاخرة من كبرى الشركات العالمية (3M) مع الحفاظ الكامل على صبغة الوكالة.'
+                    : 'Transform your vehicle aesthetics with world-class vinyl wraps from 3M. Reversible protection with endless finish possibilities.',
                 'image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 22.JPG',
                 'before_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 20.JPG',
                 'after_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 23.JPG',
@@ -377,7 +378,7 @@ class StorefrontController extends Controller
         // 2. Dispatch Email notification to company email info@veneno.ae
         try {
             $toEmail = 'info@veneno.ae';
-            $subject = "🏎️ New Quote Request ({$selectedBranch}) from {$validated['name']} - Veneno Auto Care";
+            $subject = "🏎️ New Quote Request ({$selectedBranch}) from {$validated['name']} - VENENO Auto Care Center";
             $emailBody = "New Quote Request via veneno.ae\n\n"
                 . "Client Name: {$validated['name']}\n"
                 . "Phone: {$validated['phone']}\n"
