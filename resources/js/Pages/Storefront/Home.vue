@@ -61,7 +61,13 @@ const openQuoteWithService = (serviceName) => {
 </script>
 
 <template>
-  <Head :title="currentLocale === 'ar' ? 'مركز فينينو للعناية بالسيارات — أضخم مركز متعدد العلامات في أبوظبي والإمارات' : 'Veneno Auto Care Center — The Ultimate Art of Care in UAE'" />
+  <Head>
+    <title>{{ currentLocale === 'ar' ? 'مركز فينينو للعناية بالسيارات — أضخم مركز متعدد العلامات في أبوظبي والإمارات' : 'Veneno Auto Care Center — The Ultimate Art of Care in UAE' }}</title>
+    <meta head-key="description" name="description" :content="t('hero.subtitle')" />
+    <meta head-key="og:image" property="og:image" content="/images/main-branch.webp" />
+    <meta head-key="og:image:secure_url" property="og:image:secure_url" content="/images/main-branch.webp" />
+    <meta head-key="twitter:image" name="twitter:image" content="/images/main-branch.webp" />
+  </Head>
 
   <div class="min-h-screen flex flex-col bg-zinc-950 text-zinc-100 font-sans selection:bg-red-600 selection:text-white">
     <!-- Navbar -->
