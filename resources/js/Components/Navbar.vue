@@ -1,8 +1,7 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
-import { Link, router } from '@inertiajs/vue3';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { Link } from '@inertiajs/vue3';
 import {
-  Phone,
   ChevronDown,
   Menu,
   X,
@@ -10,6 +9,7 @@ import {
   Check
 } from 'lucide-vue-next';
 import { useI18n } from '../i18n';
+import { getServicesByLocale } from '../data/services';
 
 const props = defineProps({
   services: {
@@ -28,6 +28,10 @@ const isLangDropdownOpen = ref(false);
 
 const dropdownRef = ref(null);
 
+const activeServices = computed(() => {
+  return getServicesByLocale(currentLocale.value);
+});
+
 const handleClickOutside = (event) => {
   if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
     isLangDropdownOpen.value = false;
@@ -45,15 +49,15 @@ onUnmounted(() => {
 const switchLanguage = (lang) => {
   isLangDropdownOpen.value = false;
   if (currentLocale.value === lang) return;
+  
   setLocale(lang);
-
-  const pathname = window.location.pathname;
-  const hash = window.location.hash || '';
-  const newPath = getLocalizedPath(pathname, lang);
-
-  router.visit(`${newPath}${hash}`, {
-    preserveState: false,
-  });
+  
+  // Update browser address bar seamlessly without triggering full page reload 404
+  const currentPath = window.location.pathname;
+  const currentHash = window.location.hash || '';
+  const newPath = getLocalizedPath(currentPath, lang);
+  
+  window.history.pushState(null, '', `${newPath}${currentHash}`);
 };
 </script>
 
@@ -63,20 +67,20 @@ const switchLanguage = (lang) => {
       <div class="flex items-center justify-between h-20">
         
         <!-- Logo -->
-        <Link :href="`/${currentLocale}`" class="flex items-center group">
+        <a :href="`/${currentLocale}`" class="flex items-center group">
           <img 
             src="/images/logo.png" 
             alt="Veneno Auto Care Center" 
             title="Veneno Auto Care Center" 
             class="h-9 sm:h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-105" 
           />
-        </Link>
+        </a>
 
-        <!-- Desktop Traditional Navigation -->
-        <nav class="hidden xl:flex items-center gap-6">
-          <Link :href="`/${currentLocale}`" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors">
+        <!-- Desktop Traditional Navigation (Cleaned: Removed 'Our Works', kept Home, About, Why Us, Services, Certificates, Contact) -->
+        <nav class="hidden xl:flex items-center gap-7">
+          <a :href="`/${currentLocale}`" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors">
             {{ t('nav.home') }}
-          </Link>
+          </a>
 
           <a :href="`/${currentLocale}#about`" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors">
             {{ t('nav.about') }}
@@ -95,7 +99,7 @@ const switchLanguage = (lang) => {
 
             <div v-if="isServicesDropdownOpen" class="absolute top-full -left-10 w-96 py-2 glass-panel rounded-2xl shadow-2xl shadow-black/90 border border-zinc-800 animate-in fade-in slide-in-from-top-2 duration-150 grid grid-cols-1 divide-y divide-zinc-800/60 max-h-[460px] overflow-y-auto">
               <Link
-                v-for="service in (services && services.length ? services : [])"
+                v-for="service in activeServices"
                 :key="service.slug"
                 :href="`/${currentLocale}/services/${service.slug}`"
                 class="flex items-center justify-between px-4 py-2.5 hover:bg-zinc-800/70 transition-colors group"
@@ -109,10 +113,6 @@ const switchLanguage = (lang) => {
             </div>
           </div>
 
-          <a :href="`/${currentLocale}#gallery`" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors">
-            {{ t('nav.works') }}
-          </a>
-
           <a :href="`/${currentLocale}#certificates`" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors">
             {{ t('nav.certificates') }}
           </a>
@@ -122,8 +122,8 @@ const switchLanguage = (lang) => {
           </a>
         </nav>
 
-        <!-- Right Side: Dropdown Globe Language Switcher & 3 Header CTAs -->
-        <div class="hidden sm:flex items-center gap-2.5">
+        <!-- Right Side: Dropdown Globe Language Switcher & 2 Main CTAs (WhatsApp & Get a Quote) -->
+        <div class="hidden sm:flex items-center gap-3">
           
           <!-- Modern Dropdown Globe Selector -->
           <div ref="dropdownRef" class="relative">
@@ -176,17 +176,7 @@ const switchLanguage = (lang) => {
             <span>{{ t('nav.whatsapp') }}</span>
           </a>
 
-          <!-- CTA 2: Contact Now (Landline) -->
-          <a
-            href="tel:+97126344403"
-            class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 hover:text-white border border-zinc-700/80 text-xs font-semibold transition-all shadow-sm font-mono"
-            title="Call Landline +971 2 634 4403"
-          >
-            <Phone class="w-3.5 h-3.5 text-red-500" />
-            <span>+971 2 634 4403</span>
-          </a>
-
-          <!-- CTA 3: Get a Quote -->
+          <!-- CTA 2: Get a Quote -->
           <button
             @click="emit('open-quote')"
             class="px-4 py-2 rounded-xl text-xs font-display font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-red-600 via-red-500 to-red-700 hover:from-red-500 hover:to-red-600 shadow-lg shadow-red-600/30 transition-all duration-300 transform hover:-translate-y-0.5"
@@ -228,11 +218,10 @@ const switchLanguage = (lang) => {
 
     <!-- Mobile Drawer -->
     <div v-if="isMobileMenuOpen" class="xl:hidden glass-panel border-b border-zinc-800 px-6 py-6 space-y-4">
-      <Link :href="`/${currentLocale}`" @click="isMobileMenuOpen = false" class="block text-base font-semibold text-zinc-200">{{ t('nav.home') }}</Link>
+      <a :href="`/${currentLocale}`" @click="isMobileMenuOpen = false" class="block text-base font-semibold text-zinc-200">{{ t('nav.home') }}</a>
       <a :href="`/${currentLocale}#about`" @click="isMobileMenuOpen = false" class="block text-base font-semibold text-zinc-200">{{ t('nav.about') }}</a>
       <a :href="`/${currentLocale}#why-us`" @click="isMobileMenuOpen = false" class="block text-base font-semibold text-zinc-200">{{ t('nav.whyUs') }}</a>
       <a :href="`/${currentLocale}#services`" @click="isMobileMenuOpen = false" class="block text-base font-semibold text-zinc-200">{{ t('nav.services') }}</a>
-      <a :href="`/${currentLocale}#gallery`" @click="isMobileMenuOpen = false" class="block text-base font-semibold text-zinc-200">{{ t('nav.works') }}</a>
       <a :href="`/${currentLocale}#certificates`" @click="isMobileMenuOpen = false" class="block text-base font-semibold text-zinc-200">{{ t('nav.certificates') }}</a>
       <a :href="`/${currentLocale}#contact`" @click="isMobileMenuOpen = false" class="block text-base font-semibold text-zinc-200">{{ t('nav.contact') }}</a>
       
@@ -240,7 +229,7 @@ const switchLanguage = (lang) => {
         <div class="text-xs font-mono uppercase text-zinc-500 tracking-wider">{{ t('nav.allServices') }}</div>
         <div class="grid grid-cols-1 gap-1">
           <Link
-            v-for="service in (services && services.length ? services : [])"
+            v-for="service in activeServices"
             :key="service.slug"
             :href="`/${currentLocale}/services/${service.slug}`"
             @click="isMobileMenuOpen = false"
@@ -269,14 +258,6 @@ const switchLanguage = (lang) => {
             <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.34C9.36 7.34 9.09 7.4 8.87 7.65C8.65 7.89 8.02 8.48 8.02 9.7C8.02 10.92 8.91 12.09 9.03 12.25C9.16 12.42 10.74 14.97 13.25 15.96C15.34 16.79 15.76 16.62 16.22 16.58C16.67 16.54 17.69 15.98 17.9 15.38C18.11 14.78 18.11 14.27 18.05 14.16C17.99 14.05 17.82 13.99 17.57 13.86C17.32 13.74 16.08 13.13 15.85 13.04C15.62 12.96 15.46 12.92 15.29 13.16C15.12 13.41 14.64 13.99 14.5 14.16C14.35 14.32 14.21 14.34 13.96 14.22C13.71 14.09 12.91 13.83 11.96 12.98C11.22 12.32 10.72 11.51 10.58 11.26C10.43 11.01 10.56 10.88 10.69 10.75C10.8 10.64 10.94 10.46 11.06 10.31C11.19 10.17 11.23 10.06 11.31 9.9C11.39 9.73 11.35 9.59 11.29 9.46C11.23 9.34 10.72 8.08 10.51 7.58C10.31 7.09 10.1 7.16 9.94 7.15C9.79 7.14 9.66 7.34 9.53 7.34Z"/>
           </svg>
           Chat on WhatsApp
-        </a>
-
-        <a
-          href="tel:+97126344403"
-          class="w-full py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-200 font-semibold text-xs flex items-center justify-center gap-2 font-mono"
-        >
-          <Phone class="w-3.5 h-3.5 text-red-500" />
-          Call +971 2 634 4403
         </a>
       </div>
     </div>

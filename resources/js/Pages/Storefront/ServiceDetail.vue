@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import Navbar from '@/Components/Navbar.vue';
 import Footer from '@/Components/Footer.vue';
@@ -18,6 +18,7 @@ import {
   ArrowUpRight
 } from 'lucide-vue-next';
 import { useI18n } from '@/i18n';
+import { getServicesByLocale } from '@/data/services';
 
 const props = defineProps({
   locale: {
@@ -36,14 +37,23 @@ onMounted(() => {
   }
 });
 
+const activeAllServices = computed(() => {
+  return getServicesByLocale(currentLocale.value);
+});
+
+const activeService = computed(() => {
+  const list = activeAllServices.value;
+  return list.find((s) => s.slug === props.service.slug) || props.service;
+});
+
 const isQuoteModalOpen = ref(false);
 </script>
 
 <template>
-  <Head :title="`${service.name} — Veneno Auto Care Abu Dhabi & UAE`" />
+  <Head :title="`${activeService.name} — Veneno Auto Care Abu Dhabi & UAE`" />
 
   <div class="min-h-screen flex flex-col bg-zinc-950 text-zinc-100 font-sans selection:bg-red-600 selection:text-white">
-    <Navbar :services="allServices" @open-quote="isQuoteModalOpen = true" />
+    <Navbar :services="activeAllServices" @open-quote="isQuoteModalOpen = true" />
 
     <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
       <!-- Breadcrumb & Back -->
@@ -56,30 +66,30 @@ const isQuoteModalOpen = ref(false);
         <div class="flex items-center gap-2 text-xs font-mono text-zinc-500">
           <span>VENENO</span>
           <span>/</span>
-          <span class="text-red-400 uppercase">{{ service.category }}</span>
+          <span class="text-red-400 uppercase">{{ activeService.category }}</span>
         </div>
       </div>
 
       <!-- Service Title Banner -->
       <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-zinc-800 space-y-6 relative overflow-hidden">
         <div class="flex flex-wrap items-center gap-3">
-          <span v-if="service.badge" class="px-3.5 py-1 rounded-full bg-red-600 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-lg">
-            {{ service.badge }}
+          <span v-if="activeService.badge" class="px-3.5 py-1 rounded-full bg-red-600 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-lg">
+            {{ activeService.badge }}
           </span>
-          <span v-if="service.warranty" class="px-3.5 py-1 rounded-full bg-zinc-900 border border-zinc-700 text-zinc-300 font-mono text-xs">
-            {{ service.warranty }}
+          <span v-if="activeService.warranty" class="px-3.5 py-1 rounded-full bg-zinc-900 border border-zinc-700 text-zinc-300 font-mono text-xs">
+            {{ activeService.warranty }}
           </span>
-          <span v-if="service.duration_hours" class="px-3.5 py-1 rounded-full bg-zinc-900 border border-zinc-700 text-amber-400 font-mono text-xs flex items-center gap-1.5">
+          <span v-if="activeService.duration_hours" class="px-3.5 py-1 rounded-full bg-zinc-900 border border-zinc-700 text-amber-400 font-mono text-xs flex items-center gap-1.5">
             <Clock class="w-3.5 h-3.5" />
-            <span>{{ t('services.hoursApplication', { hours: service.duration_hours }) }}</span>
+            <span>{{ t('services.hoursApplication', { hours: activeService.duration_hours }) }}</span>
           </span>
         </div>
 
         <h1 class="text-3xl sm:text-5xl font-display uppercase font-semibold tracking-wide text-white">
-          {{ service.name }}
+          {{ activeService.name }}
         </h1>
         <p class="text-sm sm:text-base text-zinc-300 max-w-3xl leading-relaxed font-light">
-          {{ service.description }}
+          {{ activeService.description }}
         </p>
 
         <div class="pt-4 flex flex-wrap items-center gap-4">
@@ -88,11 +98,11 @@ const isQuoteModalOpen = ref(false);
             class="px-8 py-4 rounded-2xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-display font-semibold text-xs uppercase tracking-wider shadow-2xl shadow-red-600/40 flex items-center gap-2 transition-all"
           >
             <Sparkles class="w-4 h-4" />
-            <span>{{ t('services.quoteForService', { name: service.name }) }}</span>
+            <span>{{ t('services.quoteForService', { name: activeService.name }) }}</span>
           </button>
 
           <a
-            :href="`https://wa.me/97126344403?text=Hi%20Veneno%20Auto%20Care,%20I%20would%20like%20to%20inquire%20about%20${encodeURIComponent(service.name)}.`"
+            :href="`https://wa.me/97126344403?text=Hi%20Veneno%20Auto%20Care,%20I%20would%20like%20to%20inquire%20about%20${encodeURIComponent(activeService.name)}.`"
             target="_blank"
             rel="noopener noreferrer"
             class="px-6 py-4 rounded-2xl bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-300 font-bold text-xs flex items-center gap-2 transition-all"
@@ -106,11 +116,11 @@ const isQuoteModalOpen = ref(false);
     </div>
 
     <!-- Workshop Gallery / Comparison Slider for this service -->
-    <div v-if="service.before_image && service.after_image" class="space-y-4">
+    <div v-if="activeService.before_image && activeService.after_image" class="space-y-4">
       <BeforeAfterSlider
-        :beforeImage="service.before_image"
-        :afterImage="service.after_image"
-        :title="`${service.name}`"
+        :beforeImage="activeService.before_image"
+        :afterImage="activeService.after_image"
+        :title="`${activeService.name}`"
         :subtitle="t('lab.caption')"
       />
     </div>
@@ -131,7 +141,7 @@ const isQuoteModalOpen = ref(false);
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div
-          v-for="(feat, idx) in (service.features || [])"
+          v-for="(feat, idx) in (activeService.features || [])"
           :key="idx"
           class="flex items-start gap-3 p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800 text-xs text-zinc-200"
         >
@@ -151,7 +161,7 @@ const isQuoteModalOpen = ref(false);
       </h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Link
-          v-for="s in (allServices || []).filter(x => x.slug !== service.slug).slice(0, 4)"
+          v-for="s in activeAllServices.filter(x => x.slug !== activeService.slug).slice(0, 4)"
           :key="s.slug"
           :href="`/${currentLocale}/services/${s.slug}`"
           class="p-5 rounded-2xl glass-panel border border-zinc-800 hover:border-red-500/40 transition-all group flex flex-col justify-between"
@@ -169,11 +179,11 @@ const isQuoteModalOpen = ref(false);
     </div>
   </main>
 
-  <Footer :services="allServices" />
+  <Footer :services="activeAllServices" />
 
   <QuoteModal
     :is-open="isQuoteModalOpen"
-    :preselected-service="service.name"
+    :preselected-service="activeService.name"
     @close="isQuoteModalOpen = false"
   />
 
