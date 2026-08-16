@@ -31,7 +31,7 @@ class StorefrontController extends Controller
                 'description' => $isAr 
                     ? 'فيلم بولي يوريثين بصري شفاف فائق الجودة من 3M مقصوص بالكمبيوتر يعالج الخدوش الدقيقة ذاتياً بحرارة الشمس، ويحمي من الحصى وسافي الطرق السريعة.'
                     : 'Precision computer-cut optical clear polyurethane film from 3M that self-heals swirl marks with ambient heat. Protects against stone chips, highway sand abrasion, and road debris.',
-                'image' => '/images/services/ppf/IMG_5902.JPG',
+                'image' => '/images/services/ppf/IMG_5968.JPG',
                 'before_image' => '/images/services/ppf/IMG_5968.JPG',
                 'after_image' => '/images/services/ppf/IMG_5965.JPG',
                 'warranty' => $isAr ? 'ضمان 10 سنوات' : '10-Year Warranty',
@@ -91,7 +91,7 @@ class StorefrontController extends Controller
                 'description' => $isAr
                     ? 'تسوية مجهرية لطبقة اللكر باستخدام أحدث أجهزة التلميع المزدوجة ومواد صقل متدرجة لإزالة دوائر الغسيل والهولوجرام والأكسدة نهائياً.'
                     : 'Concourse-grade microscopic surface leveling using precision rotary and dual-action polishers to eliminate swirl marks, buffer holograms, and oxidation.',
-                'image' => '/images/services/detailing/IMG_5899.JPG',
+                'image' => '/images/services/detailing/PHOTO-2024-07-12-14-12-51 13.JPG',
                 'before_image' => '/images/services/detailing/PHOTO-2024-07-12-14-12-51 18.JPG',
                 'after_image' => '/images/services/detailing/PHOTO-2024-07-12-14-12-51 24.JPG',
                 'warranty' => $isAr ? 'ضمان نقاء وانعكاس الطلاء' : 'Optical Reflection Guarantee',
@@ -121,7 +121,7 @@ class StorefrontController extends Controller
                 'description' => $isAr
                     ? 'أفلام نانو سيراميك أصلية من 3M مخصصة لمناخ الخليج والإمارات، تحافظ على برودة المقصورة وتمنع 99% من الأشعة فوق البنفسجية الضارة.'
                     : 'Official 3M ultra-high heat rejection nano-ceramic window films designed for the Middle East climate. Keeps interior cooler while blocking 99% UV rays.',
-                'image' => '/images/services/tinting/IMG_5967.JPG',
+                'image' => '/images/services/tinting/IMG_5971.JPG',
                 'before_image' => '/images/services/tinting/IMG_5969.JPG',
                 'after_image' => '/images/services/tinting/IMG_5971.JPG',
                 'warranty' => $isAr ? 'ضمان مدى الحياة ضد التغير والفقاعات' : 'Lifetime Bubble-Free Warranty',
@@ -149,7 +149,7 @@ class StorefrontController extends Controller
                 'description' => $isAr
                     ? 'غيّر مظهر سيارتك بالكامل بأفلام الفينيل الفاخرة من كبرى الشركات العالمية (3M) مع الحفاظ الكامل على صبغة الوكالة.'
                     : 'Transform your vehicle aesthetics with world-class vinyl wraps from 3M. Reversible protection with endless finish possibilities.',
-                'image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 22.JPG',
+                'image' => '/images/services/wrapping/vinyl-wrap-bubbling-dubai.webp',
                 'before_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 20.JPG',
                 'after_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 23.JPG',
                 'warranty' => $isAr ? 'ضمان تركيب 3 سنوات' : '3-Year Installation Warranty',
@@ -177,7 +177,7 @@ class StorefrontController extends Controller
                 'description' => $isAr
                     ? 'إصلاح انبعاجات وصدمات الهيكل بأدوات معدنية فائقة الدقة من خلف القطعة دون الحاجة إلى معجون أو إعادة صبغ، مما يحافظ على قيمة السيارة.'
                     : 'Precision dent removal utilizing specialized metallurgy tools from behind the panel. Preserves 100% of original factory paint and vehicle resale value.',
-                'image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 17.JPG',
+                'image' => '/images/services/pdr/PHOTO-2024-07-12-14-12-51 11.JPG',
                 'before_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 11.JPG',
                 'after_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 19.JPG',
                 'warranty' => $isAr ? 'ضمان سلامة الطلاء الأصلي' : 'Lifetime Paint Integrity',
@@ -205,7 +205,7 @@ class StorefrontController extends Controller
                 'description' => $isAr
                     ? 'تجديد شامل لجنوط الألمنيوم، خراطة وقص CNC للوجه الماسي، وطلاء سيراميك حراري 1200°F لمقاومة غبار الفرامل الحارق.'
                     : 'Complete wheel restoration, diamond-cut CNC face re-machining, custom powder coating, and high-temp ceramic coating to resist corrosive brake dust.',
-                'image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 21.JPG',
+                'image' => '/images/services/rims/PHOTO-2024-07-12-14-12-51 9.JPG',
                 'before_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 3.JPG',
                 'after_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 4.JPG',
                 'warranty' => $isAr ? 'ضمان متانة وجودة التشطيب' : 'Finish Durability Guaranteed',

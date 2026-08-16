@@ -12,28 +12,12 @@ const activeLightboxItem = ref(null);
 
 const galleryItems = computed(() => [
   {
-    id: 1,
-    title: t('gallery.item1'),
-    category: 'ppf',
-    type: 'image',
-    src: '/images/services/ppf/IMG_5902.JPG',
-    tag: t('gallery.ppf'),
-  },
-  {
     id: 2,
     title: t('gallery.item2'),
     category: 'ceramic',
     type: 'image',
     src: '/images/services/ceramic/PHOTO-2024-07-12-14-12-51 15.JPG',
     tag: t('gallery.ceramic'),
-  },
-  {
-    id: 3,
-    title: t('gallery.item3'),
-    category: 'detailing',
-    type: 'image',
-    src: '/images/services/detailing/IMG_5899.JPG',
-    tag: t('gallery.detailing'),
   },
   {
     id: 4,
