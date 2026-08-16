@@ -9,7 +9,7 @@ export const servicesData = {
       badge: '3M Pro Shop Certified',
       popular: true,
       description: 'Precision computer-cut optical clear polyurethane film from 3M that self-heals swirl marks with ambient heat. Protects against stone chips, highway sand abrasion, and road debris.',
-      image: '/images/services/ppf/IMG_5902.JPG',
+      image: '/images/services/ppf/IMG_5968.JPG',
       before_image: '/images/services/ppf/IMG_5968.JPG',
       after_image: '/images/services/ppf/IMG_5965.JPG',
       warranty: '10-Year Warranty',

@@ -274,90 +274,116 @@ const openQuoteWithService = (serviceName) => {
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+
           <!-- Pillar 1: Expertise -->
-          <div class="glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex flex-col justify-between">
-            <div>
-              <div class="w-10 h-10 rounded-2xl bg-red-600/20 text-red-400 border border-red-500/30 flex items-center justify-center mb-4">
-                <Users class="w-5 h-5" />
+          <div class="group glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 hover:bg-zinc-900/60 transition-all duration-300 flex flex-col gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-red-600/15 border border-red-500/20 flex items-center justify-center shrink-0 group-hover:bg-red-600/25 transition-colors">
+                <Users class="w-5 h-5 text-white" />
               </div>
-              <span class="text-[10px] font-mono text-red-400 font-bold uppercase">01</span>
-              <h3 class="text-base font-bold text-white uppercase tracking-wide mt-1">{{ t('whyUs.p1Title') }}</h3>
+              <span class="text-[10px] font-mono text-red-500 font-bold uppercase tracking-widest">01</span>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-white uppercase tracking-wide">{{ t('whyUs.p1Title') }}</h3>
               <p class="text-xs text-zinc-400 mt-2 leading-relaxed">{{ t('whyUs.p1Desc') }}</p>
             </div>
+            <div class="mt-auto h-px bg-gradient-to-r from-red-600/40 to-transparent rounded-full group-hover:from-red-500/70 transition-all"></div>
           </div>
 
           <!-- Pillar 2: Quality Service -->
-          <div class="glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex flex-col justify-between">
-            <div>
-              <div class="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center mb-4">
-                <Award class="w-5 h-5" />
+          <div class="group glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 hover:bg-zinc-900/60 transition-all duration-300 flex flex-col gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-red-600/15 border border-red-500/20 flex items-center justify-center shrink-0 group-hover:bg-red-600/25 transition-colors">
+                <Award class="w-5 h-5 text-white" />
               </div>
-              <span class="text-[10px] font-mono text-amber-400 font-bold uppercase">02</span>
-              <h3 class="text-base font-bold text-white uppercase tracking-wide mt-1">{{ t('whyUs.p2Title') }}</h3>
+              <span class="text-[10px] font-mono text-red-500 font-bold uppercase tracking-widest">02</span>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-white uppercase tracking-wide">{{ t('whyUs.p2Title') }}</h3>
               <p class="text-xs text-zinc-400 mt-2 leading-relaxed">{{ t('whyUs.p2Desc') }}</p>
             </div>
+            <div class="mt-auto h-px bg-gradient-to-r from-red-600/40 to-transparent rounded-full group-hover:from-red-500/70 transition-all"></div>
           </div>
 
           <!-- Pillar 3: Customer Satisfaction -->
-          <div class="glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex flex-col justify-between">
-            <div>
-              <div class="w-10 h-10 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mb-4">
-                <HeartHandshake class="w-5 h-5" />
+          <div class="group glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 hover:bg-zinc-900/60 transition-all duration-300 flex flex-col gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-red-600/15 border border-red-500/20 flex items-center justify-center shrink-0 group-hover:bg-red-600/25 transition-colors">
+                <HeartHandshake class="w-5 h-5 text-white" />
               </div>
-              <span class="text-[10px] font-mono text-emerald-400 font-bold uppercase">03</span>
-              <h3 class="text-base font-bold text-white uppercase tracking-wide mt-1">{{ t('whyUs.p3Title') }}</h3>
+              <span class="text-[10px] font-mono text-red-500 font-bold uppercase tracking-widest">03</span>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-white uppercase tracking-wide">{{ t('whyUs.p3Title') }}</h3>
               <p class="text-xs text-zinc-400 mt-2 leading-relaxed">{{ t('whyUs.p3Desc') }}</p>
             </div>
+            <div class="mt-auto h-px bg-gradient-to-r from-red-600/40 to-transparent rounded-full group-hover:from-red-500/70 transition-all"></div>
           </div>
 
           <!-- Pillar 4: Attention to Detail -->
-          <div class="glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex flex-col justify-between">
-            <div>
-              <div class="w-10 h-10 rounded-2xl bg-blue-500/20 text-blue-400 border border-blue-500/30 flex items-center justify-center mb-4">
-                <Sparkles class="w-5 h-5" />
+          <div class="group glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 hover:bg-zinc-900/60 transition-all duration-300 flex flex-col gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-red-600/15 border border-red-500/20 flex items-center justify-center shrink-0 group-hover:bg-red-600/25 transition-colors">
+                <Sparkles class="w-5 h-5 text-white" />
               </div>
-              <span class="text-[10px] font-mono text-blue-400 font-bold uppercase">04</span>
-              <h3 class="text-base font-bold text-white uppercase tracking-wide mt-1">{{ t('whyUs.p4Title') }}</h3>
+              <span class="text-[10px] font-mono text-red-500 font-bold uppercase tracking-widest">04</span>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-white uppercase tracking-wide">{{ t('whyUs.p4Title') }}</h3>
               <p class="text-xs text-zinc-400 mt-2 leading-relaxed">{{ t('whyUs.p4Desc') }}</p>
             </div>
+            <div class="mt-auto h-px bg-gradient-to-r from-red-600/40 to-transparent rounded-full group-hover:from-red-500/70 transition-all"></div>
           </div>
 
           <!-- Pillar 5: Best Prices -->
-          <div class="glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex flex-col justify-between">
-            <div>
-              <div class="w-10 h-10 rounded-2xl bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center mb-4">
-                <Zap class="w-5 h-5" />
+          <div class="group glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 hover:bg-zinc-900/60 transition-all duration-300 flex flex-col gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-red-600/15 border border-red-500/20 flex items-center justify-center shrink-0 group-hover:bg-red-600/25 transition-colors">
+                <Zap class="w-5 h-5 text-white" />
               </div>
-              <span class="text-[10px] font-mono text-purple-400 font-bold uppercase">05</span>
-              <h3 class="text-base font-bold text-white uppercase tracking-wide mt-1">{{ t('whyUs.p5Title') }}</h3>
+              <span class="text-[10px] font-mono text-red-500 font-bold uppercase tracking-widest">05</span>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-white uppercase tracking-wide">{{ t('whyUs.p5Title') }}</h3>
               <p class="text-xs text-zinc-400 mt-2 leading-relaxed">{{ t('whyUs.p5Desc') }}</p>
             </div>
+            <div class="mt-auto h-px bg-gradient-to-r from-red-600/40 to-transparent rounded-full group-hover:from-red-500/70 transition-all"></div>
           </div>
 
           <!-- Pillar 6: Trusted Warranty -->
-          <div class="glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex flex-col justify-between">
-            <div>
-              <div class="w-10 h-10 rounded-2xl bg-red-600/20 text-red-400 border border-red-500/30 flex items-center justify-center mb-4">
-                <ShieldCheck class="w-5 h-5" />
+          <div class="group glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 hover:bg-zinc-900/60 transition-all duration-300 flex flex-col gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-red-600/15 border border-red-500/20 flex items-center justify-center shrink-0 group-hover:bg-red-600/25 transition-colors">
+                <ShieldCheck class="w-5 h-5 text-white" />
               </div>
-              <span class="text-[10px] font-mono text-red-400 font-bold uppercase">06</span>
-              <h3 class="text-base font-bold text-white uppercase tracking-wide mt-1">{{ t('whyUs.p6Title') }}</h3>
+              <span class="text-[10px] font-mono text-red-500 font-bold uppercase tracking-widest">06</span>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-white uppercase tracking-wide">{{ t('whyUs.p6Title') }}</h3>
               <p class="text-xs text-zinc-400 mt-2 leading-relaxed">{{ t('whyUs.p6Desc') }}</p>
             </div>
+            <div class="mt-auto h-px bg-gradient-to-r from-red-600/40 to-transparent rounded-full group-hover:from-red-500/70 transition-all"></div>
           </div>
 
-          <!-- Pillar 7: After Sales Support -->
-          <div class="lg:col-span-2 glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex flex-col justify-between">
-            <div>
-              <div class="w-10 h-10 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mb-4">
-                <BadgeCheck class="w-5 h-5" />
+          <!-- Pillar 7: After Sales Support — spans 2 cols with a red accent gradient -->
+          <div class="lg:col-span-2 group glass-panel p-6 rounded-3xl border border-zinc-800/80 hover:border-red-500/40 hover:bg-zinc-900/60 transition-all duration-300 flex flex-col gap-4 relative overflow-hidden">
+            <!-- Subtle red glow bg -->
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-red-600/10 rounded-full blur-3xl pointer-events-none group-hover:bg-red-600/20 transition-colors"></div>
+            <div class="flex items-center gap-3 relative">
+              <div class="w-11 h-11 rounded-2xl bg-red-600/15 border border-red-500/20 flex items-center justify-center shrink-0 group-hover:bg-red-600/25 transition-colors">
+                <BadgeCheck class="w-5 h-5 text-white" />
               </div>
-              <span class="text-[10px] font-mono text-emerald-400 font-bold uppercase">07</span>
-              <h3 class="text-base font-bold text-white uppercase tracking-wide mt-1">{{ t('whyUs.p7Title') }}</h3>
+              <span class="text-[10px] font-mono text-red-500 font-bold uppercase tracking-widest">07</span>
+              <span class="ml-auto px-2.5 py-1 rounded-full bg-red-600/20 border border-red-500/30 text-red-400 text-[10px] font-mono uppercase tracking-wide">Flagship Pillar</span>
+            </div>
+            <div class="relative">
+              <h3 class="text-sm font-bold text-white uppercase tracking-wide">{{ t('whyUs.p7Title') }}</h3>
               <p class="text-xs text-zinc-400 mt-2 leading-relaxed">{{ t('whyUs.p7Desc') }}</p>
             </div>
+            <div class="mt-auto h-px bg-gradient-to-r from-red-600/60 via-red-500/30 to-transparent rounded-full group-hover:from-red-500 transition-all"></div>
           </div>
+
         </div>
       </div>
     </section>
