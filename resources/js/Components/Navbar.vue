@@ -59,6 +59,17 @@ const switchLanguage = (lang) => {
   
   window.history.pushState(null, '', `${newPath}${currentHash}`);
 };
+
+const scrollTo = (elementId) => {
+  isMobileMenuOpen.value = false;
+  const el = document.getElementById(elementId);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' });
+  } else {
+    // If not on homepage, navigate to home with hash
+    window.location.href = `/${currentLocale.value}#${elementId}`;
+  }
+};
 </script>
 
 <template>
@@ -67,7 +78,7 @@ const switchLanguage = (lang) => {
       <div class="flex items-center justify-between h-20">
         
         <!-- Logo -->
-        <a :href="`/${currentLocale}`" class="flex items-center group">
+        <a href="#home" @click.prevent="scrollTo('home')" class="flex items-center group cursor-pointer">
           <img 
             src="/images/logo.png" 
             alt="Veneno Auto Care Center" 
@@ -76,23 +87,23 @@ const switchLanguage = (lang) => {
           />
         </a>
 
-        <!-- Desktop Traditional Navigation (Cleaned: Removed 'Our Works', kept Home, About, Why Us, Services, Certificates, Contact) -->
+        <!-- Desktop Traditional Navigation (Home, About Us, Why Us, Services, Certificates, Contact Us) -->
         <nav class="hidden xl:flex items-center gap-7">
-          <a :href="`/${currentLocale}`" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors">
+          <a href="#home" @click.prevent="scrollTo('home')" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors cursor-pointer">
             {{ t('nav.home') }}
           </a>
 
-          <a :href="`/${currentLocale}#about`" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors">
+          <a href="#about" @click.prevent="scrollTo('about')" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors cursor-pointer">
             {{ t('nav.about') }}
           </a>
 
-          <a :href="`/${currentLocale}#why-us`" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors">
+          <a href="#why-us" @click.prevent="scrollTo('why-us')" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors cursor-pointer">
             {{ t('nav.whyUs') }}
           </a>
 
           <!-- Services Dropdown -->
           <div class="relative" @mouseenter="isServicesDropdownOpen = true" @mouseleave="isServicesDropdownOpen = false">
-            <a :href="`/${currentLocale}#services`" class="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors py-2">
+            <a href="#services" @click.prevent="scrollTo('services')" class="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors py-2 cursor-pointer">
               <span>{{ t('nav.services') }}</span>
               <ChevronDown class="w-3.5 h-3.5 text-zinc-400 transition-transform" :class="{ 'rotate-180': isServicesDropdownOpen }" />
             </a>
@@ -113,11 +124,11 @@ const switchLanguage = (lang) => {
             </div>
           </div>
 
-          <a :href="`/${currentLocale}#certificates`" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors">
+          <a href="#certificates" @click.prevent="scrollTo('certificates')" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors cursor-pointer">
             {{ t('nav.certificates') }}
           </a>
 
-          <a :href="`/${currentLocale}#contact`" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors">
+          <a href="#contact" @click.prevent="scrollTo('contact')" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors cursor-pointer">
             {{ t('nav.contact') }}
           </a>
         </nav>
@@ -218,12 +229,12 @@ const switchLanguage = (lang) => {
 
     <!-- Mobile Drawer -->
     <div v-if="isMobileMenuOpen" class="xl:hidden glass-panel border-b border-zinc-800 px-6 py-6 space-y-4">
-      <a :href="`/${currentLocale}`" @click="isMobileMenuOpen = false" class="block text-base font-semibold text-zinc-200">{{ t('nav.home') }}</a>
-      <a :href="`/${currentLocale}#about`" @click="isMobileMenuOpen = false" class="block text-base font-semibold text-zinc-200">{{ t('nav.about') }}</a>
-      <a :href="`/${currentLocale}#why-us`" @click="isMobileMenuOpen = false" class="block text-base font-semibold text-zinc-200">{{ t('nav.whyUs') }}</a>
-      <a :href="`/${currentLocale}#services`" @click="isMobileMenuOpen = false" class="block text-base font-semibold text-zinc-200">{{ t('nav.services') }}</a>
-      <a :href="`/${currentLocale}#certificates`" @click="isMobileMenuOpen = false" class="block text-base font-semibold text-zinc-200">{{ t('nav.certificates') }}</a>
-      <a :href="`/${currentLocale}#contact`" @click="isMobileMenuOpen = false" class="block text-base font-semibold text-zinc-200">{{ t('nav.contact') }}</a>
+      <a href="#home" @click.prevent="scrollTo('home')" class="block text-base font-semibold text-zinc-200">{{ t('nav.home') }}</a>
+      <a href="#about" @click.prevent="scrollTo('about')" class="block text-base font-semibold text-zinc-200">{{ t('nav.about') }}</a>
+      <a href="#why-us" @click.prevent="scrollTo('why-us')" class="block text-base font-semibold text-zinc-200">{{ t('nav.whyUs') }}</a>
+      <a href="#services" @click.prevent="scrollTo('services')" class="block text-base font-semibold text-zinc-200">{{ t('nav.services') }}</a>
+      <a href="#certificates" @click.prevent="scrollTo('certificates')" class="block text-base font-semibold text-zinc-200">{{ t('nav.certificates') }}</a>
+      <a href="#contact" @click.prevent="scrollTo('contact')" class="block text-base font-semibold text-zinc-200">{{ t('nav.contact') }}</a>
       
       <div class="py-2 border-y border-zinc-800/80 space-y-2">
         <div class="text-xs font-mono uppercase text-zinc-500 tracking-wider">{{ t('nav.allServices') }}</div>

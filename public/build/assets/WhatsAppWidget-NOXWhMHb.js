@@ -1,4 +1,4 @@
-import{c as l}from"./mail-D6F7l8oR.js";import{o,c as n,d as t,g as r,r as i}from"./app-DGk_-f0S.js";/**
+import{c as l}from"./mail-BN75VEjX.js";import{o,c as n,d as t,g as r,r as i}from"./app-DnbqviTK.js";/**
  * @license lucide-vue-next v0.475.0 - ISC
  *
  * This source code is licensed under the ISC license.
