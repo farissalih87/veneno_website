@@ -354,41 +354,44 @@ class StorefrontController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:50',
-            'email' => 'required|email|max:255',
+            'email' => 'nullable|email|max:255',
             'branch' => 'nullable|string|max:255',
             'service' => 'nullable|string|max:255',
-            'message' => 'required|string|max:3000',
+            'message' => 'nullable|string|max:3000',
         ]);
 
         $selectedBranch = $validated['branch'] ?? 'Musaffah — Main Branch';
+        $clientEmail = $validated['email'] ?? 'Not Provided (Instant Web Quote)';
+        $serviceName = $validated['service'] ?? 'General Inquiry';
+        $clientMsg = $validated['message'] ?? 'Direct Instant Quote Lead via veneno.ae';
 
         // 1. Log Inquiry to CRM database
         $inquiry = Inquiry::create([
             'customer_name' => $validated['name'],
             'phone' => $validated['phone'],
-            'service_requested' => ($validated['service'] ?? 'General Inquiry') . " ({$selectedBranch})",
-            'message_text' => "Branch: {$selectedBranch}\nEmail: {$validated['email']}\n\nMessage:\n{$validated['message']}",
+            'service_requested' => "{$serviceName} ({$selectedBranch})",
+            'message_text' => "Branch: {$selectedBranch}\nEmail: {$clientEmail}\nService: {$serviceName}\nMessage:\n{$clientMsg}",
             'status' => 'new',
         ]);
 
         // 2. Dispatch Email notification to company email info@veneno.ae
         try {
             $toEmail = 'info@veneno.ae';
-            $subject = "🏎️ New Quote Request ({$selectedBranch}) from {$validated['name']} - VENENO Auto Care Center";
-            $emailBody = "New Quote Request via veneno.ae\n\n"
+            $subject = "🏎️ Instant Quote Lead: {$serviceName} from {$validated['name']} ({$validated['phone']})";
+            $emailBody = "New Instant Lead via veneno.ae\n\n"
                 . "Client Name: {$validated['name']}\n"
                 . "Phone: {$validated['phone']}\n"
-                . "Email: {$validated['email']}\n"
+                . "Service Requested: {$serviceName}\n"
+                . "Email: {$clientEmail}\n"
                 . "Preferred Branch: {$selectedBranch}\n"
-                . "Service Requested: " . ($validated['service'] ?? 'Not specified') . "\n\n"
-                . "Message:\n{$validated['message']}\n\n"
                 . "Inquiry ID: #{$inquiry->id}\n"
                 . "Date: " . now()->format('Y-m-d H:i:s T');
 
-            Mail::raw($emailBody, function ($msg) use ($toEmail, $subject, $validated) {
-                $msg->to($toEmail)
-                    ->replyTo($validated['email'], $validated['name'])
-                    ->subject($subject);
+            Mail::raw($emailBody, function ($msg) use ($toEmail, $subject, $validated, $clientEmail) {
+                $m = $msg->to($toEmail)->subject($subject);
+                if (!empty($validated['email'])) {
+                    $m->replyTo($validated['email'], $validated['name']);
+                }
             });
         } catch (\Throwable $e) {
             Log::error("Failed to send quote email to info@veneno.ae: " . $e->getMessage());
@@ -396,7 +399,7 @@ class StorefrontController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Thank you! Your quote request has been sent to info@veneno.ae. Our concierge will contact you shortly.',
+            'message' => 'Thank you! Your quote request has been received. Our concierge team will contact you shortly.',
         ]);
     }
 

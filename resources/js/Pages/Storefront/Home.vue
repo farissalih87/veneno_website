@@ -440,7 +440,7 @@ const openQuoteWithService = (serviceName) => {
           <!-- ISO 9001:2015 Card -->
           <div class="glass-panel p-6 rounded-3xl border border-zinc-800 text-center flex flex-col items-center justify-between space-y-4">
             <div class="h-16 flex items-center justify-center">
-              <div class="w-14 h-14 rounded-full border-2 border-red-500 flex items-center justify-center font-display font-bold text-white text-sm">
+              <div class="w-14 h-14 rounded-full border-2 border-red-500/80 flex items-center justify-center font-display font-bold text-white text-sm bg-red-600/10">
                 ISO 9001
               </div>
             </div>
@@ -448,13 +448,13 @@ const openQuoteWithService = (serviceName) => {
               <h4 class="text-xs font-bold text-white uppercase tracking-wider">Quality Management</h4>
               <p class="text-[11px] text-zinc-400 mt-1">{{ t('brands.iso9001') }}</p>
             </div>
-            <span class="px-3 py-1 rounded-full bg-red-950/60 text-red-300 border border-red-800/40 text-[10px] font-mono">45001:2018</span>
+            <span class="px-3 py-1 rounded-full bg-red-950/60 text-red-300 border border-red-800/40 text-[10px] font-mono">9001:2015 Certified</span>
           </div>
 
           <!-- ISO 45001:2018 Card -->
           <div class="glass-panel p-6 rounded-3xl border border-zinc-800 text-center flex flex-col items-center justify-between space-y-4">
             <div class="h-16 flex items-center justify-center">
-              <div class="w-14 h-14 rounded-full border-2 border-emerald-500 flex items-center justify-center font-display font-bold text-white text-sm">
+              <div class="w-14 h-14 rounded-full border-2 border-red-500/80 flex items-center justify-center font-display font-bold text-white text-sm bg-red-600/10">
                 ISO 45001
               </div>
             </div>
@@ -462,7 +462,7 @@ const openQuoteWithService = (serviceName) => {
               <h4 class="text-xs font-bold text-white uppercase tracking-wider">Health & Safety</h4>
               <p class="text-[11px] text-zinc-400 mt-1">{{ t('brands.iso45001') }}</p>
             </div>
-            <span class="px-3 py-1 rounded-full bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[10px] font-mono">Certified Facility</span>
+            <span class="px-3 py-1 rounded-full bg-red-950/60 text-red-300 border border-red-800/40 text-[10px] font-mono">45001:2018 Certified</span>
           </div>
         </div>
       </div>
@@ -520,11 +520,12 @@ const openQuoteWithService = (serviceName) => {
             class="group relative glass-panel rounded-3xl overflow-hidden border border-zinc-800/80 hover:border-red-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-red-950/20 flex flex-col"
           >
             <!-- Service Image Banner (Plain Photo) -->
-            <div class="relative h-56 overflow-hidden bg-zinc-900">
+            <div class="relative h-52 overflow-hidden bg-zinc-900">
               <img
                 :src="service.image"
                 :alt="service.name"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
               />
             </div>
 
@@ -538,13 +539,20 @@ const openQuoteWithService = (serviceName) => {
                 <h3 class="text-lg sm:text-xl font-display font-semibold uppercase tracking-wide text-white group-hover:text-red-400 transition-colors">
                   {{ service.name }}
                 </h3>
+
+                <!-- Starting Price Tag -->
+                <div v-if="service.starting_price" class="flex items-baseline gap-1.5 mt-2">
+                  <span class="text-[10px] text-zinc-400 font-mono uppercase">{{ t('services.startingFrom') }}</span>
+                  <span class="text-base font-bold font-mono text-red-500">{{ service.starting_price }}</span>
+                </div>
+
                 <p class="text-xs text-zinc-400 mt-2 line-clamp-2 leading-relaxed">
                   {{ service.description }}
                 </p>
               </div>
 
-              <!-- Features checklist -->
-              <div class="space-y-2 pt-2 border-t border-zinc-800/80 text-xs">
+              <!-- Features checklist (3 Deliverables) -->
+              <div class="space-y-1.5 pt-2 border-t border-zinc-800/80 text-xs">
                 <div
                   v-for="(feat, idx) in (service.features || []).slice(0, 3)"
                   :key="idx"
@@ -556,7 +564,7 @@ const openQuoteWithService = (serviceName) => {
               </div>
 
               <!-- Action CTAs -->
-              <div class="pt-4 border-t border-zinc-800/80 flex items-center justify-between">
+              <div class="pt-3 border-t border-zinc-800/80 flex items-center justify-between">
                 <Link
                   :href="`/services/${service.slug}`"
                   class="text-xs font-mono uppercase text-zinc-400 hover:text-white flex items-center gap-1 transition-colors"
