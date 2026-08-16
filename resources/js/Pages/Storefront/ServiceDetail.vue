@@ -58,7 +58,7 @@ const isQuoteModalOpen = ref(false);
     <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
       <!-- Breadcrumb & Back -->
       <div class="flex items-center justify-between">
-        <Link :href="`/${currentLocale}#services`" class="inline-flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-white transition-colors">
+        <Link href="/#services" class="inline-flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-white transition-colors">
           <ArrowLeft class="w-4 h-4 rtl:rotate-180" />
           <span>{{ t('services.backToServices') }}</span>
         </Link>
@@ -163,7 +163,7 @@ const isQuoteModalOpen = ref(false);
         <Link
           v-for="s in activeAllServices.filter(x => x.slug !== activeService.slug).slice(0, 4)"
           :key="s.slug"
-          :href="`/${currentLocale}/services/${s.slug}`"
+          :href="`/services/${s.slug}`"
           class="p-5 rounded-2xl glass-panel border border-zinc-800 hover:border-red-500/40 transition-all group flex flex-col justify-between"
         >
           <div>

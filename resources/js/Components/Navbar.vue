@@ -20,7 +20,7 @@ const props = defineProps({
 
 const emit = defineEmits(['open-quote']);
 
-const { t, currentLocale, setLocale, getLocalizedPath } = useI18n();
+const { t, currentLocale, setLocale } = useI18n();
 
 const isMobileMenuOpen = ref(false);
 const isServicesDropdownOpen = ref(false);
@@ -49,15 +49,7 @@ onUnmounted(() => {
 const switchLanguage = (lang) => {
   isLangDropdownOpen.value = false;
   if (currentLocale.value === lang) return;
-  
   setLocale(lang);
-  
-  // Update browser address bar seamlessly without triggering full page reload 404
-  const currentPath = window.location.pathname;
-  const currentHash = window.location.hash || '';
-  const newPath = getLocalizedPath(currentPath, lang);
-  
-  window.history.pushState(null, '', `${newPath}${currentHash}`);
 };
 
 const scrollTo = (elementId) => {
@@ -66,8 +58,7 @@ const scrollTo = (elementId) => {
   if (el) {
     el.scrollIntoView({ behavior: 'smooth' });
   } else {
-    // If not on homepage, navigate to home with hash
-    window.location.href = `/${currentLocale.value}#${elementId}`;
+    window.location.href = `/#${elementId}`;
   }
 };
 </script>
@@ -78,20 +69,20 @@ const scrollTo = (elementId) => {
       <div class="flex items-center justify-between h-20">
         
         <!-- Logo -->
-        <a href="#home" @click.prevent="scrollTo('home')" class="flex items-center group cursor-pointer">
+        <Link href="/" class="flex items-center group cursor-pointer">
           <img 
             src="/images/logo.png" 
             alt="Veneno Auto Care Center" 
             title="Veneno Auto Care Center" 
             class="h-9 sm:h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-105" 
           />
-        </a>
+        </Link>
 
-        <!-- Desktop Traditional Navigation (Home, About Us, Why Us, Services, Certificates, Contact Us) -->
+        <!-- Desktop Traditional Navigation -->
         <nav class="hidden xl:flex items-center gap-7">
-          <a href="#home" @click.prevent="scrollTo('home')" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors cursor-pointer">
+          <Link href="/" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors cursor-pointer">
             {{ t('nav.home') }}
-          </a>
+          </Link>
 
           <a href="#about" @click.prevent="scrollTo('about')" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors cursor-pointer">
             {{ t('nav.about') }}
@@ -112,7 +103,7 @@ const scrollTo = (elementId) => {
               <Link
                 v-for="service in activeServices"
                 :key="service.slug"
-                :href="`/${currentLocale}/services/${service.slug}`"
+                :href="`/services/${service.slug}`"
                 class="flex items-center justify-between px-4 py-2.5 hover:bg-zinc-800/70 transition-colors group"
               >
                 <div>
@@ -229,7 +220,7 @@ const scrollTo = (elementId) => {
 
     <!-- Mobile Drawer -->
     <div v-if="isMobileMenuOpen" class="xl:hidden glass-panel border-b border-zinc-800 px-6 py-6 space-y-4">
-      <a href="#home" @click.prevent="scrollTo('home')" class="block text-base font-semibold text-zinc-200">{{ t('nav.home') }}</a>
+      <Link href="/" @click="isMobileMenuOpen = false" class="block text-base font-semibold text-zinc-200">{{ t('nav.home') }}</Link>
       <a href="#about" @click.prevent="scrollTo('about')" class="block text-base font-semibold text-zinc-200">{{ t('nav.about') }}</a>
       <a href="#why-us" @click.prevent="scrollTo('why-us')" class="block text-base font-semibold text-zinc-200">{{ t('nav.whyUs') }}</a>
       <a href="#services" @click.prevent="scrollTo('services')" class="block text-base font-semibold text-zinc-200">{{ t('nav.services') }}</a>
@@ -242,7 +233,7 @@ const scrollTo = (elementId) => {
           <Link
             v-for="service in activeServices"
             :key="service.slug"
-            :href="`/${currentLocale}/services/${service.slug}`"
+            :href="`/services/${service.slug}`"
             @click="isMobileMenuOpen = false"
             class="block text-xs text-zinc-300 hover:text-red-400 py-1 pl-2"
           >

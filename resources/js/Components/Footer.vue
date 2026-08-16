@@ -20,7 +20,7 @@ const { t, currentLocale } = useI18n();
         
         <!-- Brand Info -->
         <div class="space-y-4">
-          <Link :href="`/${currentLocale}`" class="inline-block">
+          <Link href="/" class="inline-block">
             <img src="/images/logo.png" alt="Veneno Auto Care" class="h-10 w-auto object-contain" />
           </Link>
           <p class="text-xs text-zinc-400 leading-relaxed">
@@ -55,7 +55,7 @@ const { t, currentLocale } = useI18n();
             <Link
               v-for="srv in (services && services.length ? services : [])"
               :key="srv.slug"
-              :href="`/${currentLocale}/services/${srv.slug}`"
+              :href="`/services/${srv.slug}`"
               class="hover:text-red-400 transition-colors line-clamp-1"
             >
               • {{ srv.name }}
@@ -101,13 +101,13 @@ const { t, currentLocale } = useI18n();
       <!-- Bottom Bar -->
       <div class="pt-8 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 font-mono">
         <div>
-          © {{ new Date().getFullYear() }} Veneno Auto Care. {{ t('footer.rights') }}
+          © {{ new Date().getFullYear() }} Veneno Auto Care Center. {{ t('footer.rights') }}
         </div>
         <div class="flex items-center gap-6">
-          <a :href="`/${currentLocale}#about`" class="text-zinc-400 hover:text-white">{{ t('nav.about') }}</a>
-          <a :href="`/${currentLocale}#services`" class="text-zinc-400 hover:text-white">{{ t('nav.services') }}</a>
-          <a :href="`/${currentLocale}#gallery`" class="text-zinc-400 hover:text-white">{{ t('nav.works') }}</a>
-          <a :href="`/${currentLocale}#contact`" class="text-zinc-400 hover:text-white">{{ t('nav.contact') }}</a>
+          <a href="#about" class="text-zinc-400 hover:text-white">{{ t('nav.about') }}</a>
+          <a href="#services" class="text-zinc-400 hover:text-white">{{ t('nav.services') }}</a>
+          <a href="#certificates" class="text-zinc-400 hover:text-white">{{ t('nav.certificates') }}</a>
+          <a href="#contact" class="text-zinc-400 hover:text-white">{{ t('nav.contact') }}</a>
         </div>
       </div>
     </div>

@@ -538,7 +538,7 @@ const openQuoteWithService = (serviceName) => {
               <!-- Action CTAs -->
               <div class="pt-4 border-t border-zinc-800/80 flex items-center justify-between">
                 <Link
-                  :href="`/${currentLocale}/services/${service.slug}`"
+                  :href="`/services/${service.slug}`"
                   class="text-xs font-mono uppercase text-zinc-400 hover:text-white flex items-center gap-1 transition-colors"
                 >
                   <span>{{ t('services.explore') }}</span>
