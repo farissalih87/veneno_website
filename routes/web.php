@@ -11,8 +11,9 @@ use Illuminate\Support\Facades\Route;
 // Public Storefront Routes
 Route::get('/', [StorefrontController::class, 'home'])->name('home');
 Route::get('/services/{slug}', [StorefrontController::class, 'serviceDetail'])->name('service.detail');
+Route::post('/api/quote', [StorefrontController::class, 'submitQuote'])->name('api.quote.submit');
 Route::post('/api/inquiries', [StorefrontController::class, 'storeInquiry'])->name('api.inquiries.store');
-Route::post('/api/gemini/quote-estimate', [StorefrontController::class, 'aiQuoteEstimate'])->name('api.gemini.quote');
+
 
 // Booking Engine
 Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');

@@ -1,168 +1,40 @@
 <script setup>
 import { ref } from 'vue';
-import axios from 'axios';
-import { MessageSquare, Send, X, ShieldCheck, CheckCircle2, Loader2 } from 'lucide-vue-next';
 
-const isOpen = ref(false);
-const isSubmitting = ref(false);
-const isSuccess = ref(false);
-
-const form = ref({
-  customer_name: '',
-  phone: '',
-  vehicle_details: 'Porsche 911 Turbo S',
-  service_requested: 'Diamond Ceramic Coating',
-  message_text: 'Hi Veneno Auto Care, I would like to inquire about booking availability and receiving a tailored appraisal.',
-});
-
-const handleWhatsAppSubmit = async () => {
-  if (!form.value.customer_name || !form.value.phone) return;
-
-  isSubmitting.value = true;
-  try {
-    // 1. Log lead into Laravel database
-    await axios.post(route('api.inquiries.store'), form.value);
-
-    isSuccess.value = true;
-
-    // 2. Format pre-filled WhatsApp message
-    const waNumber = '971501234567'; // Veneno official WhatsApp business number
-    const encodedText = encodeURIComponent(
-      `🏁 *VENENO AUTO CARE INQUIRY*\n\n` +
-      `👤 *Name:* ${form.value.customer_name}\n` +
-      `📞 *Phone:* ${form.value.phone}\n` +
-      `🏎️ *Vehicle:* ${form.value.vehicle_details}\n` +
-      `🛡️ *Service:* ${form.value.service_requested}\n\n` +
-      `💬 *Message:* ${form.value.message_text}`
-    );
-
-    const waUrl = `https://wa.me/${waNumber}?text=${encodedText}`;
-
-    setTimeout(() => {
-      window.open(waUrl, '_blank');
-      isSubmitting.value = false;
-      isOpen.value = false;
-      isSuccess.value = false;
-    }, 800);
-  } catch (error) {
-    console.error('Failed to log inquiry:', error);
-    isSubmitting.value = false;
-  }
-};
+const phone = '97126344403';
+const defaultMessage = 'Hello Veneno Auto Care, I would like to inquire about your luxury detailing and protection services.';
+const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(defaultMessage)}`;
+const showTooltip = ref(true);
 </script>
 
 <template>
-  <div class="fixed bottom-6 right-6 z-50">
-    <!-- Floating Trigger Button -->
-    <button
-      v-if="!isOpen"
-      @click="isOpen = true"
-      class="group relative flex items-center gap-3 px-4 py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-2xl shadow-emerald-900/60 border border-emerald-400/40 transition-all duration-300 transform hover:scale-105"
-    >
-      <div class="relative flex items-center justify-center">
-        <MessageSquare class="w-5 h-5 text-white" />
-        <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-300 rounded-full animate-ping"></span>
-      </div>
-      <span class="hidden sm:inline font-sans">WhatsApp Concierge</span>
-    </button>
-
-    <!-- Floating Modal Dialog -->
+  <div class="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+    <!-- Quick Tooltip -->
     <div
-      v-if="isOpen"
-      class="w-[360px] sm:w-[400px] glass-panel rounded-3xl overflow-hidden shadow-2xl shadow-black border border-zinc-800 animate-in fade-in slide-in-from-bottom-4 duration-200"
+      v-if="showTooltip"
+      class="hidden md:flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-zinc-900/95 backdrop-blur-md border border-zinc-800 text-xs font-semibold text-zinc-200 shadow-2xl shadow-black/80 animate-in fade-in slide-in-from-right-3 duration-300"
     >
-      <!-- Header -->
-      <div class="bg-gradient-to-r from-emerald-950 via-zinc-900 to-zinc-950 p-4 border-b border-emerald-900/40 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center">
-            <MessageSquare class="w-5 h-5 text-emerald-400" />
-          </div>
-          <div>
-            <h3 class="text-sm font-bold text-white">Veneno Concierge</h3>
-            <div class="flex items-center gap-1.5 text-[11px] text-emerald-400 font-mono">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>Direct WhatsApp Channel</span>
-            </div>
-          </div>
-        </div>
-        <button @click="isOpen = false" class="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-white">
-          <X class="w-5 h-5" />
-        </button>
-      </div>
-
-      <!-- Form Body -->
-      <form @submit.prevent="handleWhatsAppSubmit" class="p-5 space-y-3.5 text-xs">
-        <div>
-          <label class="block text-zinc-400 mb-1 font-medium">Your Name *</label>
-          <input
-            v-model="form.customer_name"
-            type="text"
-            required
-            placeholder="e.g. Tariq Al-Hashimi"
-            class="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500 transition-colors"
-          />
-        </div>
-
-        <div>
-          <label class="block text-zinc-400 mb-1 font-medium">Phone / WhatsApp Number *</label>
-          <input
-            v-model="form.phone"
-            type="tel"
-            required
-            placeholder="+971 50 000 0000"
-            class="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500 transition-colors"
-          />
-        </div>
-
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block text-zinc-400 mb-1 font-medium">Vehicle Model</label>
-            <input
-              v-model="form.vehicle_details"
-              type="text"
-              placeholder="e.g. Porsche 911 GT3"
-              class="w-full px-3.5 py-2 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500 text-xs"
-            />
-          </div>
-          <div>
-            <label class="block text-zinc-400 mb-1 font-medium">Service Interest</label>
-            <select
-              v-model="form.service_requested"
-              class="w-full px-3 py-2 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white focus:outline-none focus:border-emerald-500 text-xs"
-            >
-              <option value="Diamond Ceramic Coating">Ceramic Coating</option>
-              <option value="Self-Healing PPF Film">Self-Healing PPF</option>
-              <option value="Multi-Stage Paint Correction">Paint Correction</option>
-              <option value="Interior Master Rejuvenation">Interior Detailing</option>
-              <option value="Ceramic IR Window Tinting">Window Tinting</option>
-            </select>
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-zinc-400 mb-1 font-medium">Specific Questions or Requirements</label>
-          <textarea
-            v-model="form.message_text"
-            rows="2"
-            class="w-full px-3.5 py-2 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500 text-xs resize-none"
-          ></textarea>
-        </div>
-
-        <button
-          type="submit"
-          :disabled="isSubmitting"
-          class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-emerald-900/50 flex items-center justify-center gap-2 transition-all disabled:opacity-50"
-        >
-          <Loader2 v-if="isSubmitting" class="w-4 h-4 animate-spin" />
-          <Send v-else class="w-4 h-4" />
-          <span>{{ isSuccess ? 'Launching WhatsApp...' : 'Start WhatsApp Chat' }}</span>
-        </button>
-
-        <p class="text-[10px] text-zinc-500 text-center flex items-center justify-center gap-1">
-          <ShieldCheck class="w-3.5 h-3.5 text-emerald-400" />
-          <span>Direct confidential lead logged to CRM</span>
-        </p>
-      </form>
+      <span class="w-2 h-2 rounded-full bg-[#25D366] animate-ping"></span>
+      <span>Chat with Concierge</span>
+      <button @click="showTooltip = false" class="text-zinc-500 hover:text-white ml-1 text-xs">×</button>
     </div>
+
+    <!-- Official Floating WhatsApp Button -->
+    <a
+      :href="whatsappUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="relative group w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white flex items-center justify-center shadow-2xl shadow-[#25D366]/40 transform hover:scale-110 transition-all duration-300 focus:outline-none"
+      title="Chat on Official WhatsApp (+971 2 634 4403)"
+      aria-label="Chat on WhatsApp"
+    >
+      <!-- Pulse Ring -->
+      <span class="absolute inset-0 rounded-full bg-[#25D366] opacity-30 animate-ping pointer-events-none"></span>
+
+      <!-- Official WhatsApp SVG Icon -->
+      <svg class="w-7 h-7 fill-current relative z-10" viewBox="0 0 24 24">
+        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.34C9.36 7.34 9.09 7.4 8.87 7.65C8.65 7.89 8.02 8.48 8.02 9.7C8.02 10.92 8.91 12.09 9.03 12.25C9.16 12.42 10.74 14.97 13.25 15.96C15.34 16.79 15.76 16.62 16.22 16.58C16.67 16.54 17.69 15.98 17.9 15.38C18.11 14.78 18.11 14.27 18.05 14.16C17.99 14.05 17.82 13.99 17.57 13.86C17.32 13.74 16.08 13.13 15.85 13.04C15.62 12.96 15.46 12.92 15.29 13.16C15.12 13.41 14.64 13.99 14.5 14.16C14.35 14.32 14.21 14.34 13.96 14.22C13.71 14.09 12.91 13.83 11.96 12.98C11.22 12.32 10.72 11.51 10.58 11.26C10.43 11.01 10.56 10.88 10.69 10.75C10.8 10.64 10.94 10.46 11.06 10.31C11.19 10.17 11.23 10.06 11.31 9.9C11.39 9.73 11.35 9.59 11.29 9.46C11.23 9.34 10.72 8.08 10.51 7.58C10.31 7.09 10.1 7.16 9.94 7.15C9.79 7.14 9.66 7.34 9.53 7.34Z"/>
+      </svg>
+    </a>
   </div>
 </template>
