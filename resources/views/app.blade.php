@@ -62,129 +62,129 @@
 
         <!-- Schema.org Structured Data (JSON-LD Local Business & AutoRepair) -->
         <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "AutoRepair",
-              "@id": "{{ url('/') }}/#organization",
-              "name": "Veneno Auto Care Center",
-              "alternateName": "مركز فينينو للعناية بالسيارات",
-              "url": "{{ url('/') }}",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "{{ asset('images/logo.png') }}"
-              },
-              "image": "{{ asset('images/main-branch.webp') }}",
-              "description": "UAE's Largest Multi-Brand Auto Care Center. Certified 3M Paint Protection Film (PPF), GYEON Nano Ceramic Coatings, and master detailing in Abu Dhabi, UAE.",
-              "telephone": "+97126344403",
-              "email": "info@veneno.ae",
-              "priceRange": "$$$",
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Abu Dhabi",
-                "addressRegion": "Abu Dhabi",
-                "addressCountry": "AE"
-              },
-              "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": 24.4539,
-                "longitude": 54.3773
-              },
-              "openingHoursSpecification": [
-                {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
-                  "opens": "08:30",
-                  "closes": "21:30"
-                }
-              ],
-              "sameAs": [
-                "https://wa.me/97126344403",
-                "https://www.instagram.com/veneno_ae",
-                "https://www.tiktok.com/@veneno_ae"
-              ],
-              "hasOfferCatalog": {
-                "@type": "OfferCatalog",
-                "name": "Veneno Auto Care Services",
-                "itemListElement": [
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Service",
-                      "name": "3M Paint Protection Film (PPF)",
-                      "description": "Official 3M Self-Healing 8mil Optical Armor with 10-Year Warranty"
-                    }
-                  },
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Service",
-                      "name": "GYEON Diamond Ceramic Coating",
-                      "description": "9H+ Multi-Layer GYEON Graphene Hydrophobic Shield"
-                    }
-                  },
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Service",
-                      "name": "Detailing & Paint Correction",
-                      "description": "Concourse Swirl & Hologram Leveling with GYEON"
-                    }
-                  },
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Service",
-                      "name": "3M Ceramic Window Tinting",
-                      "description": "Up to 98% Infrared Heat & 99% UV Rejection by 3M"
-                    }
-                  },
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Service",
-                      "name": "Vehicle Wrapping & Color Change",
-                      "description": "Premium 3M Cast Vinyl in Gloss, Satin & Matte Finishes"
-                    }
-                  },
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Service",
-                      "name": "Paintless Dent Repair (PDR)",
-                      "description": "Factory-Finish Restoration with Zero Repainting"
-                    }
-                  },
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Service",
-                      "name": "Rims Protection & Wheel Repair",
-                      "description": "Curb Rash CNC Machining & High-Temp Ceramic Armor"
-                    }
-                  },
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Service",
-                      "name": "Paint & Body Restoration",
-                      "description": "Concourse Panel Spraying & Scratch Elimination"
-                    }
-                  },
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Service",
-                      "name": "Signature Decontamination Car Wash",
-                      "description": "Two-Bucket Scratch-Free Wash with Iron Decontamination"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        }
+        {!! json_encode([
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                [
+                    '@type' => 'AutoRepair',
+                    '@id' => url('/') . '/#organization',
+                    'name' => 'Veneno Auto Care Center',
+                    'alternateName' => 'مركز فينينو للعناية بالسيارات',
+                    'url' => url('/'),
+                    'logo' => [
+                        '@type' => 'ImageObject',
+                        'url' => asset('images/logo.png'),
+                    ],
+                    'image' => asset('images/main-branch.webp'),
+                    'description' => "UAE's Largest Multi-Brand Auto Care Center. Certified 3M Paint Protection Film (PPF), GYEON Nano Ceramic Coatings, and master detailing in Abu Dhabi, UAE.",
+                    'telephone' => '+97126344403',
+                    'email' => 'info@veneno.ae',
+                    'priceRange' => '$$$',
+                    'address' => [
+                        '@type' => 'PostalAddress',
+                        'addressLocality' => 'Abu Dhabi',
+                        'addressRegion' => 'Abu Dhabi',
+                        'addressCountry' => 'AE',
+                    ],
+                    'geo' => [
+                        '@type' => 'GeoCoordinates',
+                        'latitude' => 24.4539,
+                        'longitude' => 54.3773,
+                    ],
+                    'openingHoursSpecification' => [
+                        [
+                            '@type' => 'OpeningHoursSpecification',
+                            'dayOfWeek' => ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
+                            'opens' => '08:30',
+                            'closes' => '21:30',
+                        ],
+                    ],
+                    'sameAs' => [
+                        'https://wa.me/97126344403',
+                        'https://www.instagram.com/veneno_ae',
+                        'https://www.tiktok.com/@veneno_ae',
+                    ],
+                    'hasOfferCatalog' => [
+                        '@type' => 'OfferCatalog',
+                        'name' => 'Veneno Auto Care Services',
+                        'itemListElement' => [
+                            [
+                                '@type' => 'Offer',
+                                'itemOffered' => [
+                                    '@type' => 'Service',
+                                    'name' => '3M Paint Protection Film (PPF)',
+                                    'description' => 'Official 3M Self-Healing 8mil Optical Armor with 10-Year Warranty',
+                                ],
+                            ],
+                            [
+                                '@type' => 'Offer',
+                                'itemOffered' => [
+                                    '@type' => 'Service',
+                                    'name' => 'GYEON Diamond Ceramic Coating',
+                                    'description' => '9H+ Multi-Layer GYEON Graphene Hydrophobic Shield',
+                                ],
+                            ],
+                            [
+                                '@type' => 'Offer',
+                                'itemOffered' => [
+                                    '@type' => 'Service',
+                                    'name' => 'Detailing & Paint Correction',
+                                    'description' => 'Concourse Swirl & Hologram Leveling with GYEON',
+                                ],
+                            ],
+                            [
+                                '@type' => 'Offer',
+                                'itemOffered' => [
+                                    '@type' => 'Service',
+                                    'name' => '3M Ceramic Window Tinting',
+                                    'description' => 'Up to 98% Infrared Heat & 99% UV Rejection by 3M',
+                                ],
+                            ],
+                            [
+                                '@type' => 'Offer',
+                                'itemOffered' => [
+                                    '@type' => 'Service',
+                                    'name' => 'Vehicle Wrapping & Color Change',
+                                    'description' => 'Premium 3M Cast Vinyl in Gloss, Satin & Matte Finishes',
+                                ],
+                            ],
+                            [
+                                '@type' => 'Offer',
+                                'itemOffered' => [
+                                    '@type' => 'Service',
+                                    'name' => 'Paintless Dent Repair (PDR)',
+                                    'description' => 'Factory-Finish Restoration with Zero Repainting',
+                                ],
+                            ],
+                            [
+                                '@type' => 'Offer',
+                                'itemOffered' => [
+                                    '@type' => 'Service',
+                                    'name' => 'Rims Protection & Wheel Repair',
+                                    'description' => 'Curb Rash CNC Machining & High-Temp Ceramic Armor',
+                                ],
+                            ],
+                            [
+                                '@type' => 'Offer',
+                                'itemOffered' => [
+                                    '@type' => 'Service',
+                                    'name' => 'Paint & Body Restoration',
+                                    'description' => 'Concourse Panel Spraying & Scratch Elimination',
+                                ],
+                            ],
+                            [
+                                '@type' => 'Offer',
+                                'itemOffered' => [
+                                    '@type' => 'Service',
+                                    'name' => 'Signature Decontamination Car Wash',
+                                    'description' => 'Two-Bucket Scratch-Free Wash with Iron Decontamination',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) !!}
         </script>
 
         <!-- Fonts -->
