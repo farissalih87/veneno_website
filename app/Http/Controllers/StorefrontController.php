@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ServicePackage;
-use App\Models\ServiceAddon;
 use App\Models\Inquiry;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,26 +12,36 @@ use Illuminate\Support\Facades\Log;
 class StorefrontController extends Controller
 {
     /**
-     * Official 9 Services Data Dictionary with Authentic Media Paths
+     * Official 9 Services Data Dictionary with Authentic Media Paths & Bilingual Support
      */
-    public static function getOfficialServices(): array
+    public static function getOfficialServices(string $locale = 'en'): array
     {
+        $isAr = ($locale === 'ar');
+
         return [
             [
                 'id' => 1,
-                'name' => 'Paint Protection Film (PPF)',
-                'tagline' => 'Self-Healing 8mil Optical Armor with 10-Year Warranty',
+                'name' => $isAr ? 'أفلام حماية الطلاء (PPF)' : 'Paint Protection Film (PPF)',
+                'tagline' => $isAr ? 'درع حماية بصري سمك 8 ميل معالج ذاتياً بضمان 10 سنوات' : 'Self-Healing 8mil Optical Armor with 10-Year Warranty',
                 'slug' => 'paint-protection-film',
                 'category' => 'ppf',
-                'badge' => 'Ultimate Protection',
+                'badge' => $isAr ? 'أقصى درجات الحماية' : 'Ultimate Protection',
                 'popular' => true,
-                'description' => 'Precision computer-cut optical clear polyurethane film that self-heals swirl marks with sun heat. Protects against stone chips, highway sand abrasion, and road debris.',
+                'description' => $isAr 
+                    ? 'فيلم بولي يوريثين بصري شفاف مقصوص بالكمبيوتر يعالج الخدوش الدقيقة ذاتياً بحرارة الشمس، ويحمي من الحصى وسافي الطرق السريعة.'
+                    : 'Precision computer-cut optical clear polyurethane film that self-heals swirl marks with sun heat. Protects against stone chips, highway sand abrasion, and road debris.',
                 'image' => '/images/services/ppf/IMG_5902.JPG',
                 'before_image' => '/images/services/ppf/IMG_5968.JPG',
                 'after_image' => '/images/services/ppf/IMG_5965.JPG',
-                'warranty' => '10-Year Warranty',
+                'warranty' => $isAr ? 'ضمان 10 سنوات' : '10-Year Warranty',
                 'duration_hours' => 12,
-                'features' => [
+                'features' => $isAr ? [
+                    'قص إلكتروني دقيق بدون استخدام شفرات على الطلاء مع ثني الحواف',
+                    'طبقة معالجة ذاتية فائقة المرونة تلتئم بالحرارة الطبيعية',
+                    'حماية شاملة ضد ضربات الحصى وحبيبات الرمل المتطايرة',
+                    'مقاومة الأشعة فوق البنفسجية واصفرار الفيلم مع وضوح بصري تام',
+                    'طبقة طاردة للماء والأوساخ لتسهيل الغسيل والصيانة الدورية',
+                ] : [
                     'Computer-cut digital plotters with wrapped seamless edges',
                     'Self-healing elastomeric top coat under ambient heat',
                     'Total rock chip & high-speed gravel protection',
@@ -43,19 +51,27 @@ class StorefrontController extends Controller
             ],
             [
                 'id' => 2,
-                'name' => 'Diamond Ceramic Coating',
-                'tagline' => '9H+ Multi-Layer Graphene Hydrophobic Shield',
+                'name' => $isAr ? 'طلاء النانو سيراميك الماسي 9H+' : 'Diamond Ceramic Coating',
+                'tagline' => $isAr ? 'درع نانو جرافين متعدد الطبقات طارد فائق للماء' : '9H+ Multi-Layer Graphene Hydrophobic Shield',
                 'slug' => 'ceramic-coating',
                 'category' => 'ceramic',
-                'badge' => 'Showroom Reflection',
+                'badge' => $isAr ? 'لمعان الوكالة الفائق' : 'Showroom Reflection',
                 'popular' => true,
-                'description' => 'Our flagship 9H+ nano-ceramic formula bonds molecularly to automotive clear coat, delivering extreme 115° hydrophobic water beading, UV defense, and mirror reflection depth.',
+                'description' => $isAr
+                    ? 'تركيبتنا الرائدة من النانو سيراميك والجرافين ترتبط جزيئياً بطبقة الطلاء الشفاف لتمنح مقاومة فائقة للماء بزاوية 115° ولمعاناً زجاجياً عميقاً.'
+                    : 'Our flagship 9H+ nano-ceramic formula bonds molecularly to automotive clear coat, delivering extreme 115° hydrophobic water beading, UV defense, and mirror reflection depth.',
                 'image' => '/images/services/ceramic/PHOTO-2024-07-12-14-12-51 15.JPG',
                 'before_image' => '/images/services/ceramic/PHOTO-2024-07-12-14-12-51 10.JPG',
                 'after_image' => '/images/services/ceramic/PHOTO-2024-07-12-14-12-51 14.JPG',
-                'warranty' => '5-Year Certified Warranty',
+                'warranty' => $isAr ? 'ضمان معتمد 5 سنوات' : '5-Year Certified Warranty',
                 'duration_hours' => 8,
-                'features' => [
+                'features' => $isAr ? [
+                    'غسيل كيميائي شامل لإزالة الترسبات الحديدية واستخدام الصلصال الخاص',
+                    'تصحيح الطلاء للمرحلة الأولى لإزالة الدوائر وتعظيم الانعكاس',
+                    'طبقة نانو جرافين وسيراميك 9H مزدوجة الحماية',
+                    'حماية سيراميك خاصة للجنوط وكليبرات الفرامل وزجاج السيارة',
+                    'معالجة حرارية بمصابيح الأشعة تحت الحمراء لأقصى درجات الصلابة',
+                ] : [
                     'Multi-stage chemical decontamination wash & clay bar',
                     'Stage 1 corrective polish to optimize surface reflection',
                     'Dual-layer 9H nano-graphene ceramic base coat',
@@ -65,19 +81,27 @@ class StorefrontController extends Controller
             ],
             [
                 'id' => 3,
-                'name' => 'Detailing & Paint Correction',
-                'tagline' => 'Concourse Swirl & Hologram Leveling',
+                'name' => $isAr ? 'تصحيح ومعالجة الطلاء الدقيقة' : 'Detailing & Paint Correction',
+                'tagline' => $isAr ? 'إزالة الدوائر والخدوش المجهرية واستعادة بريق الوكالة' : 'Concourse Swirl & Hologram Leveling',
                 'slug' => 'detailing-paint-correction',
                 'category' => 'detailing',
-                'badge' => 'Flawless Finish',
+                'badge' => $isAr ? 'تشطيب خالي من العيوب' : 'Flawless Finish',
                 'popular' => false,
-                'description' => 'Concourse-grade microscopic surface leveling using precision rotary and dual-action polishers to eliminate swirl marks, buffer holograms, and oxidation.',
+                'description' => $isAr
+                    ? 'تسوية مجهرية لطبقة اللكر باستخدام أحدث أجهزة التلميع المزدوجة ومواد صقل متدرجة لإزالة دوائر الغسيل والهولوجرام والأكسدة نهائياً.'
+                    : 'Concourse-grade microscopic surface leveling using precision rotary and dual-action polishers to eliminate swirl marks, buffer holograms, and oxidation.',
                 'image' => '/images/services/detailing/IMG_5899.JPG',
                 'before_image' => '/images/services/detailing/PHOTO-2024-07-12-14-12-51 18.JPG',
                 'after_image' => '/images/services/detailing/PHOTO-2024-07-12-14-12-51 24.JPG',
-                'warranty' => 'Optical Reflection Guarantee',
+                'warranty' => $isAr ? 'ضمان نقاء وانعكاس الطلاء' : 'Optical Reflection Guarantee',
                 'duration_hours' => 6,
-                'features' => [
+                'features' => $isAr ? [
+                    'قياس إلكتروني رقمي لسماكة الطلاء في كل جزء من الهيكل',
+                    'مركب قطع حبيبي دقيق لإزالة خدوش الغسيل العميقة',
+                    'بولش تلميع نهائي فائق الدقة لانعكاس يشبه المرآة',
+                    'مسح كامل بالكحول النقي والفحص تحت إضاءات LED المتخصصة',
+                    'طبقة واقية من السيلنت التخليقي لحماية النتيجة',
+                ] : [
                     'Digital electronic paint depth measurement per panel',
                     'Heavy cutting compound for deep wash scratch removal',
                     'Jeweling refining polish for concourse mirror gloss',
@@ -87,19 +111,26 @@ class StorefrontController extends Controller
             ],
             [
                 'id' => 4,
-                'name' => 'Ceramic Window Tinting',
-                'tagline' => 'Up to 98% Infrared Heat & 99% UV Rejection',
+                'name' => $isAr ? 'العازل الحراري نانو سيراميك للزجاج' : 'Ceramic Window Tinting',
+                'tagline' => $isAr ? 'عزل حراري للأشعة تحت الحمراء بنسبة تصل إلى 98%' : 'Up to 98% Infrared Heat & 99% UV Rejection',
                 'slug' => 'window-tinting',
                 'category' => 'tinting',
-                'badge' => 'Thermal Shield',
+                'badge' => $isAr ? 'حماية حرارية فائقة' : 'Thermal Shield',
                 'popular' => false,
-                'description' => 'Ultra-high heat rejection nano-ceramic window films designed specifically for Middle East climate. Keeps interior significantly cooler while blocking 99% UV rays.',
+                'description' => $isAr
+                    ? 'أفلام نانو سيراميك متطورة مخصصة لمناخ الخليج والإمارات، تحافظ على برودة المقصورة وتمنع 99% من الأشعة فوق البنفسجية الضارة.'
+                    : 'Ultra-high heat rejection nano-ceramic window films designed specifically for Middle East climate. Keeps interior significantly cooler while blocking 99% UV rays.',
                 'image' => '/images/services/tinting/IMG_5967.JPG',
                 'before_image' => '/images/services/tinting/IMG_5969.JPG',
                 'after_image' => '/images/services/tinting/IMG_5971.JPG',
-                'warranty' => 'Lifetime Bubble-Free Warranty',
+                'warranty' => $isAr ? 'ضمان مدى الحياة ضد التغير والفقاعات' : 'Lifetime Bubble-Free Warranty',
                 'duration_hours' => 3,
-                'features' => [
+                'features' => $isAr ? [
+                    'قص إلكتروني مطابق لأبعاد زجاج سيارتك بدقة متناهية',
+                    'حجب 99% من الأشعة فوق البنفسجية الضارة بالجلد والفرش الداخلي',
+                    'عزل حتى 94% من حرارة الأشعة تحت الحمراء للشمس',
+                    'لا يؤثر إطلاقاً على إشارات الهواتف أو أنظمة الملاحة GPS',
+                ] : [
                     'Computer-cut glass templates tailored per model',
                     '99% UV-A / UV-B skin & upholstery protection',
                     'Up to 94% Infrared (IR) solar heat barrier',
@@ -108,19 +139,26 @@ class StorefrontController extends Controller
             ],
             [
                 'id' => 5,
-                'name' => 'Vehicle Wrapping & Color Change',
-                'tagline' => 'Premium Cast Vinyl in Gloss, Satin & Matte Finishes',
+                'name' => $isAr ? 'تجليد وتغيير لون السيارات' : 'Vehicle Wrapping & Color Change',
+                'tagline' => $isAr ? 'أفلام فينيل فاخرة بتشطيبات لامعة ومطفية وساتان' : 'Premium Cast Vinyl in Gloss, Satin & Matte Finishes',
                 'slug' => 'car-wrapping',
                 'category' => 'wrapping',
-                'badge' => 'Bespoke Styling',
+                'badge' => $isAr ? 'لمسة تصميم حصرية' : 'Bespoke Styling',
                 'popular' => false,
-                'description' => 'Transform your vehicle aesthetics with world-class vinyl wraps from 3M, Avery Dennison, and Inozetek. Reversible protection with endless finish possibilities.',
+                'description' => $isAr
+                    ? 'غيّر مظهر سيارتك بالكامل بأفلام الفينيل الفاخرة من كبرى الشركات العالمية (3M، Avery Dennison، Inozetek) مع الحفاظ الكامل على صبغة الوكالة.'
+                    : 'Transform your vehicle aesthetics with world-class vinyl wraps from 3M, Avery Dennison, and Inozetek. Reversible protection with endless finish possibilities.',
                 'image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 22.JPG',
                 'before_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 20.JPG',
                 'after_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 23.JPG',
-                'warranty' => '3-Year Installation Warranty',
+                'warranty' => $isAr ? 'ضمان تركيب 3 سنوات' : '3-Year Installation Warranty',
                 'duration_hours' => 24,
-                'features' => [
+                'features' => $isAr ? [
+                    'فك وتركيب احترافي للأجزاء الخارجية لإخفاء الحواف بالكامل',
+                    'تشكيلة واسعة من الألوان اللامعة، الساتان، المطفية، والكروم',
+                    'حماية تامة لصبغة الوكالة الأصلية تحت طبقة التجليد',
+                    'إمكانية تجليد حواف الأبواب الداخلية بالكامل',
+                ] : [
                     'Disassembly by certified technicians for wrapped tucks',
                     'Extensive choice of gloss, satin, matte, and chrome',
                     'Original OEM paint preserved underneath',
@@ -129,19 +167,26 @@ class StorefrontController extends Controller
             ],
             [
                 'id' => 6,
-                'name' => 'Paintless Dent Repair (PDR)',
-                'tagline' => 'Factory-Finish Restoration with Zero Repainting',
+                'name' => $isAr ? 'شفط الصدمات بدون دهان (PDR)' : 'Paintless Dent Repair (PDR)',
+                'tagline' => $isAr ? 'إصلاح دقيق للصدمات مع الحفاظ الكامل على صبغ الوكالة' : 'Factory-Finish Restoration with Zero Repainting',
                 'slug' => 'paintless-dent-repair',
                 'category' => 'pdr',
-                'badge' => 'Preserve Factory Paint',
+                'badge' => $isAr ? 'الحفاظ على صبغ الوكالة' : 'Preserve Factory Paint',
                 'popular' => false,
-                'description' => 'Precision dent removal utilizing specialized metallurgy tools from behind the panel. Preserves 100% of original factory paint and vehicle resale value.',
+                'description' => $isAr
+                    ? 'إصلاح انبعاجات وصدمات الهيكل بأدوات معدنية فائقة الدقة من خلف القطعة دون الحاجة إلى معجون أو إعادة صبغ، مما يحافظ على قيمة السيارة.'
+                    : 'Precision dent removal utilizing specialized metallurgy tools from behind the panel. Preserves 100% of original factory paint and vehicle resale value.',
                 'image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 17.JPG',
                 'before_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 11.JPG',
                 'after_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 19.JPG',
-                'warranty' => 'Lifetime Paint Integrity',
+                'warranty' => $isAr ? 'ضمان سلامة الطلاء الأصلي' : 'Lifetime Paint Integrity',
                 'duration_hours' => 2,
-                'features' => [
+                'features' => $isAr ? [
+                    'بدون أي معجون أو صنفرة أو إعادة صبغ نهائياً',
+                    'تسليم سريع في نفس اليوم لضربات الأبواب والانبعاجات',
+                    'الحفاظ على 100% من طبقة طلاء الوكالة الأصلية',
+                    'استخدام ألواح إضاءة LED مجهرية لضبط انحناءات الهيكل بدقة',
+                ] : [
                     'Zero body filler, sanding, or repainting required',
                     'Fast same-day turnaround for door dings & creases',
                     '100% preservation of original factory clear coat',
@@ -150,19 +195,26 @@ class StorefrontController extends Controller
             ],
             [
                 'id' => 7,
-                'name' => 'Rims Protection & Wheel Repair',
-                'tagline' => 'Curb Rash CNC Machining & High-Temp Ceramic Armor',
+                'name' => $isAr ? 'حماية وتجديد الجنوط' : 'Rims Protection & Wheel Repair',
+                'tagline' => $isAr ? 'خراطة CNC لضربات الرصيف وطلاء سيراميك حراري' : 'Curb Rash CNC Machining & High-Temp Ceramic Armor',
                 'slug' => 'rims-protection-repair',
                 'category' => 'rims',
-                'badge' => 'Wheel Perfection',
+                'badge' => $isAr ? 'إتقان حواف الإطارات' : 'Wheel Perfection',
                 'popular' => false,
-                'description' => 'Complete wheel restoration, diamond-cut CNC face re-machining, custom powder coating, and high-temp ceramic coating to resist corrosive brake dust.',
+                'description' => $isAr
+                    ? 'تجديد شامل لجنوط الألمنيوم، خراطة وقص CNC للوجه الماسي، وطلاء سيراميك حراري 1200°F لمقاومة غبار الفرامل الحارق.'
+                    : 'Complete wheel restoration, diamond-cut CNC face re-machining, custom powder coating, and high-temp ceramic coating to resist corrosive brake dust.',
                 'image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 21.JPG',
                 'before_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 3.JPG',
                 'after_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 4.JPG',
-                'warranty' => 'Finish Durability Guaranteed',
+                'warranty' => $isAr ? 'ضمان متانة وجودة التشطيب' : 'Finish Durability Guaranteed',
                 'duration_hours' => 4,
-                'features' => [
+                'features' => $isAr ? [
+                    'إصلاح دقيق لحكات الرصيف واستعدال الجنوط المنبعجة',
+                    'مطابقة ألوان الوكالة الأصلية وقص الوجه الماسي CNC',
+                    'طلاء سيراميك حراري 1200°F لمقاومة التصاق بودرة الفرامل',
+                    'تنظيف عميق لبطائن الجنوط وتلميع كليبرات الفرامل',
+                ] : [
                     'Precision curb rash repair and structural trueing',
                     'Factory OEM color matching and diamond-cut CNC finish',
                     '1200°F high-temp ceramic coating against brake dust',
@@ -171,19 +223,26 @@ class StorefrontController extends Controller
             ],
             [
                 'id' => 8,
-                'name' => 'Paint & Body Restoration',
-                'tagline' => 'Concourse Panel Spraying & Scratch Elimination',
+                'name' => $isAr ? 'رش ودهان السيارات بالفرن الحراري' : 'Paint & Body Restoration',
+                'tagline' => $isAr ? 'مطابقة ألوان إلكترونية ورش في كبائن حرارية معقمة' : 'Concourse Panel Spraying & Scratch Elimination',
                 'slug' => 'paint-body-work',
                 'category' => 'paint',
-                'badge' => 'Concourse Bodywork',
+                'badge' => $isAr ? 'أعلى معايير الصبغ' : 'Concourse Bodywork',
                 'popular' => false,
-                'description' => 'Down-draft heated spray booth painting using computer-spectrometer color matching and OEM-approved high-solid clear coats for an undetectable finish.',
+                'description' => $isAr
+                    ? 'صبغ ورش القطع والأجزاء في كبائن أفران حرارية خالية من الغبار باستخدام أجهزة مطابقة الألوان الطيفية وليرات اللكر عالية الصلابة المطابقة للمصنع.'
+                    : 'Down-draft heated spray booth painting using computer-spectrometer color matching and OEM-approved high-solid clear coats for an undetectable finish.',
                 'image' => '/images/services/paint/IMG_5901.JPG',
                 'before_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 12.JPG',
                 'after_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 13.JPG',
-                'warranty' => 'Color Match Guaranteed',
+                'warranty' => $isAr ? 'ضمان مطابقة لون الوكالة' : 'Color Match Guaranteed',
                 'duration_hours' => 16,
-                'features' => [
+                'features' => $isAr ? [
+                    'جهاز مطابقة إلكتروني طيفي لخلط درجات الألوان بدقة متناهية',
+                    'كبائن رش أفران بضغط إيجابي لتجنب أي ذرات غبار',
+                    'طبقات لكر عالية الصلابة ومقاومة للأشعة فوق البنفسجية',
+                    'صنفرة وتلميع مائي بعد جفاف الصبغ للوصول لدرجة بريق الوكالة',
+                ] : [
                     'Computerized spectrometer color formulation',
                     'Dust-free positive pressure down-draft spray booth',
                     'High-solid UV clear coats matching factory orange peel',
@@ -192,19 +251,27 @@ class StorefrontController extends Controller
             ],
             [
                 'id' => 9,
-                'name' => 'Signature Decontamination Car Wash',
-                'tagline' => 'Two-Bucket Scratch-Free Wash with Iron Decontamination',
+                'name' => $isAr ? 'غسيل إزالة الشوائب الفاخر' : 'Signature Decontamination Car Wash',
+                'tagline' => $isAr ? 'غسيل ثنائي الدلو آمن مع إزالة الرواسب والشوائب الحديدية' : 'Two-Bucket Scratch-Free Wash with Iron Decontamination',
                 'slug' => 'premium-car-wash',
                 'category' => 'wash',
-                'badge' => 'Essential Care',
+                'badge' => $isAr ? 'عناية أساسية فائقة' : 'Essential Care',
                 'popular' => false,
-                'description' => 'pH-neutral snow foam wash with grit-guard two-bucket method, wheel arch pressure flush, chemical iron fallout removal, and filtered warm-air drying.',
+                'description' => $isAr
+                    ? 'غسيل رغوي متعادل الحموضة بتقنية الدلوين وحواجز الأتربة، تنظيف وضخ بطائن الرفارف، إزالة برادة الحديد الكيميائية، وتجفيف بالهواء الساخن المفلتر.'
+                    : 'pH-neutral snow foam wash with grit-guard two-bucket method, wheel arch pressure flush, chemical iron fallout removal, and filtered warm-air drying.',
                 'image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 5.JPG',
                 'before_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 7.JPG',
                 'after_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51.JPG',
-                'warranty' => '100% Scratch-Free Guarantee',
+                'warranty' => $isAr ? 'ضمان غسيل آمن 100% بدون خدوش' : '100% Scratch-Free Guarantee',
                 'duration_hours' => 2,
-                'features' => [
+                'features' => $isAr ? [
+                    'رغوة ثلجية كثيفة متعادلة الحموضة لعزل الأتربة والرمال',
+                    'قفازات مايكروفايبر فائقة النعومة مع حواجز ترسبات الشوائب',
+                    'إزالة الرواسب والبرادة الحديدية العالقة وتنظيف بطائن الجنوط',
+                    'تجفيف لا تلامسي باستخدام مدافع الهواء الساخن المفلتر',
+                    'تنظيف داخلي شامل بالمكنسة ومسح الطبلون ومعالجة الإطارات',
+                ] : [
                     'pH-neutral thick foam bath encapsulating dirt',
                     'Ultra-soft plush microfiber mitts with grit guards',
                     'Iron fallout decontamination & wheel barrel wash',
@@ -216,11 +283,26 @@ class StorefrontController extends Controller
     }
 
     /**
-     * Homepage with cinematic video hero, 9 services, real before/after, and quote section.
+     * Root URL router with intelligent client-side redirect fallback
      */
-    public function home(): Response
+    public function index(Request $request)
     {
-        $services = self::getOfficialServices();
+        $acceptLang = $request->header('Accept-Language', '');
+        $preferredLocale = str_contains(strtolower($acceptLang), 'ar') ? 'ar' : 'en';
+
+        return redirect("/{$preferredLocale}");
+    }
+
+    /**
+     * Homepage with localized content & 9 services
+     */
+    public function home(string $locale = 'en'): Response
+    {
+        if (!in_array($locale, ['en', 'ar'])) {
+            $locale = 'en';
+        }
+
+        $services = self::getOfficialServices($locale);
         
         $galleryImages = [
             '/images/gallery/PHOTO-2024-07-12-14-12-51.JPG',
@@ -238,17 +320,22 @@ class StorefrontController extends Controller
         ];
 
         return Inertia::render('Storefront/Home', [
+            'locale' => $locale,
             'services' => $services,
             'galleryImages' => $galleryImages,
         ]);
     }
 
     /**
-     * Dedicated Standalone Service Landing Page.
+     * Dedicated Standalone Service Landing Page
      */
-    public function serviceDetail(string $slug): Response
+    public function serviceDetail(string $locale, string $slug): Response
     {
-        $services = self::getOfficialServices();
+        if (!in_array($locale, ['en', 'ar'])) {
+            $locale = 'en';
+        }
+
+        $services = self::getOfficialServices($locale);
         $service = collect($services)->firstWhere('slug', $slug);
 
         if (!$service) {
@@ -256,6 +343,7 @@ class StorefrontController extends Controller
         }
 
         return Inertia::render('Storefront/ServiceDetail', [
+            'locale' => $locale,
             'service' => $service,
             'allServices' => $services,
         ]);
@@ -323,4 +411,3 @@ class StorefrontController extends Controller
         return $this->submitQuote($request);
     }
 }
-

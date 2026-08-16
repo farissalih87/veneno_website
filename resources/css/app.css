@@ -47,6 +47,24 @@
     background: #dc2626;
 }
 
+/* Arabic & RTL Typography Overrides */
+html[dir="rtl"] {
+    font-family: 'Cairo', 'Outfit', system-ui, sans-serif;
+}
+
+html[dir="rtl"] .font-display {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0em;
+}
+
+html[dir="rtl"] .font-display-italic {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0em;
+    font-style: normal;
+}
+
 /* Smooth glassmorphism backdrop filters */
 .glass-panel {
     background: rgba(18, 18, 22, 0.75);
@@ -61,3 +79,5 @@
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.06);
 }
+
+

@@ -8,6 +8,8 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Veneno Auto Care';
 
+import { t, setLocale, detectInitialLocale } from './i18n';
+
 createInertiaApp({
     title: (title) => title ? `${title} - ${appName}` : appName,
     resolve: (name) =>
@@ -16,7 +18,13 @@ createInertiaApp({
             import.meta.glob('./Pages/**/*.vue'),
         ),
     setup({ el, App, props, plugin }) {
-        return createApp({ render: () => h(App, props) })
+        const initialLang = props.initialPage.props.locale || detectInitialLocale();
+        setLocale(initialLang);
+
+        const app = createApp({ render: () => h(App, props) });
+        app.config.globalProperties.$t = t;
+
+        return app
             .use(plugin)
             .use(ZiggyVue)
             .mount(el);
