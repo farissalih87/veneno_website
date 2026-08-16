@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import Navbar from '@/Components/Navbar.vue';
 import Footer from '@/Components/Footer.vue';
@@ -46,12 +46,6 @@ const props = defineProps({
 });
 
 const { t, currentLocale, setLocale } = useI18n();
-
-onMounted(() => {
-  if (props.locale && props.locale !== currentLocale.value) {
-    setLocale(props.locale);
-  }
-});
 
 const activeServices = computed(() => {
   return getServicesByLocale(currentLocale.value);
