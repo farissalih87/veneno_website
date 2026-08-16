@@ -358,19 +358,20 @@ const openQuoteWithService = (serviceName) => {
     <!-- 6. GET A QUOTE SECTION -->
     <QuoteSection />
 
-    <!-- 7. CONTACT US & STUDIO HUB -->
+    <!-- 7. CONTACT US & STUDIO HUB (2 BRANCHES: MUSAFFAH & AL QANA) -->
     <section id="contact" class="py-24 bg-zinc-950 relative border-t border-zinc-900">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-2xl mx-auto mb-16">
-          <span class="text-xs font-mono uppercase tracking-widest text-red-500 font-bold">Studio Hub</span>
+          <span class="text-xs font-mono uppercase tracking-widest text-red-500 font-bold">Studio Locations</span>
           <h2 class="text-3xl sm:text-4xl font-display font-semibold uppercase tracking-wider text-white mt-1">
-            Visit Our Concierge Studio
+            Our 2 Abu Dhabi Branches
           </h2>
           <p class="text-xs sm:text-sm text-zinc-400 mt-2">
-            Schedule an in-person paint inspection or drop by our studio in UAE.
+            Visit our state-of-the-art clean-room studios in Musaffah (Main Branch) or Al Qana, Abu Dhabi.
           </p>
         </div>
 
+        <!-- 3 Contact Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <!-- Card 1: Landline & Phone -->
           <div class="glass-panel p-6 rounded-3xl border border-zinc-800 flex flex-col items-center text-center">
@@ -378,7 +379,7 @@ const openQuoteWithService = (serviceName) => {
               <Phone class="w-6 h-6" />
             </div>
             <h4 class="text-sm font-bold text-white uppercase tracking-wider">Direct Landline & Hotline</h4>
-            <p class="text-xs text-zinc-400 mt-1">Available 6 days a week for inquiries and bookings</p>
+            <p class="text-xs text-zinc-400 mt-1">Both branches connected directly to concierge</p>
             <a href="tel:+97126344403" class="text-base font-mono font-bold text-red-400 hover:underline mt-3">
               +971 2 634 4403
             </a>
@@ -403,34 +404,134 @@ const openQuoteWithService = (serviceName) => {
             </a>
           </div>
 
-          <!-- Card 3: Email & Location -->
+          <!-- Card 3: Email & Corporate -->
           <div class="glass-panel p-6 rounded-3xl border border-zinc-800 flex flex-col items-center text-center">
             <div class="w-12 h-12 rounded-2xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center mb-4">
               <Mail class="w-6 h-6" />
             </div>
-            <h4 class="text-sm font-bold text-white uppercase tracking-wider">Corporate Email & Location</h4>
-            <p class="text-xs text-zinc-400 mt-1">Al Quoz Industrial Area 3, Dubai, UAE</p>
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider">Corporate Inquiries</h4>
+            <p class="text-xs text-zinc-400 mt-1">Direct inquiries & fleet partnership proposals</p>
             <a href="mailto:info@veneno.ae" class="text-base font-mono font-bold text-red-400 hover:underline mt-3">
               info@veneno.ae
             </a>
           </div>
         </div>
 
-        <!-- Google Map Studio Embed -->
-        <div class="rounded-3xl overflow-hidden border border-zinc-800 h-80 relative glass-panel shadow-2xl">
-          <iframe
-            class="w-full h-full grayscale contrast-125 opacity-80"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115634.34123512398!2d55.150000000000006!3d25.13333333333333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f690463c224b1%3A0xb3671f2518e95759!2sAl%20Quoz%20Industrial%20Area%203%20-%20Dubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae"
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Veneno Auto Care Studio Location"
-          ></iframe>
-          <div class="absolute bottom-4 left-4 glass-panel p-3 rounded-2xl border border-zinc-700 text-xs text-zinc-200">
-            <span class="font-bold text-white">📍 Veneno Auto Care Studio</span> — Mon to Sat: 9:00 AM – 8:00 PM
+        <!-- 2 Branch Showcase Cards & Maps -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          <!-- BRANCH 1: MUSAFFAH (MAIN BRANCH) -->
+          <div class="glass-panel rounded-3xl border border-zinc-800/90 overflow-hidden shadow-2xl flex flex-col justify-between">
+            <div class="p-6 sm:p-8 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-red-600/20 text-red-400 border border-red-500/40 text-[11px] font-mono font-bold uppercase tracking-wider">
+                  Main Branch
+                </span>
+                <span class="text-xs text-zinc-400 font-mono flex items-center gap-1">
+                  <Clock class="w-3.5 h-3.5 text-zinc-500" /> Mon - Sat: 9:00 AM – 8:00 PM
+                </span>
+              </div>
+
+              <div>
+                <h3 class="text-xl sm:text-2xl font-display font-semibold uppercase tracking-wide text-white">
+                  Musaffah — Main Branch
+                </h3>
+                <p class="text-xs sm:text-sm text-zinc-400 mt-1 flex items-start gap-2">
+                  <MapPin class="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                  <span>VENENO AUTO CARE CENTER, Musaffah Industrial Area, Abu Dhabi, United Arab Emirates</span>
+                </p>
+              </div>
+
+              <div class="pt-2 flex items-center gap-3">
+                <a
+                  href="https://www.google.com/maps/place/VENENO+AUTO+CARE+CENTER/data=!4m2!3m1!1s0x0:0x1caa0a70d352aff4"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-display text-xs uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-md"
+                >
+                  <span>Open in Google Maps</span>
+                  <ArrowUpRight class="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href="tel:+97126344403"
+                  class="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs font-semibold"
+                >
+                  Call +971 2 634 4403
+                </a>
+              </div>
+            </div>
+
+            <!-- Musaffah Map Embed -->
+            <div class="h-64 sm:h-72 border-t border-zinc-800 relative bg-zinc-900">
+              <iframe
+                class="w-full h-full grayscale contrast-125 opacity-80"
+                src="https://maps.google.com/maps?q=VENENO+AUTO+CARE+CENTER+Musaffah+Abu+Dhabi&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Veneno Auto Care Center Musaffah Main Branch Map"
+              ></iframe>
+            </div>
           </div>
+
+          <!-- BRANCH 2: AL QANA (BRANCH) -->
+          <div class="glass-panel rounded-3xl border border-zinc-800/90 overflow-hidden shadow-2xl flex flex-col justify-between">
+            <div class="p-6 sm:p-8 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[11px] font-mono font-bold uppercase tracking-wider">
+                  Al Qana Branch
+                </span>
+                <span class="text-xs text-zinc-400 font-mono flex items-center gap-1">
+                  <Clock class="w-3.5 h-3.5 text-zinc-500" /> Mon - Sat: 9:00 AM – 8:00 PM
+                </span>
+              </div>
+
+              <div>
+                <h3 class="text-xl sm:text-2xl font-display font-semibold uppercase tracking-wide text-white">
+                  Al Qana — Branch
+                </h3>
+                <p class="text-xs sm:text-sm text-zinc-400 mt-1 flex items-start gap-2">
+                  <MapPin class="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                  <span>VENENO AUTO CARE CENTER - AL QANA, Rabdan, Abu Dhabi, United Arab Emirates</span>
+                </p>
+              </div>
+
+              <div class="pt-2 flex items-center gap-3">
+                <a
+                  href="https://www.google.com/maps/place/VENENO+AUTO+CARE+CENTER+-+AL+QANA/@24.4036113,54.4927375,17z/data=!3m1!4b1!4m6!3m5!1s0x3e5e4147b5e1008f:0xc96a4752ec9c10c6!8m2!3d24.4036064!4d54.4953124"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-display text-xs uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-md"
+                >
+                  <span>Open in Google Maps</span>
+                  <ArrowUpRight class="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href="tel:+97126344403"
+                  class="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs font-semibold"
+                >
+                  Call +971 2 634 4403
+                </a>
+              </div>
+            </div>
+
+            <!-- Al Qana Map Embed -->
+            <div class="h-64 sm:h-72 border-t border-zinc-800 relative bg-zinc-900">
+              <iframe
+                class="w-full h-full grayscale contrast-125 opacity-80"
+                src="https://maps.google.com/maps?q=VENENO+AUTO+CARE+CENTER+AL+QANA+Abu+Dhabi&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Veneno Auto Care Center Al Qana Branch Map"
+              ></iframe>
+            </div>
+          </div>
+
         </div>
+
       </div>
     </section>
 

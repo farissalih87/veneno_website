@@ -7,6 +7,7 @@ const form = ref({
   name: '',
   phone: '',
   email: '',
+  branch: 'Musaffah — Main Branch',
   service: 'Paint Protection Film (PPF)',
   message: '',
 });
@@ -195,16 +196,28 @@ const handleSubmit = async () => {
                   </div>
                 </div>
 
-                <!-- Service Selector -->
+                <!-- Preferred Branch -->
                 <div>
-                  <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5">Desired Service</label>
+                  <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5">Preferred Branch</label>
                   <select
-                    v-model="form.service"
-                    class="w-full px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white focus:outline-none focus:border-red-500 text-sm transition-colors"
+                    v-model="form.branch"
+                    class="w-full px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white focus:outline-none focus:border-red-500 text-sm transition-colors font-semibold"
                   >
-                    <option v-for="srv in servicesOptions" :key="srv" :value="srv">{{ srv }}</option>
+                    <option value="Musaffah — Main Branch">Musaffah — Main Branch</option>
+                    <option value="Al Qana — Branch">Al Qana — Branch</option>
                   </select>
                 </div>
+              </div>
+
+              <!-- Desired Service Selector -->
+              <div>
+                <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5">Desired Service</label>
+                <select
+                  v-model="form.service"
+                  class="w-full px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white focus:outline-none focus:border-red-500 text-sm transition-colors"
+                >
+                  <option v-for="srv in servicesOptions" :key="srv" :value="srv">{{ srv }}</option>
+                </select>
               </div>
 
               <!-- Field 4: Message -->

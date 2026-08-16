@@ -20,6 +20,7 @@ const form = ref({
   name: '',
   phone: '',
   email: '',
+  branch: 'Musaffah — Main Branch',
   service: props.preselectedService || 'Paint Protection Film (PPF)',
   message: '',
 });
@@ -192,6 +193,18 @@ const handleClose = () => {
             />
             <Mail class="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
           </div>
+        </div>
+
+        <!-- Preferred Branch -->
+        <div>
+          <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5">Preferred Branch</label>
+          <select
+            v-model="form.branch"
+            class="w-full px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white focus:outline-none focus:border-red-500 text-sm transition-colors font-semibold"
+          >
+            <option value="Musaffah — Main Branch">Musaffah — Main Branch</option>
+            <option value="Al Qana — Branch">Al Qana — Branch</option>
+          </select>
         </div>
 
         <!-- Optional Service Dropdown -->

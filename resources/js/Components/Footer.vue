@@ -75,13 +75,23 @@ const services = [
 
         <!-- Workshop Contact -->
         <div class="space-y-3">
-          <h4 class="text-xs font-mono uppercase tracking-widest text-zinc-300 font-bold">Studio Hub</h4>
+          <h4 class="text-xs font-mono uppercase tracking-widest text-zinc-300 font-bold">Abu Dhabi Studios</h4>
           <ul class="space-y-2.5 text-xs">
             <li class="flex items-start gap-2 text-zinc-400">
               <MapPin class="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
-              <span>Al Quoz Industrial Area 3, Dubai, United Arab Emirates</span>
+              <div>
+                <strong class="text-zinc-200 block">Musaffah (Main Branch)</strong>
+                <span>Musaffah Industrial Area, Abu Dhabi, UAE</span>
+              </div>
             </li>
-            <li class="flex items-center gap-2 text-zinc-400">
+            <li class="flex items-start gap-2 text-zinc-400 pt-1">
+              <MapPin class="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              <div>
+                <strong class="text-zinc-200 block">Al Qana (Branch)</strong>
+                <span>Rabdan, Al Qana, Abu Dhabi, UAE</span>
+              </div>
+            </li>
+            <li class="flex items-center gap-2 text-zinc-400 pt-1">
               <Phone class="w-4 h-4 text-red-500 shrink-0" />
               <a href="tel:+97126344403" class="hover:text-white transition-colors font-mono font-bold">+971 2 634 4403</a>
             </li>

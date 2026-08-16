@@ -270,27 +270,31 @@ class StorefrontController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:50',
             'email' => 'required|email|max:255',
+            'branch' => 'nullable|string|max:255',
             'service' => 'nullable|string|max:255',
             'message' => 'required|string|max:3000',
         ]);
+
+        $selectedBranch = $validated['branch'] ?? 'Musaffah — Main Branch';
 
         // 1. Log Inquiry to CRM database
         $inquiry = Inquiry::create([
             'customer_name' => $validated['name'],
             'phone' => $validated['phone'],
-            'service_requested' => $validated['service'] ?? 'General Inquiry',
-            'message_text' => "Email: {$validated['email']}\n\nMessage:\n{$validated['message']}",
+            'service_requested' => ($validated['service'] ?? 'General Inquiry') . " ({$selectedBranch})",
+            'message_text' => "Branch: {$selectedBranch}\nEmail: {$validated['email']}\n\nMessage:\n{$validated['message']}",
             'status' => 'new',
         ]);
 
         // 2. Dispatch Email notification to company email info@veneno.ae
         try {
             $toEmail = 'info@veneno.ae';
-            $subject = "🏎️ New Quote Request from {$validated['name']} - Veneno Auto Care";
+            $subject = "🏎️ New Quote Request ({$selectedBranch}) from {$validated['name']} - Veneno Auto Care";
             $emailBody = "New Quote Request via veneno.ae\n\n"
                 . "Client Name: {$validated['name']}\n"
                 . "Phone: {$validated['phone']}\n"
                 . "Email: {$validated['email']}\n"
+                . "Preferred Branch: {$selectedBranch}\n"
                 . "Service Requested: " . ($validated['service'] ?? 'Not specified') . "\n\n"
                 . "Message:\n{$validated['message']}\n\n"
                 . "Inquiry ID: #{$inquiry->id}\n"
