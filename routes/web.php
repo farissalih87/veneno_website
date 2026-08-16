@@ -8,24 +8,19 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-// Public Storefront Routes (Multilingual Support: en | ar)
-Route::get('/', [StorefrontController::class, 'index'])->name('home.root');
+// Clean Primary Storefront Routes (In-Place Multilingual - Zero 404s)
+Route::get('/', [StorefrontController::class, 'home'])->name('home');
+Route::get('/services/{slug}', [StorefrontController::class, 'serviceDetail'])->name('service.detail');
+
+// Multilingual URL prefix fallbacks (en | ar)
 Route::get('/{locale}', [StorefrontController::class, 'home'])
-    ->where('locale', 'en|ar')
-    ->name('home');
+    ->where('locale', 'en|ar');
 Route::get('/{locale}/services/{slug}', [StorefrontController::class, 'serviceDetail'])
-    ->where('locale', 'en|ar')
-    ->name('service.detail');
+    ->where('locale', 'en|ar');
 
-// Legacy fallback routes
-Route::get('/services/{slug}', function (string $slug) {
-    return redirect("/en/services/{$slug}");
-});
-
+// API Routes
 Route::post('/api/quote', [StorefrontController::class, 'submitQuote'])->name('api.quote.submit');
 Route::post('/api/inquiries', [StorefrontController::class, 'storeInquiry'])->name('api.inquiries.store');
-
-
 
 // Booking Engine
 Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');

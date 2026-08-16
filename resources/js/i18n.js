@@ -1,123 +1,102 @@
 import { ref, computed } from 'vue';
-import en from './locales/en.json';
-import ar from './locales/ar.json';
-
-// Supported locales dictionary registry (plug-and-play for future languages)
-export const messages = {
-  en,
-  ar,
-};
+import enMessages from './locales/en.json';
+import arMessages from './locales/ar.json';
 
 export const supportedLocales = ['en', 'ar'];
 export const defaultLocale = 'en';
 
-export const currentLocale = ref(defaultLocale);
+const messages = {
+  en: enMessages,
+  ar: arMessages,
+};
 
-export const isRTL = computed(() => currentLocale.value === 'ar');
-
-/**
- * Detect initial locale based on stored user preference or browser/device language
- */
+// Detect initial locale from LocalStorage or Browser Language
 export function detectInitialLocale() {
-  if (typeof window === 'undefined') return defaultLocale;
+  if (typeof window !== 'undefined') {
+    const saved = localStorage.getItem('veneno_locale');
+    if (saved && supportedLocales.includes(saved)) {
+      return saved;
+    }
 
-  // 1. Check user's previous preference in localStorage
-  const saved = localStorage.getItem('veneno_locale');
-  if (saved && supportedLocales.includes(saved)) {
-    return saved;
-  }
-
-  // 2. Check device / browser language
-  const browserLang = navigator.language || navigator.userLanguage || '';
-  if (browserLang.toLowerCase().startsWith('ar')) {
-    return 'ar';
+    const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+    if (browserLang.startsWith('ar')) {
+      return 'ar';
+    }
   }
 
   return defaultLocale;
 }
 
-/**
- * Switch active locale, update localStorage, and configure document dir & lang
- */
-export function setLocale(lang) {
-  if (!supportedLocales.includes(lang)) {
-    lang = defaultLocale;
-  }
+export const currentLocaleRef = ref(detectInitialLocale());
 
-  currentLocale.value = lang;
+export function setLocale(lang) {
+  if (!supportedLocales.includes(lang)) return;
+
+  currentLocaleRef.value = lang;
 
   if (typeof window !== 'undefined') {
     localStorage.setItem('veneno_locale', lang);
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.dir = (lang === 'ar' ? 'rtl' : 'ltr');
     document.documentElement.lang = lang;
   }
 }
 
-/**
- * Translation helper with nested key support and param interpolation:
- * e.g., t('nav.home'), t('services.hoursApplication', { hours: 8 })
- */
-export function t(key, params = {}) {
-  const lang = currentLocale.value || defaultLocale;
-  const dict = messages[lang] || messages[defaultLocale];
+export function getLocalizedPath(pathname, targetLocale) {
+  return pathname || '/';
+}
 
-  const keys = key.split('.');
-  let value = dict;
+export function t(keyPath, params = {}) {
+  const locale = currentLocaleRef.value;
+  const localeDict = messages[locale] || messages[defaultLocale];
+  const fallbackDict = messages[defaultLocale];
 
-  for (const k of keys) {
-    if (value && typeof value === 'object' && k in value) {
-      value = value[k];
+  const keys = keyPath.split('.');
+  let result = localeDict;
+
+  for (const key of keys) {
+    if (result && result[key] !== undefined) {
+      result = result[key];
     } else {
-      // Fallback to English dictionary
-      let fallback = messages[defaultLocale];
-      for (const fk of keys) {
-        if (fallback && typeof fallback === 'object' && fk in fallback) {
-          fallback = fallback[fk];
-        } else {
-          fallback = key;
-          break;
-        }
-      }
-      value = fallback;
+      result = undefined;
       break;
     }
   }
 
-  if (typeof value !== 'string') {
-    return key;
+  // Fallback if key is missing in active locale
+  if (result === undefined) {
+    result = fallbackDict;
+    for (const key of keys) {
+      if (result && result[key] !== undefined) {
+        result = result[key];
+      } else {
+        result = keyPath;
+        break;
+      }
+    }
   }
 
-  // Replace parameters {paramName}
-  return value.replace(/\{(\w+)\}/g, (match, paramName) => {
-    return params[paramName] !== undefined ? params[paramName] : match;
-  });
-}
-
-/**
- * Converts a current URL/path to the equivalent URL in targetLocale:
- * e.g. /en/services/ppf -> /ar/services/ppf
- */
-export function getLocalizedPath(pathname, targetLocale) {
-  if (!pathname) return `/${targetLocale}`;
-
-  const cleanPath = pathname.startsWith('/') ? pathname : `/${pathname}`;
-  const parts = cleanPath.split('/').filter(Boolean);
-
-  if (parts.length > 0 && supportedLocales.includes(parts[0])) {
-    parts[0] = targetLocale;
-    return `/${parts.join('/')}`;
+  if (typeof result !== 'string') {
+    return keyPath;
   }
 
-  return `/${targetLocale}${cleanPath}`;
+  // Replace interpolation params: {name}, {hours}, etc.
+  let text = result;
+  for (const [paramKey, paramVal] of Object.entries(params)) {
+    text = text.replaceAll(`{${paramKey}}`, paramVal);
+  }
+
+  return text;
 }
 
 export function useI18n() {
+  const currentLocale = computed(() => currentLocaleRef.value);
+  const isRTL = computed(() => currentLocaleRef.value === 'ar');
+
   return {
-    t,
     currentLocale,
     isRTL,
     setLocale,
-    supportedLocales,
+    t,
     getLocalizedPath,
   };
 }

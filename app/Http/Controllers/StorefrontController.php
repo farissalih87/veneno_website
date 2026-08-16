@@ -284,22 +284,11 @@ class StorefrontController extends Controller
     }
 
     /**
-     * Root URL router with intelligent client-side redirect fallback
+     * Homepage with localized content & 9 services (In-Place rendering)
      */
-    public function index(Request $request)
+    public function home(Request $request, ?string $locale = 'en'): Response
     {
-        $acceptLang = $request->header('Accept-Language', '');
-        $preferredLocale = str_contains(strtolower($acceptLang), 'ar') ? 'ar' : 'en';
-
-        return redirect("/{$preferredLocale}");
-    }
-
-    /**
-     * Homepage with localized content & 9 services
-     */
-    public function home(string $locale = 'en'): Response
-    {
-        if (!in_array($locale, ['en', 'ar'])) {
+        if (!$locale || !in_array($locale, ['en', 'ar'])) {
             $locale = 'en';
         }
 
@@ -330,17 +319,24 @@ class StorefrontController extends Controller
     /**
      * Dedicated Standalone Service Landing Page
      */
-    public function serviceDetail(string $locale, string $slug): Response
+    public function serviceDetail(Request $request, string $param1, ?string $param2 = null): Response
     {
-        if (!in_array($locale, ['en', 'ar'])) {
+        // Support both /services/{slug} and /{locale}/services/{slug}
+        if ($param2) {
+            $locale = in_array($param1, ['en', 'ar']) ? $param1 : 'en';
+            $slug = $param2;
+        } else {
             $locale = 'en';
+            $slug = $param1;
         }
 
         $services = self::getOfficialServices($locale);
         $service = collect($services)->firstWhere('slug', $slug);
 
         if (!$service) {
-            abort(404, 'Service not found');
+            // Fallback match across all services
+            $service = collect(self::getOfficialServices('en'))->firstWhere('slug', $slug)
+                ?? abort(404, 'Service not found');
         }
 
         return Inertia::render('Storefront/ServiceDetail', [
