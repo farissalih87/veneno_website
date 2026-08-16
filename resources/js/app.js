@@ -18,7 +18,14 @@ createInertiaApp({
             import.meta.glob('./Pages/**/*.vue'),
         ),
     setup({ el, App, props, plugin }) {
-        const initialLang = props.initialPage.props.locale || detectInitialLocale();
+        // Always prioritise the user's saved locale (localStorage) over the
+        // server-sent prop. The server defaults to 'en' for every URL, which
+        // would otherwise overwrite the user's Arabic preference on every
+        // page load or Inertia navigation.
+        const savedLocale = typeof window !== 'undefined'
+            ? localStorage.getItem('veneno_locale')
+            : null;
+        const initialLang = savedLocale || props.initialPage.props.locale || detectInitialLocale();
         setLocale(initialLang);
 
         const app = createApp({ render: () => h(App, props) });
