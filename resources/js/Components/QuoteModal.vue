@@ -66,7 +66,7 @@ const handleSubmit = async () => {
     }
   } catch (err) {
     console.error('Quote submit error:', err);
-    errorMessage.value = err.response?.data?.message || 'Unable to submit quote. Please contact us directly via WhatsApp or +971 2 634 4403.';
+    errorMessage.value = err.response?.data?.message || 'Unable to submit quote. Please contact us directly via WhatsApp.';
   } finally {
     isSubmitting.value = false;
   }

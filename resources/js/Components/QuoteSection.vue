@@ -44,7 +44,7 @@ const handleSubmit = async () => {
     }
   } catch (err) {
     console.error('Quote submission error:', err);
-    errorMessage.value = err.response?.data?.message || 'Something went wrong. Please reach us directly at info@veneno.ae or +971 2 634 4403.';
+    errorMessage.value = err.response?.data?.message || 'Something went wrong. Please reach us directly via WhatsApp or info@veneno.ae.';
   } finally {
     isSubmitting.value = false;
   }

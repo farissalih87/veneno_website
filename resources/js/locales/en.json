@@ -16,10 +16,13 @@
     "allServices": "All 9 Services",
     "getQuote": "Get a Quote",
     "whatsapp": "WhatsApp",
-    "contactNow": "+971 2 634 4403",
     "langEn": "English",
     "langAr": "العربية",
     "selectLang": "Select Language"
+  },
+  "whatsapp": {
+    "chatWithConcierge": "Chat with Concierge",
+    "chatNow": "Chat on WhatsApp"
   },
   "hero": {
     "badge": "UAE's Largest Multi-Brand Auto Care Center",
@@ -154,8 +157,8 @@
     "subtitle": "Every exotic is unique. Our master technicians will prepare an itemized treatment proposal tailored to your vehicle condition and requirements.",
     "warrantyTitle": "Trusted Official Warranty",
     "warrantyDesc": "Official warranty certificates provided for all 3M PPF & GYEON ceramic installations.",
-    "whatsappTitle": "Direct WhatsApp Chat",
-    "whatsappDesc": "Prefer instant messaging? Connect with our landline on WhatsApp: +971 2 634 4403.",
+    "whatsappTitle": "Official WhatsApp Concierge",
+    "whatsappDesc": "Instant messaging, vehicle photo appraisal, and instant proposal.",
     "emailTitle": "Company Email",
     "emailDesc": "Direct corporate inquiries: info@veneno.ae",
     "modalHeader": "Instant Concierge Quotation",

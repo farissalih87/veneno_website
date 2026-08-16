@@ -1,22 +1,30 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { useI18n } from '../i18n';
+
+const { t, currentLocale } = useI18n();
 
 const phone = '97126344403';
-const defaultMessage = 'Hello Veneno Auto Care, I would like to inquire about your luxury detailing and protection services.';
-const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(defaultMessage)}`;
 const showTooltip = ref(true);
+
+const whatsappUrl = computed(() => {
+  const message = currentLocale.value === 'ar'
+    ? 'مرحباً مركز فينينو للعناية بالسيارات، أود الاستفسار عن خدمات العناية والحماية الفاخرة لسيارتي.'
+    : 'Hello Veneno Auto Care, I would like to inquire about your luxury detailing and protection services.';
+  return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+});
 </script>
 
 <template>
-  <div class="fixed bottom-6 right-6 z-50 flex items-center gap-3">
-    <!-- Quick Tooltip -->
+  <div class="fixed bottom-6 right-6 rtl:right-auto rtl:left-6 z-50 flex items-center gap-3 rtl:flex-row-reverse">
+    <!-- Quick Tooltip (Translated) -->
     <div
       v-if="showTooltip"
-      class="hidden md:flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-zinc-900/95 backdrop-blur-md border border-zinc-800 text-xs font-semibold text-zinc-200 shadow-2xl shadow-black/80 animate-in fade-in slide-in-from-right-3 duration-300"
+      class="hidden md:flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-zinc-900/95 backdrop-blur-md border border-zinc-800 text-xs font-semibold text-zinc-200 shadow-2xl shadow-black/80 animate-in fade-in slide-in-from-right-3 rtl:slide-in-from-left-3 duration-300"
     >
       <span class="w-2 h-2 rounded-full bg-[#25D366] animate-ping"></span>
-      <span>Chat with Concierge</span>
-      <button @click="showTooltip = false" class="text-zinc-500 hover:text-white ml-1 text-xs">×</button>
+      <span>{{ t('whatsapp.chatWithConcierge') }}</span>
+      <button @click="showTooltip = false" class="text-zinc-500 hover:text-white mx-1 text-xs">×</button>
     </div>
 
     <!-- Official Floating WhatsApp Button -->
@@ -25,8 +33,8 @@ const showTooltip = ref(true);
       target="_blank"
       rel="noopener noreferrer"
       class="relative group w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white flex items-center justify-center shadow-2xl shadow-[#25D366]/40 transform hover:scale-110 transition-all duration-300 focus:outline-none"
-      title="Chat on Official WhatsApp (+971 2 634 4403)"
-      aria-label="Chat on WhatsApp"
+      title="WhatsApp"
+      aria-label="WhatsApp"
     >
       <!-- Pulse Ring -->
       <span class="absolute inset-0 rounded-full bg-[#25D366] opacity-30 animate-ping pointer-events-none"></span>
