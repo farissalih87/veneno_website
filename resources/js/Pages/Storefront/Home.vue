@@ -629,8 +629,8 @@ const openQuoteWithService = (serviceName) => {
       </div>
     </div>
 
-    <!-- 5. BEFORE / AFTER INTERACTIVE SHOWCASE -->
-    <section class="py-10 sm:py-20 bg-zinc-950 relative border-t border-zinc-900">
+    <!-- 5. BEFORE / AFTER INTERACTIVE SHOWCASE LAB -->
+    <section id="lab" class="py-10 sm:py-20 bg-zinc-950 relative border-t border-zinc-900">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-6 sm:mb-12">
           <span class="text-xs font-mono uppercase tracking-widest text-red-500 font-bold">{{ t('lab.tag') }}</span>
@@ -642,12 +642,7 @@ const openQuoteWithService = (serviceName) => {
           </p>
         </div>
 
-        <BeforeAfterSlider
-          beforeImage="/images/services/detailing/PHOTO-2024-07-12-14-12-51 18.JPG"
-          afterImage="/images/services/detailing/PHOTO-2024-07-12-14-12-51 24.JPG"
-          title="Porsche 911 Turbo S"
-          :subtitle="t('lab.caption')"
-        />
+        <BeforeAfterSlider />
       </div>
     </section>
 
