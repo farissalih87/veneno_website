@@ -113,24 +113,24 @@ const openQuoteWithService = (serviceName) => {
           {{ t('hero.subtitle') }}
         </p>
 
-        <!-- CTA Action Buttons (Action vs Discovery) -->
-        <div class="mt-6 sm:mt-10 grid grid-cols-2 sm:flex items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
+        <!-- CTA Action Buttons (Action vs Discovery - Mathematically Symmetrical) -->
+        <div class="mt-6 sm:mt-10 grid grid-cols-2 sm:flex items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-sm sm:max-w-none mx-auto">
           <!-- Primary CTA: Request Quote -->
           <button
             @click="isQuoteModalOpen = true"
-            class="px-4 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-display font-semibold text-xs uppercase tracking-wider shadow-2xl shadow-red-600/40 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 sm:gap-3"
+            class="h-14 sm:h-14 px-3 sm:px-8 rounded-xl sm:rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-red-700 hover:from-red-500 hover:to-red-600 active:scale-95 text-white font-display font-bold text-[11px] sm:text-xs uppercase tracking-wider shadow-2xl shadow-red-600/40 border border-red-400/30 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-1.5 sm:gap-2.5 text-center leading-snug"
           >
-            <Sparkles class="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-            <span>{{ t('hero.getQuoteBtn') }}</span>
+            <Sparkles class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 text-white animate-pulse" />
+            <span class="truncate">{{ t('hero.getQuoteBtn') }}</span>
           </button>
 
           <!-- Secondary CTA: Explore Treatments & Pricing -->
           <a
             href="#services"
-            class="px-4 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl glass-panel hover:bg-zinc-900 border border-zinc-700/80 hover:border-red-500/50 text-zinc-200 hover:text-white font-display font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 sm:gap-3 transition-all shadow-xl"
+            class="h-14 sm:h-14 px-3 sm:px-8 rounded-xl sm:rounded-2xl bg-zinc-900/90 hover:bg-zinc-850 active:scale-95 border border-zinc-700/80 hover:border-red-500/50 text-zinc-100 hover:text-white font-display font-bold text-[11px] sm:text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 sm:gap-2.5 transition-all shadow-xl shadow-black/60 text-center leading-snug transform hover:-translate-y-0.5"
           >
-            <Layers class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-500" />
-            <span>{{ t('hero.exploreServicesBtn') }}</span>
+            <Layers class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 text-red-500" />
+            <span class="truncate">{{ t('hero.exploreServicesBtn') }}</span>
           </a>
         </div>
 
