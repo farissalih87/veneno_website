@@ -160,16 +160,11 @@ const openQuoteWithService = (serviceName) => {
             <div class="text-[9px] sm:text-[11px] font-mono uppercase text-zinc-400 mt-0.5 sm:mt-1 line-clamp-1">{{ t('hero.statMultiBrand') }}</div>
           </div>
 
-          <!-- ISO Official Logo -->
+          <!-- ISO Official Logos -->
           <div class="glass-panel p-2.5 sm:p-4 rounded-xl sm:rounded-2xl border border-zinc-800 text-center flex flex-col items-center justify-center">
-            <div class="h-7 sm:h-12 flex items-center justify-center">
-              <!-- ISO official wordmark SVG -->
-              <svg class="h-6 sm:h-10 w-auto" viewBox="0 0 90 40" xmlns="http://www.w3.org/2000/svg" aria-label="ISO Certified" role="img">
-                <!-- Red background rectangle -->
-                <rect width="90" height="40" rx="4" fill="#E2001A"/>
-                <!-- ISO white lettering -->
-                <text x="45" y="30" font-family="Arial Black, Arial, sans-serif" font-size="28" font-weight="900" fill="white" text-anchor="middle" letter-spacing="2">ISO</text>
-              </svg>
+            <div class="h-7 sm:h-12 flex items-center justify-center gap-1.5 sm:gap-2">
+              <img src="/images/certifications/iso-9001.svg" alt="ISO 9001:2015" class="h-5 sm:h-8 w-auto object-contain rounded bg-white p-0.5 shadow" />
+              <img src="/images/certifications/iso-45001.png" alt="ISO 45001:2018" class="h-5 sm:h-8 w-auto object-contain rounded bg-white p-0.5 shadow" />
             </div>
             <div class="text-[9px] sm:text-[11px] font-mono uppercase text-zinc-400 mt-0.5 sm:mt-1 line-clamp-1">{{ t('hero.statIso') }}</div>
           </div>
@@ -562,31 +557,35 @@ const openQuoteWithService = (serviceName) => {
           </div>
 
           <!-- ISO 9001:2015 Card -->
-          <div class="glass-panel p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 text-center flex flex-col items-center justify-between space-y-2 sm:space-y-4">
+          <div class="glass-panel p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 text-center flex flex-col items-center justify-between space-y-2 sm:space-y-4 hover:border-blue-500/40 transition-all group">
             <div class="h-10 sm:h-16 flex items-center justify-center">
-              <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-full border-2 border-red-500/80 flex items-center justify-center font-display font-bold text-white text-xs sm:text-sm bg-red-600/10">
-                ISO 9001
-              </div>
+              <img
+                src="/images/certifications/iso-9001.svg"
+                alt="ISO 9001:2015 Quality Management Certified"
+                class="h-9 sm:h-14 w-auto object-contain rounded-lg bg-white p-1 shadow-md group-hover:scale-105 transition-transform"
+              />
             </div>
             <div>
-              <h4 class="text-[11px] sm:text-xs font-bold text-white uppercase tracking-wider">Quality Mgmt</h4>
+              <h4 class="text-[11px] sm:text-xs font-bold text-white uppercase tracking-wider">ISO 9001:2015</h4>
               <p class="text-[9px] sm:text-[11px] text-zinc-400 mt-0.5 sm:mt-1 line-clamp-1 sm:line-clamp-none">{{ t('brands.iso9001') }}</p>
             </div>
-            <span class="px-2.5 py-0.5 sm:py-1 rounded-full bg-red-950/60 text-red-300 border border-red-800/40 text-[9px] sm:text-[10px] font-mono">9001:2015</span>
+            <span class="px-2.5 py-0.5 sm:py-1 rounded-full bg-blue-950/60 text-blue-300 border border-blue-800/40 text-[9px] sm:text-[10px] font-mono">Quality Mgmt</span>
           </div>
 
           <!-- ISO 45001:2018 Card -->
-          <div class="glass-panel p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 text-center flex flex-col items-center justify-between space-y-2 sm:space-y-4">
+          <div class="glass-panel p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 text-center flex flex-col items-center justify-between space-y-2 sm:space-y-4 hover:border-emerald-500/40 transition-all group">
             <div class="h-10 sm:h-16 flex items-center justify-center">
-              <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-full border-2 border-red-500/80 flex items-center justify-center font-display font-bold text-white text-xs sm:text-sm bg-red-600/10">
-                ISO 45001
-              </div>
+              <img
+                src="/images/certifications/iso-45001.png"
+                alt="ISO 45001:2018 Health & Safety Certified"
+                class="h-9 sm:h-14 w-auto object-contain rounded-lg bg-white p-1 shadow-md group-hover:scale-105 transition-transform"
+              />
             </div>
             <div>
-              <h4 class="text-[11px] sm:text-xs font-bold text-white uppercase tracking-wider">Health & Safety</h4>
+              <h4 class="text-[11px] sm:text-xs font-bold text-white uppercase tracking-wider">ISO 45001:2018</h4>
               <p class="text-[9px] sm:text-[11px] text-zinc-400 mt-0.5 sm:mt-1 line-clamp-1 sm:line-clamp-none">{{ t('brands.iso45001') }}</p>
             </div>
-            <span class="px-2.5 py-0.5 sm:py-1 rounded-full bg-red-950/60 text-red-300 border border-red-800/40 text-[9px] sm:text-[10px] font-mono">45001:2018</span>
+            <span class="px-2.5 py-0.5 sm:py-1 rounded-full bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[9px] sm:text-[10px] font-mono">Health & Safety</span>
           </div>
         </div>
       </div>

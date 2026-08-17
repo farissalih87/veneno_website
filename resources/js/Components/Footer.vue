@@ -133,12 +133,12 @@ const scrollToTop = () => {
             </div>
 
             <div class="glass-panel p-2.5 rounded-xl border border-zinc-800 flex items-center gap-2">
-              <ShieldCheck class="w-4 h-4 text-emerald-400 shrink-0" />
+              <img src="/images/certifications/iso-9001.svg" alt="ISO 9001:2015" class="w-4 h-4 object-contain rounded bg-white p-0.5 shrink-0" />
               <span class="text-[10px] font-mono text-zinc-300 font-medium line-clamp-1">ISO 9001:2015</span>
             </div>
 
             <div class="glass-panel p-2.5 rounded-xl border border-zinc-800 flex items-center gap-2">
-              <Award class="w-4 h-4 text-amber-400 shrink-0" />
+              <img src="/images/certifications/iso-45001.png" alt="ISO 45001:2018" class="w-4 h-4 object-contain rounded bg-white p-0.5 shrink-0" />
               <span class="text-[10px] font-mono text-zinc-300 font-medium line-clamp-1">ISO 45001:2018</span>
             </div>
           </div>
