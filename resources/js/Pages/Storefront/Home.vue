@@ -77,8 +77,8 @@ const openQuoteWithService = (serviceName) => {
     <section id="home" class="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-zinc-950">
       <!-- Background Video Overlay & Media -->
       <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
-        <!-- YouTube Background Video -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] opacity-55 filter brightness-75 contrast-110">
+        <!-- YouTube Background Video with Enhanced Transparency & Clarity -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] opacity-80 filter brightness-90 contrast-105">
           <iframe
             class="w-full h-full pointer-events-none"
             src="https://www.youtube-nocookie.com/embed/I4cZjZX3S00?autoplay=1&mute=1&loop=1&playlist=I4cZjZX3S00&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1&playsinline=1"
@@ -89,28 +89,22 @@ const openQuoteWithService = (serviceName) => {
           ></iframe>
         </div>
 
-        <!-- Dark Gradient Overlays -->
-        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/65 to-zinc-950/40"></div>
-        <div class="absolute inset-0 bg-gradient-to-r from-zinc-950/85 via-transparent to-zinc-950/85"></div>
-        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-red-600/20 rounded-full blur-3xl pointer-events-none"></div>
+        <!-- Lightened Transparent Gradient Overlays -->
+        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-zinc-950/20"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-zinc-950/50 via-transparent to-zinc-950/50"></div>
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-red-600/15 rounded-full blur-3xl pointer-events-none"></div>
       </div>
 
       <!-- Hero Content -->
       <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-        <!-- Floating Accreditation Badge -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border border-red-500/30 text-xs font-mono text-zinc-300 mb-6 shadow-xl shadow-black/60 animate-in fade-in slide-in-from-top-4 duration-300">
-          <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-          <span class="text-red-400 font-bold uppercase tracking-wider">{{ t('hero.badge') }}</span>
-        </div>
-
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-display font-semibold uppercase tracking-wider text-white max-w-5xl mx-auto leading-[1.15]">
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-display font-semibold uppercase tracking-wider text-white max-w-5xl mx-auto leading-[1.15] drop-shadow-md">
           {{ t('hero.titleLine1') }} <br class="hidden sm:inline" />
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-white to-red-400">
             {{ t('hero.titleLine2') }}
           </span>
         </h1>
 
-        <p class="mt-6 text-base sm:text-lg text-zinc-300 max-w-2xl mx-auto font-light leading-relaxed">
+        <p class="mt-6 text-base sm:text-lg text-zinc-200 max-w-2xl mx-auto font-light leading-relaxed drop-shadow">
           {{ t('hero.subtitle') }}
         </p>
 

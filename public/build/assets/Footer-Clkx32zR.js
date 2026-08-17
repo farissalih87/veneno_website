@@ -1,4 +1,4 @@
-import{A,B as S,o,c as f,d as e,a as c,w as v,b as t,l as x,x as O,t as r,e as g,n as w,F as M,k as H,g as C,i as h,z as D,r as k,m as N}from"./app-CrlAS6E5.js";import{c as p,M as V}from"./mail-wsSgN-h0.js";/**
+import{A,B as S,o,c as f,d as e,a as c,w as v,b as t,l as x,x as O,t as r,e as g,n as w,F as M,k as H,g as C,i as h,z as D,r as k,m as N}from"./app-DZx4F0bo.js";import{c as p,M as V}from"./mail-CQ1BgWjn.js";/**
  * @license lucide-vue-next v0.475.0 - ISC
  *
  * This source code is licensed under the ISC license.
