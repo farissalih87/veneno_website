@@ -224,16 +224,29 @@
     "call": "Call +971 2 634 4403"
   },
   "footer": {
-    "description": "UAE's largest multi-brand auto care center in Abu Dhabi. Official 3M Pro Shop Dealer & GYEON Certified Detailer for self-healing PPF, nano ceramic coatings, and concourse vehicle rejuvenation.",
-    "certified": "Over 150 Professionals",
-    "accredited": "3M & GYEON Accredited",
-    "servicesTitle": "Our 9 Services",
-    "studiosTitle": "Abu Dhabi Centers",
-    "musaffahLabel": "Musaffah (Main Branch)",
+    "preTitle": "Elevate Your Vehicle's Protection & Brilliance",
+    "preSubtitle": "Consult directly with our master technicians in Abu Dhabi for bespoke PPF, Ceramic Shield, and Concourse Restoration solutions.",
+    "ctaQuote": "Request Official Proposal",
+    "ctaWhatsApp": "WhatsApp Concierge",
+    "ctaCall": "Direct Hotline",
+    "description": "VENENO is the UAE's premier multi-brand automotive care facility in Abu Dhabi. Official 3M™ Pro Shop Dealer, GYEON® Certified Detailer, and ISO 9001:2015 & ISO 45001:2018 accredited.",
+    "certified": "Over 150 Certified Professionals",
+    "accredited": "3M & GYEON Certified Agent",
+    "armorTitle": "Surface Armor & Films",
+    "restorationTitle": "Specialized Restoration",
+    "facilitiesTitle": "Corporate Facilities",
+    "corporateTitle": "Corporate Governance",
+    "musaffahLabel": "Musaffah Main Facility",
     "musaffahLoc": "Musaffah Industrial Area, Abu Dhabi, UAE",
-    "alQanaLabel": "Al Qana (Branch)",
+    "alQanaLabel": "Al Qana Waterfront Studio",
     "alQanaLoc": "Rabdan, Al Qana, Abu Dhabi, UAE",
-    "hours": "Mon - Sat: 9:00 AM - 8:00 PM",
-    "rights": "All Rights Reserved."
+    "hours": "Mon - Sat: 9:00 AM – 8:00 PM (Closed Sunday)",
+    "phone": "+971 2 634 4403",
+    "email": "info@veneno.ae",
+    "backToTop": "Back to Top",
+    "legalName": "VENENO AUTO CARE CENTER L.L.C.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "rights": "All Rights Reserved. Registered in Abu Dhabi, United Arab Emirates."
   }
 }

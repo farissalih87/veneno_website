@@ -959,7 +959,7 @@ const openQuoteWithService = (serviceName) => {
     </section>
 
     <!-- Footer -->
-    <Footer :services="activeServices" />
+    <Footer :services="activeServices" @open-quote="isQuoteModalOpen = true" />
 
     <!-- STICKY MOBILE CONVERSION BAR (Instant 1-Tap Action on Mobile) -->
     <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-zinc-950/95 backdrop-blur-2xl border-t border-zinc-800/90 px-3.5 py-2.5 shadow-2xl shadow-black flex items-center gap-2">
