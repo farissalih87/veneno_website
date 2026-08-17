@@ -382,8 +382,14 @@ const openQuoteWithService = (serviceName) => {
     </section>
 
     <!-- 3. WHY CHOOSE VENENO: 7 PILLARS (Swipeable on Mobile) -->
-    <section id="why-us" class="py-12 sm:py-24 bg-zinc-950 relative border-t border-zinc-900">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="why-us" class="py-12 sm:py-24 bg-zinc-950/80 relative border-t border-zinc-900 overflow-hidden">
+      <!-- Background Watermark Typography for Depth -->
+      <div class="absolute top-1/2 left-0 right-0 -translate-y-1/2 flex justify-center pointer-events-none opacity-25 select-none overflow-hidden">
+        <span class="watermark-text font-display">7 PILLARS OF CARE</span>
+      </div>
+      <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-red-600/10 rounded-full blur-3xl pointer-events-none animate-glow-pulse"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center max-w-3xl mx-auto mb-8 sm:mb-16">
           <span class="text-xs font-mono uppercase tracking-widest text-red-500 font-bold">{{ t('whyUs.tag') }}</span>
           <h2 class="text-2xl sm:text-4xl font-display font-semibold uppercase tracking-wider text-white mt-1">
@@ -509,8 +515,13 @@ const openQuoteWithService = (serviceName) => {
     </section>
 
     <!-- 4. OFFICIAL BRAND PARTNERS (3M & GYEON) & ISO CERTIFICATES (2x2 on Mobile) -->
-    <section id="certificates" class="py-10 sm:py-20 bg-zinc-950 relative border-t border-zinc-900">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="certificates" class="py-10 sm:py-20 bg-zinc-950 relative border-t border-zinc-900 overflow-hidden">
+      <!-- Background Watermark -->
+      <div class="absolute top-1/2 left-0 right-0 -translate-y-1/2 flex justify-center pointer-events-none opacity-20 select-none overflow-hidden">
+        <span class="watermark-text font-display">GLOBAL CERTIFIED</span>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
           <span class="text-xs font-mono uppercase tracking-widest text-red-500 font-bold">{{ t('brands.tag') }}</span>
           <h2 class="text-xl sm:text-3xl font-display font-semibold uppercase tracking-wider text-white mt-1">
@@ -582,6 +593,53 @@ const openQuoteWithService = (serviceName) => {
       </div>
     </section>
 
+    <!-- DYNAMIC IMPACT HIGHLIGHTS STRIP (Animated Badges & Visual Momentum) -->
+    <div class="relative py-6 bg-zinc-950/80 border-t border-zinc-900 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+          <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex items-center gap-3 group">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-red-600/15 border border-red-500/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+              <ShieldCheck class="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />
+            </div>
+            <div>
+              <div class="text-xs sm:text-sm font-bold text-white font-mono uppercase tracking-wide">10-Year 3M PPF</div>
+              <div class="text-[10px] sm:text-[11px] text-zinc-400 font-mono">{{ currentLocale === 'ar' ? 'ضمان رسمي معتمد' : 'Authorized Warranty' }}</div>
+            </div>
+          </div>
+
+          <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex items-center gap-3 group">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+              <Car class="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
+            </div>
+            <div>
+              <div class="text-xs sm:text-sm font-bold text-white font-mono uppercase tracking-wide">5,000+ Supercars</div>
+              <div class="text-[10px] sm:text-[11px] text-zinc-400 font-mono">{{ currentLocale === 'ar' ? 'ثقة أصحاب السيارات الفارهة' : 'Protected in UAE' }}</div>
+            </div>
+          </div>
+
+          <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex items-center gap-3 group">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+              <Gem class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" />
+            </div>
+            <div>
+              <div class="text-xs sm:text-sm font-bold text-white font-mono uppercase tracking-wide">9H+ GYEON Quartz</div>
+              <div class="text-[10px] sm:text-[11px] text-zinc-400 font-mono">{{ currentLocale === 'ar' ? 'سيراميك كيميائي نانو' : 'Ceramic Diamond' }}</div>
+            </div>
+          </div>
+
+          <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex items-center gap-3 group">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+              <MapPin class="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
+            </div>
+            <div>
+              <div class="text-xs sm:text-sm font-bold text-white font-mono uppercase tracking-wide">2 Abu Dhabi Hubs</div>
+              <div class="text-[10px] sm:text-[11px] text-zinc-400 font-mono">{{ currentLocale === 'ar' ? 'مصفح & القناة' : 'Musaffah & Al Qana' }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- 5. BEFORE / AFTER INTERACTIVE SHOWCASE -->
     <section class="py-10 sm:py-20 bg-zinc-950 relative border-t border-zinc-900">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -605,8 +663,14 @@ const openQuoteWithService = (serviceName) => {
     </section>
 
     <!-- 6. OFFICIAL 9 CORE SERVICES GRID (High-Conversion Cards) -->
-    <section id="services" class="py-12 sm:py-24 bg-zinc-950 relative border-t border-zinc-900">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" class="py-12 sm:py-24 bg-zinc-950 relative border-t border-zinc-900 overflow-hidden">
+      <!-- Background Watermark -->
+      <div class="absolute top-1/4 left-0 right-0 -translate-y-1/2 flex justify-center pointer-events-none opacity-20 select-none overflow-hidden">
+        <span class="watermark-text font-display">MASTER CRAFTSMANSHIP</span>
+      </div>
+      <div class="absolute -top-32 -left-32 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none animate-glow-pulse"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-16 gap-4 sm:gap-6">
           <div>
             <span class="text-xs font-mono uppercase tracking-widest text-red-500 font-bold">{{ t('services.tag') }}</span>
@@ -712,8 +776,14 @@ const openQuoteWithService = (serviceName) => {
     <QuoteSection />
 
     <!-- 9. CONTACT US & 2 ABU DHABI BRANCHES -->
-    <section id="contact" class="py-12 sm:py-24 bg-zinc-950 relative border-t border-zinc-900">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" class="py-12 sm:py-24 bg-zinc-950/90 relative border-t border-zinc-900 overflow-hidden">
+      <!-- Background Watermark -->
+      <div class="absolute bottom-6 left-0 right-0 flex justify-center pointer-events-none opacity-20 select-none overflow-hidden">
+        <span class="watermark-text font-display">ABU DHABI • UAE</span>
+      </div>
+      <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none animate-glow-pulse"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-16">
           <span class="text-xs font-mono uppercase tracking-widest text-red-500 font-bold">{{ t('branches.tag') }}</span>
           <h2 class="text-2xl sm:text-4xl font-display font-semibold uppercase tracking-wider text-white mt-1">
