@@ -6,9 +6,7 @@ import {
   Menu,
   X,
   Globe,
-  Check,
-  Share2,
-  ExternalLink
+  Check
 } from 'lucide-vue-next';
 import { useI18n } from '../i18n';
 import { getServicesByLocale } from '../data/services';
@@ -27,10 +25,8 @@ const { t, currentLocale, setLocale } = useI18n();
 const isMobileMenuOpen = ref(false);
 const isServicesDropdownOpen = ref(false);
 const isLangDropdownOpen = ref(false);
-const isSocialDropdownOpen = ref(false);
 
 const dropdownRef = ref(null);
-const socialDropdownRef = ref(null);
 
 const activeServices = computed(() => {
   return getServicesByLocale(currentLocale.value);
@@ -39,9 +35,6 @@ const activeServices = computed(() => {
 const handleClickOutside = (event) => {
   if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
     isLangDropdownOpen.value = false;
-  }
-  if (socialDropdownRef.value && !socialDropdownRef.value.contains(event.target)) {
-    isSocialDropdownOpen.value = false;
   }
 };
 
@@ -131,164 +124,9 @@ const scrollTo = (elementId) => {
           </a>
         </nav>
 
-        <!-- Right Side: Social Media Icons + Language Switcher & Get a Quote CTA -->
+        <!-- Right Side: Language Switcher & Get a Quote CTA -->
         <div class="hidden sm:flex items-center gap-3">
           
-          <!-- Desktop Luxury Social Hub Dropdown -->
-          <div ref="socialDropdownRef" class="relative hidden lg:block" @mouseleave="isSocialDropdownOpen = false">
-            <button
-              @click="isSocialDropdownOpen = !isSocialDropdownOpen"
-              @mouseenter="isSocialDropdownOpen = true"
-              class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-red-500/50 text-zinc-300 hover:text-white transition-all text-xs font-mono group"
-              aria-label="Official Veneno Social Channels"
-            >
-              <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
-              <span class="font-semibold text-zinc-200 group-hover:text-white">@veneno.ae</span>
-              <ChevronDown class="w-3.5 h-3.5 text-zinc-400 group-hover:text-red-400 transition-transform" :class="{ 'rotate-180': isSocialDropdownOpen }" />
-            </button>
-
-            <!-- Luxury Flyout Card -->
-            <div
-              v-if="isSocialDropdownOpen"
-              class="absolute top-full right-0 rtl:right-auto rtl:left-0 mt-2 w-72 p-3 glass-panel rounded-2xl shadow-2xl shadow-black/95 border border-zinc-800 animate-in fade-in slide-in-from-top-2 duration-150 z-50 bg-zinc-950/95"
-            >
-              <div class="flex items-center justify-between pb-2 mb-2 border-b border-zinc-800/80 px-1">
-                <span class="text-[10px] font-mono uppercase tracking-widest text-zinc-400 font-bold">
-                  {{ currentLocale === 'ar' ? 'القنوات الرسمية المعتمدة' : 'Official Channels' }}
-                </span>
-                <span class="text-[9px] font-mono px-2 py-0.5 rounded-full bg-red-950/80 text-red-400 border border-red-500/30">Verified</span>
-              </div>
-
-              <div class="space-y-1">
-                <!-- Instagram -->
-                <a
-                  href="https://www.instagram.com/veneno.ae"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex items-center justify-between p-2 rounded-xl hover:bg-zinc-900/90 text-zinc-300 hover:text-white transition-all group"
-                >
-                  <div class="flex items-center gap-2.5">
-                    <div class="w-7 h-7 rounded-lg bg-zinc-900 border border-zinc-800 group-hover:border-pink-500/50 flex items-center justify-center text-pink-500 group-hover:scale-110 transition-transform">
-                      <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <div class="text-xs font-semibold text-white">Instagram</div>
-                      <div class="text-[10px] text-zinc-500 font-mono">@veneno.ae</div>
-                    </div>
-                  </div>
-                  <ExternalLink class="w-3.5 h-3.5 text-zinc-600 group-hover:text-red-400 transition-colors" />
-                </a>
-
-                <!-- TikTok -->
-                <a
-                  href="https://www.tiktok.com/@veneno.ae"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex items-center justify-between p-2 rounded-xl hover:bg-zinc-900/90 text-zinc-300 hover:text-white transition-all group"
-                >
-                  <div class="flex items-center gap-2.5">
-                    <div class="w-7 h-7 rounded-lg bg-zinc-900 border border-zinc-800 group-hover:border-zinc-500 flex items-center justify-center text-zinc-300 group-hover:scale-110 transition-transform">
-                      <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.48 6.3 6.3 0 0 0 1.88-4.48V8.65a8.21 8.21 0 0 0 4.89 1.58V6.78c-.34-.02-.68-.05-1-.09z"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <div class="text-xs font-semibold text-white">TikTok</div>
-                      <div class="text-[10px] text-zinc-500 font-mono">@veneno.ae</div>
-                    </div>
-                  </div>
-                  <ExternalLink class="w-3.5 h-3.5 text-zinc-600 group-hover:text-red-400 transition-colors" />
-                </a>
-
-                <!-- Snapchat -->
-                <a
-                  href="https://www.snapchat.com/add/veneno.ae"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex items-center justify-between p-2 rounded-xl hover:bg-zinc-900/90 text-zinc-300 hover:text-white transition-all group"
-                >
-                  <div class="flex items-center gap-2.5">
-                    <div class="w-7 h-7 rounded-lg bg-zinc-900 border border-zinc-800 group-hover:border-amber-400/50 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
-                      <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                        <path d="M12 2.5c3.2 0 5.4 2.2 5.4 5.6 0 1.1-.1 2-.2 2.7.4 0 .8-.1 1.2-.3.2-.1.4-.1.6.1.2.2.2.5 0 .7-.5.3-1.1.5-1.7.7 0 .1.1.2.2.4.5 1.2 1.5 1.9 2.8 2.2.4.1.5.5.3.8-.4.6-1.3.9-2.1 1.1-.1.2-.1.5-.2.6-.1.2-.3.3-.5.3-.5-.1-1-.1-1.5 0-.5.1-.9.3-1.5.7-.8.5-1.7 1.1-2.9 1.1s-2.1-.6-2.9-1.1c-.5-.4-1-.6-1.5-.7-.5-.1-1.1-.1-1.5 0-.2 0-.5-.1-.5-.3-.1-.2-.1-.4-.2-.6-.8-.2-1.7-.5-2.1-1.1-.2-.3-.1-.7.3-.8 1.3-.3 2.3-1 2.8-2.2.1-.2.2-.3.2-.4-.6-.2-1.2-.4-1.7-.7-.2-.2-.2-.5 0-.7.2-.2.4-.2.6-.1.4.2.8.3 1.2.3-.1-.7-.2-1.6-.2-2.7C6.6 4.7 8.8 2.5 12 2.5z"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <div class="text-xs font-semibold text-white">Snapchat</div>
-                      <div class="text-[10px] text-zinc-500 font-mono">veneno.ae</div>
-                    </div>
-                  </div>
-                  <ExternalLink class="w-3.5 h-3.5 text-zinc-600 group-hover:text-red-400 transition-colors" />
-                </a>
-
-                <!-- Facebook -->
-                <a
-                  href="https://www.facebook.com/p/Veneno-Auto-Care-Center-61552358964209/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex items-center justify-between p-2 rounded-xl hover:bg-zinc-900/90 text-zinc-300 hover:text-white transition-all group"
-                >
-                  <div class="flex items-center gap-2.5">
-                    <div class="w-7 h-7 rounded-lg bg-zinc-900 border border-zinc-800 group-hover:border-blue-500/50 flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform">
-                      <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                        <path d="M22 12.07C22 6.51 17.52 2 12 2S2 6.5 2 12.07c0 5 3.66 9.15 8.44 9.93v-7.02H7.9v-2.9h2.54V9.85c0-2.52 1.49-3.92 3.78-3.92 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.45 2.9h-2.33V22c4.78-.78 8.43-4.93 8.43-9.93Z"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <div class="text-xs font-semibold text-white">Facebook</div>
-                      <div class="text-[10px] text-zinc-500 font-mono">Veneno Auto Care</div>
-                    </div>
-                  </div>
-                  <ExternalLink class="w-3.5 h-3.5 text-zinc-600 group-hover:text-red-400 transition-colors" />
-                </a>
-
-                <!-- YouTube -->
-                <a
-                  href="https://www.youtube.com/@venenoautocare"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex items-center justify-between p-2 rounded-xl hover:bg-zinc-900/90 text-zinc-300 hover:text-white transition-all group"
-                >
-                  <div class="flex items-center gap-2.5">
-                    <div class="w-7 h-7 rounded-lg bg-zinc-900 border border-zinc-800 group-hover:border-red-500/50 flex items-center justify-center text-red-500 group-hover:scale-110 transition-transform">
-                      <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <div class="text-xs font-semibold text-white">YouTube</div>
-                      <div class="text-[10px] text-zinc-500 font-mono">@venenoautocare</div>
-                    </div>
-                  </div>
-                  <ExternalLink class="w-3.5 h-3.5 text-zinc-600 group-hover:text-red-400 transition-colors" />
-                </a>
-
-                <!-- Location Map -->
-                <a
-                  href="https://maps.app.goo.gl/8zBqZ3f9oUC5Md437"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex items-center justify-between p-2 rounded-xl hover:bg-zinc-900/90 text-zinc-300 hover:text-white transition-all group"
-                >
-                  <div class="flex items-center gap-2.5">
-                    <div class="w-7 h-7 rounded-lg bg-zinc-900 border border-zinc-800 group-hover:border-red-500/50 flex items-center justify-center text-red-400 group-hover:scale-110 transition-transform">
-                      <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <div class="text-xs font-semibold text-white">Google Maps</div>
-                      <div class="text-[10px] text-zinc-500 font-mono">Musaffah & Al Qana</div>
-                    </div>
-                  </div>
-                  <ExternalLink class="w-3.5 h-3.5 text-zinc-600 group-hover:text-red-400 transition-colors" />
-                </a>
-              </div>
-            </div>
-          </div>
-
           <!-- Modern Dropdown Globe Selector -->
           <div ref="dropdownRef" class="relative">
             <button
@@ -388,108 +226,6 @@ const scrollTo = (elementId) => {
           >
             • {{ service.name }}
           </Link>
-        </div>
-      </div>
-
-      <!-- Mobile Social Channels Grid (Luxury Brand Cards) -->
-      <div class="py-2 space-y-2 border-t border-zinc-800/80">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-mono uppercase text-zinc-400 font-bold tracking-wider">
-            {{ currentLocale === 'ar' ? 'تابعنا على وسائل التواصل الرسمية' : 'Official Social Channels' }}
-          </span>
-          <span class="text-[9px] font-mono px-2 py-0.5 rounded-full bg-red-950/80 text-red-400 border border-red-500/30">Verified</span>
-        </div>
-        
-        <div class="grid grid-cols-3 gap-2">
-          <!-- Instagram -->
-          <a
-            href="https://www.instagram.com/veneno.ae"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="p-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 hover:border-pink-500/50 flex flex-col items-center justify-center text-center gap-1.5 transition-all group"
-          >
-            <div class="w-8 h-8 rounded-lg bg-zinc-950 border border-zinc-800 text-pink-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-              </svg>
-            </div>
-            <span class="text-[10px] font-mono text-zinc-300 group-hover:text-white">Instagram</span>
-          </a>
-
-          <!-- TikTok -->
-          <a
-            href="https://www.tiktok.com/@veneno.ae"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="p-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 hover:border-zinc-500 flex flex-col items-center justify-center text-center gap-1.5 transition-all group"
-          >
-            <div class="w-8 h-8 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-300 flex items-center justify-center group-hover:scale-110 transition-transform">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.48 6.3 6.3 0 0 0 1.88-4.48V8.65a8.21 8.21 0 0 0 4.89 1.58V6.78c-.34-.02-.68-.05-1-.09z"/>
-              </svg>
-            </div>
-            <span class="text-[10px] font-mono text-zinc-300 group-hover:text-white">TikTok</span>
-          </a>
-
-          <!-- Snapchat -->
-          <a
-            href="https://www.snapchat.com/add/veneno.ae"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="p-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 hover:border-amber-400/50 flex flex-col items-center justify-center text-center gap-1.5 transition-all group"
-          >
-            <div class="w-8 h-8 rounded-lg bg-zinc-950 border border-zinc-800 text-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2.5c3.2 0 5.4 2.2 5.4 5.6 0 1.1-.1 2-.2 2.7.4 0 .8-.1 1.2-.3.2-.1.4-.1.6.1.2.2.2.5 0 .7-.5.3-1.1.5-1.7.7 0 .1.1.2.2.4.5 1.2 1.5 1.9 2.8 2.2.4.1.5.5.3.8-.4.6-1.3.9-2.1 1.1-.1.2-.1.5-.2.6-.1.2-.3.3-.5.3-.5-.1-1-.1-1.5 0-.5.1-.9.3-1.5.7-.8.5-1.7 1.1-2.9 1.1s-2.1-.6-2.9-1.1c-.5-.4-1-.6-1.5-.7-.5-.1-1.1-.1-1.5 0-.2 0-.5-.1-.5-.3-.1-.2-.1-.4-.2-.6-.8-.2-1.7-.5-2.1-1.1-.2-.3-.1-.7.3-.8 1.3-.3 2.3-1 2.8-2.2.1-.2.2-.3.2-.4-.6-.2-1.2-.4-1.7-.7-.2-.2-.2-.5 0-.7.2-.2.4-.2.6-.1.4.2.8.3 1.2.3-.1-.7-.2-1.6-.2-2.7C6.6 4.7 8.8 2.5 12 2.5z"/>
-              </svg>
-            </div>
-            <span class="text-[10px] font-mono text-zinc-300 group-hover:text-white">Snapchat</span>
-          </a>
-
-          <!-- Facebook -->
-          <a
-            href="https://www.facebook.com/p/Veneno-Auto-Care-Center-61552358964209/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="p-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 hover:border-blue-500/50 flex flex-col items-center justify-center text-center gap-1.5 transition-all group"
-          >
-            <div class="w-8 h-8 rounded-lg bg-zinc-950 border border-zinc-800 text-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M22 12.07C22 6.51 17.52 2 12 2S2 6.5 2 12.07c0 5 3.66 9.15 8.44 9.93v-7.02H7.9v-2.9h2.54V9.85c0-2.52 1.49-3.92 3.78-3.92 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.45 2.9h-2.33V22c4.78-.78 8.43-4.93 8.43-9.93Z"/>
-              </svg>
-            </div>
-            <span class="text-[10px] font-mono text-zinc-300 group-hover:text-white">Facebook</span>
-          </a>
-
-          <!-- YouTube -->
-          <a
-            href="https://www.youtube.com/@venenoautocare"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="p-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 hover:border-red-500/50 flex flex-col items-center justify-center text-center gap-1.5 transition-all group"
-          >
-            <div class="w-8 h-8 rounded-lg bg-zinc-950 border border-zinc-800 text-red-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-            </div>
-            <span class="text-[10px] font-mono text-zinc-300 group-hover:text-white">YouTube</span>
-          </a>
-
-          <!-- Location Maps -->
-          <a
-            href="https://maps.app.goo.gl/8zBqZ3f9oUC5Md437"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="p-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 hover:border-red-500/50 flex flex-col items-center justify-center text-center gap-1.5 transition-all group"
-          >
-            <div class="w-8 h-8 rounded-lg bg-zinc-950 border border-zinc-800 text-red-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-            </div>
-            <span class="text-[10px] font-mono text-zinc-300 group-hover:text-white">Location</span>
-          </a>
         </div>
       </div>
 
