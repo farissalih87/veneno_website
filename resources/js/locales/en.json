@@ -35,7 +35,27 @@
     "statTeam": "Over 150 Professionals",
     "statMultiBrand": "Multi-Brand Facility",
     "statDealer": "Largest 3M Pro Shop",
-    "statIso": "ISO 9001 & 45001 Certified"
+    "statIso": "ISO 9001 & 45001 Certified",
+    "exploreScroll": "Explore 9 Core Treatments & Pricing"
+  },
+  "ticker": {
+    "item1": "Official 3M™ Pro Shop Dealer",
+    "item2": "GYEON® Certified Detailer",
+    "item3": "Abu Dhabi • Musaffah & Al Qana",
+    "item4": "10-Year Comprehensive Warranty",
+    "item5": "Supercar & Exotic Specialist",
+    "item6": "ISO 9001 & 45001 Certified",
+    "item7": "Computer Pre-Cut Digital Software",
+    "item8": "100% Dust-Free Cleanrooms",
+    "item9": "Over 150 Master Craftsmen",
+    "strip1": "Ceramic Coating 9H+",
+    "strip2": "Self-Healing 8mil PPF",
+    "strip3": "99% UV Heat Block Tinting",
+    "strip4": "Concours Paint Correction",
+    "strip5": "Peelable Auto Wrap",
+    "strip6": "Diamond Leather Care",
+    "strip7": "Paintless Dent Removal",
+    "strip8": "CNC Alloy Wheel Diamond Cut"
   },
   "about": {
     "tag": "About The Company",

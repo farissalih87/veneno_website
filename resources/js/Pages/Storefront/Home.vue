@@ -14,6 +14,7 @@ import {
   Phone,
   Award,
   ChevronRight,
+  ChevronDown,
   Star,
   CheckCircle2,
   MapPin,
@@ -25,7 +26,10 @@ import {
   Compass,
   BadgeCheck,
   Zap,
-  HeartHandshake
+  HeartHandshake,
+  Gem,
+  Car,
+  Wrench
 } from 'lucide-vue-next';
 import { useI18n } from '@/i18n';
 import { getServicesByLocale } from '@/data/services';
@@ -69,7 +73,7 @@ const openQuoteWithService = (serviceName) => {
     <meta head-key="twitter:image" name="twitter:image" content="/images/main-branch.webp" />
   </Head>
 
-  <div class="min-h-screen flex flex-col bg-zinc-950 text-zinc-100 font-sans selection:bg-red-600 selection:text-white pb-16 md:pb-0">
+  <div class="min-h-screen flex flex-col bg-cyber-grid bg-zinc-950 text-zinc-100 font-sans selection:bg-red-600 selection:text-white pb-16 md:pb-0 relative overflow-x-hidden">
     <!-- Navbar -->
     <Navbar :services="activeServices" @open-quote="isQuoteModalOpen = true" />
 
@@ -92,7 +96,7 @@ const openQuoteWithService = (serviceName) => {
         <!-- Lightened Transparent Gradient Overlays -->
         <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-zinc-950/20"></div>
         <div class="absolute inset-0 bg-gradient-to-r from-zinc-950/50 via-transparent to-zinc-950/50"></div>
-        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-red-600/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-red-600/15 rounded-full blur-3xl pointer-events-none animate-glow-pulse"></div>
       </div>
 
       <!-- Hero Content -->
@@ -171,11 +175,127 @@ const openQuoteWithService = (serviceName) => {
             <div class="text-[9px] sm:text-[11px] font-mono uppercase text-zinc-400 mt-0.5 sm:mt-1 line-clamp-1">{{ t('hero.statIso') }}</div>
           </div>
         </div>
+
+        <!-- Scroll Down Explore Hook -->
+        <div class="mt-8 sm:mt-12 flex justify-center">
+          <a
+            href="#about"
+            class="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 rounded-full glass-panel border border-zinc-700/80 hover:border-red-500/60 text-[11px] sm:text-xs font-mono text-zinc-300 hover:text-white transition-all shadow-xl shadow-black/60 group animate-float-pulse"
+          >
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+            <span class="font-medium tracking-wide">{{ t('hero.exploreScroll') }}</span>
+            <ChevronDown class="w-3.5 h-3.5 text-red-500 group-hover:translate-y-0.5 transition-transform" />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DYNAMIC CONTINUOUS ANIMATED LUXURY MARQUEE TICKER -->
+    <section class="relative py-4 sm:py-5 bg-zinc-950/95 border-y border-zinc-900 overflow-hidden select-none">
+      <!-- Ambient Edge Glow Gradients -->
+      <div class="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-zinc-950 to-transparent z-10"></div>
+      <div class="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-zinc-950 to-transparent z-10"></div>
+
+      <!-- Lane 1: Credentials, Certified Badges & Global Standards (Moving Left) -->
+      <div class="animate-marquee flex items-center gap-4 py-1">
+        <div v-for="i in 2" :key="'lane1-' + i" class="flex items-center gap-4 shrink-0">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-red-500/30 text-white font-mono text-xs font-bold uppercase tracking-wider">
+            <ShieldCheck class="w-3.5 h-3.5 text-red-500 shrink-0" />
+            <span>{{ t('ticker.item1') }}</span>
+          </span>
+
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-700/80 text-zinc-200 font-mono text-xs font-bold uppercase tracking-wider">
+            <Gem class="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <span>{{ t('ticker.item2') }}</span>
+          </span>
+
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-700/80 text-zinc-200 font-mono text-xs uppercase tracking-wider">
+            <MapPin class="w-3.5 h-3.5 text-red-500 shrink-0" />
+            <span>{{ t('ticker.item3') }}</span>
+          </span>
+
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/40 border border-red-500/40 text-red-300 font-mono text-xs font-bold uppercase tracking-wider">
+            <Award class="w-3.5 h-3.5 text-red-400 shrink-0" />
+            <span>{{ t('ticker.item4') }}</span>
+          </span>
+
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-700/80 text-zinc-200 font-mono text-xs uppercase tracking-wider">
+            <Sparkles class="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <span>{{ t('ticker.item5') }}</span>
+          </span>
+
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-700/80 text-zinc-200 font-mono text-xs font-bold uppercase tracking-wider">
+            <BadgeCheck class="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <span>{{ t('ticker.item6') }}</span>
+          </span>
+
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-700/80 text-zinc-200 font-mono text-xs uppercase tracking-wider">
+            <Zap class="w-3.5 h-3.5 text-red-500 shrink-0" />
+            <span>{{ t('ticker.item7') }}</span>
+          </span>
+
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-700/80 text-zinc-200 font-mono text-xs uppercase tracking-wider">
+            <ShieldCheck class="w-3.5 h-3.5 text-white shrink-0" />
+            <span>{{ t('ticker.item8') }}</span>
+          </span>
+
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-700/80 text-zinc-200 font-mono text-xs uppercase tracking-wider">
+            <Users class="w-3.5 h-3.5 text-red-400 shrink-0" />
+            <span>{{ t('ticker.item9') }}</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Lane 2: 9 Core Treatments & Precision Services (Moving Right) -->
+      <div class="animate-marquee-reverse flex items-center gap-3 pt-2">
+        <div v-for="j in 2" :key="'lane2-' + j" class="flex items-center gap-3 shrink-0">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900/60 border border-zinc-800 text-zinc-300 font-mono text-[11px]">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+            <span>{{ t('ticker.strip1') }}</span>
+          </span>
+
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900/60 border border-zinc-800 text-zinc-300 font-mono text-[11px]">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+            <span>{{ t('ticker.strip2') }}</span>
+          </span>
+
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900/60 border border-zinc-800 text-zinc-300 font-mono text-[11px]">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+            <span>{{ t('ticker.strip3') }}</span>
+          </span>
+
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900/60 border border-zinc-800 text-zinc-300 font-mono text-[11px]">
+            <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+            <span>{{ t('ticker.strip4') }}</span>
+          </span>
+
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900/60 border border-zinc-800 text-zinc-300 font-mono text-[11px]">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+            <span>{{ t('ticker.strip5') }}</span>
+          </span>
+
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900/60 border border-zinc-800 text-zinc-300 font-mono text-[11px]">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+            <span>{{ t('ticker.strip6') }}</span>
+          </span>
+
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900/60 border border-zinc-800 text-zinc-300 font-mono text-[11px]">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+            <span>{{ t('ticker.strip7') }}</span>
+          </span>
+
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900/60 border border-zinc-800 text-zinc-300 font-mono text-[11px]">
+            <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+            <span>{{ t('ticker.strip8') }}</span>
+          </span>
+        </div>
       </div>
     </section>
 
     <!-- 2. ABOUT US & VISION / MISSION SECTION -->
-    <section id="about" class="py-12 sm:py-24 bg-zinc-950 relative border-t border-zinc-900">
+    <section id="about" class="py-12 sm:py-24 bg-zinc-950/90 relative border-t border-zinc-900 overflow-hidden">
+      <!-- Ambient Glow Orb in Background -->
+      <div class="absolute -top-32 -left-32 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none animate-glow-pulse"></div>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
           
