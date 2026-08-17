@@ -16,7 +16,7 @@ const whatsappUrl = computed(() => {
 </script>
 
 <template>
-  <div class="fixed bottom-6 right-6 rtl:right-auto rtl:left-6 z-50 flex items-center gap-3 rtl:flex-row-reverse">
+  <div class="fixed bottom-20 sm:bottom-6 right-5 sm:right-6 rtl:right-auto rtl:left-5 rtl:sm:left-6 z-50 flex items-center gap-2 sm:gap-3 rtl:flex-row-reverse">
     <!-- Quick Tooltip (Translated) -->
     <div
       v-if="showTooltip"

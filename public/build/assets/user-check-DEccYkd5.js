@@ -1,4 +1,4 @@
-import{c as e}from"./mail-CQ1BgWjn.js";/**
+import{c as e}from"./mail-1z_28UIC.js";/**
  * @license lucide-vue-next v0.475.0 - ISC
  *
  * This source code is licensed under the ISC license.
