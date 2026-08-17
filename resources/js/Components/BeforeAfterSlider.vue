@@ -32,15 +32,15 @@ const props = defineProps({
     default: null,
   },
 
-  // Multi-Vehicle Showcase Mode props
+  // Multi-Vehicle Showcase Mode props (STRICTLY THE 5 ATTACHED VEHICLE IMAGES ONLY)
   items: {
     type: Array,
     default: () => [
       {
         id: 'aston-martin-vantage',
         category: 'exterior',
-        vehicle: 'Aston Martin Vantage',
-        vehicleAr: 'أستون مارتن فانتاج',
+        vehicle: 'Aston Martin Vantage (Front)',
+        vehicleAr: 'أستون مارتن فانتاج (المقدمة)',
         service: 'Peelable Color Wrap & 3M PPF',
         serviceAr: 'تجليد سائل مطاطي وحماية 3M PPF',
         beforeImage: '/images/before-after/aston-martin-vantage-before.jpg',
@@ -51,6 +51,22 @@ const props = defineProps({
         afterLabelAr: 'بعد: أخضر بريطاني ميتاليك',
         treatment: 'Liquid Wrap + Lime Aero Lip & Strakes',
         treatmentAr: 'تجليد مطاطي فاخر + زوائد هوائية بلون ليموني',
+      },
+      {
+        id: 'aston-martin-side',
+        category: 'exterior',
+        vehicle: 'Aston Martin Vantage (Side 3/4)',
+        vehicleAr: 'أستون مارتن فانتاج (الجانب 3/4)',
+        service: 'Bespoke Wrap & Carbon Accents',
+        serviceAr: 'تجليد مخصص ولمسات كربون',
+        beforeImage: '/images/before-after/aston-martin-side-before.jpg',
+        afterImage: '/images/before-after/aston-martin-side-after.jpg',
+        beforeLabel: 'Before: Gloss Black Metallic',
+        afterLabel: 'After: British Racing Green + Lime Aero',
+        beforeLabelAr: 'قبل: أسود لامع ميتاليك',
+        afterLabelAr: 'بعد: أخضر بريطاني مع لمسات ليمونية',
+        treatment: 'Precision Panel Wrapping & Wrapped Edges',
+        treatmentAr: 'تجليد الأبواب وثني الحواف بدقة عالية',
       },
       {
         id: 'ferrari-488',
@@ -85,70 +101,6 @@ const props = defineProps({
         treatmentAr: 'إعادة تسوية اللكر + فيلم رملي صحراوي فائق اللمعان',
       },
       {
-        id: 'audi-r8-rear',
-        category: 'exterior',
-        vehicle: 'Audi R8 V10 (Rear Aero)',
-        vehicleAr: 'أودي R8 V10 (الخلفية)',
-        service: 'Diffuser & Wing Gloss Black De-Chrome',
-        serviceAr: 'تجليد وتلميع الجناح والناشر الخلفي',
-        beforeImage: '/images/before-after/audi-r8-rear-before.jpg',
-        afterImage: '/images/before-after/audi-r8-rear-after.jpg',
-        beforeLabel: 'Before: Faded Grey Rear & Diffuser',
-        afterLabel: 'After: Desert Sand + Gloss Black Aero',
-        beforeLabelAr: 'قبل: بهتان باللون والناشر الخلفي',
-        afterLabelAr: 'بعد: لون رملي وجناح أسود لامع',
-        treatment: 'Carbon Fiber Restoration & High-Solid Gloss Topcoat',
-        treatmentAr: 'تجديد ألياف الكربون وطبقة لكر صلبة عالية اللمعان',
-      },
-      {
-        id: 'gwagon-cabin',
-        category: 'interior',
-        vehicle: 'Mercedes-AMG G63 (Cabin)',
-        vehicleAr: 'مرسيدس جي 63 (المقصورة)',
-        service: 'Bespoke Arctic White Quilted Nappa Leather',
-        serviceAr: 'تنجيد وتجديد جلد نابا أبيض قطبي ماسي',
-        beforeImage: '/images/before-after/gwagon-cabin-before.jpg',
-        afterImage: '/images/before-after/gwagon-cabin-after.jpg',
-        beforeLabel: 'Before: Worn & Discolored Beige Cabin',
-        afterLabel: 'After: Arctic White Diamond Quilted Nappa',
-        beforeLabelAr: 'قبل: مقصورة بيج متسخة ومستهلكة',
-        afterLabelAr: 'بعد: جلد نابا أبيض قطبي بتطريز ماسي فاخر',
-        treatment: 'Master Craftsmen Custom Italian Leather & Carbon Trim',
-        treatmentAr: 'تفصيل يدوي بحرفية إيطالية وديكورات كربون فايبر',
-      },
-      {
-        id: 'gwagon-steering',
-        category: 'interior',
-        vehicle: 'G63 AMG Steering Cockpit',
-        vehicleAr: 'مقود ومقصورة قيادة G63',
-        service: 'Performance Steering Wheel Re-Trim',
-        serviceAr: 'إعادة تنجيد المقود الرياضي بجلد نابا',
-        beforeImage: '/images/before-after/gwagon-steering-before.jpg',
-        afterImage: '/images/before-after/gwagon-steering-after.jpg',
-        beforeLabel: 'Before: Faded Beige OEM Steering',
-        afterLabel: 'After: Black Perforated Nappa + White Stitch',
-        beforeLabelAr: 'قبل: مقود بيج باهت من الاستخدام',
-        afterLabelAr: 'بعد: جلد نابا أسود مخرم مع خياطة بيضاء',
-        treatment: 'Ergonomic Re-Grip + AMG Sport Digital Cockpit',
-        treatmentAr: 'إعادة تشكيل المقبض الرياضي مع لمسات AMG الفاخرة',
-      },
-      {
-        id: 'rangerover-autobiography',
-        category: 'interior',
-        vehicle: 'Range Rover Autobiography',
-        vehicleAr: 'رينج روفر أوتوبيوغرافي',
-        service: 'Pearl Ivory Bespoke Upholstery',
-        serviceAr: 'تجديد وتفصيل مقصورة جلد لؤلؤي عاجي',
-        beforeImage: '/images/before-after/rangerover-autobiography-before.jpg',
-        afterImage: '/images/before-after/rangerover-autobiography-after.jpg',
-        beforeLabel: 'Before: Factory Mahogany Brown Cabin',
-        afterLabel: 'After: Pearl Ivory & Piano Black Console',
-        beforeLabelAr: 'قبل: مقصورة بنية داكنة تقليدية',
-        afterLabelAr: 'بعد: جلد عاجي لؤلؤي وكونسول بيانو بلاك',
-        treatment: 'Full Cabin Re-Upholstery with Ceramic Leather Shield',
-        treatmentAr: 'تنجيد شامل للمقصورة مع حماية سيراميك للجلد',
-      },
-      {
         id: 'defender-interior',
         category: 'interior',
         vehicle: 'Land Rover Defender 110',
@@ -163,22 +115,6 @@ const props = defineProps({
         afterLabelAr: 'بعد: جلد نابا إيطالي فاخر بلون تان جملي',
         treatment: 'Hand-Stitched Dashboard, Console & Steering Wheel',
         treatmentAr: 'خياطة يدوية للطبلون، الكونسول الأوسط، وعجلة القيادة',
-      },
-      {
-        id: 'porsche-911',
-        category: 'paint',
-        vehicle: 'Porsche 911 Turbo S',
-        vehicleAr: 'بورشه 911 تيربو إس',
-        service: 'Concourse Paint Correction & Ceramic',
-        serviceAr: 'تصحيح طلاء كونكور وحماية نانو سيراميك',
-        beforeImage: '/images/services/detailing/PHOTO-2024-07-12-14-12-51 18.JPG',
-        afterImage: '/images/services/detailing/PHOTO-2024-07-12-14-12-51 24.JPG',
-        beforeLabel: 'Before: Heavy Swirls & Clearcoat Haze',
-        afterLabel: 'After: 9H GYEON Quartz Ceramic Matrix',
-        beforeLabelAr: 'قبل: دوائر وخدوش واضحة وبهتان لكر',
-        afterLabelAr: 'بعد: حماية نانو سيراميك 9H وانعكاس مرآة',
-        treatment: 'Multi-Stage Micro-Abrasive Leveling & 9H Ceramic',
-        treatmentAr: 'تسوية مجهرية متعددة المراحل وطبقة 9H جرافين',
       },
     ],
   },
@@ -296,7 +232,7 @@ onUnmounted(() => {
     <!-- Header Controls: Vehicle Case Switcher Tabs & Info (Only in Multi-Mode) -->
     <div v-if="!isSingleMode" class="space-y-2.5 sm:space-y-3 border-b border-zinc-800/80 pb-3 mb-3 sm:mb-4">
       
-      <!-- Category Filter Pills (All / Wraps & Supercars / Bespoke Interiors / Paint Correction) -->
+      <!-- Category Filter Pills (All / Wraps & Supercars / Bespoke Interiors) -->
       <div class="flex items-center justify-between gap-2 flex-wrap">
         <div class="flex items-center gap-1.5 p-1 rounded-xl bg-zinc-950 border border-zinc-800 text-[11px] font-mono">
           <button
@@ -304,7 +240,7 @@ onUnmounted(() => {
             class="px-2.5 py-1 rounded-lg transition-all font-semibold"
             :class="selectedCategory === 'all' ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-400 hover:text-white'"
           >
-            {{ currentLocale === 'ar' ? 'الكل (9)' : 'All (9)' }}
+            {{ currentLocale === 'ar' ? 'الكل (5)' : 'All (5)' }}
           </button>
           <button
             @click="selectedCategory = 'exterior'"
@@ -318,14 +254,7 @@ onUnmounted(() => {
             class="px-2.5 py-1 rounded-lg transition-all font-semibold"
             :class="selectedCategory === 'interior' ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-400 hover:text-white'"
           >
-            {{ currentLocale === 'ar' ? 'مقصورات وتفصيل جلد (4)' : 'Bespoke Interiors (4)' }}
-          </button>
-          <button
-            @click="selectedCategory = 'paint'"
-            class="px-2.5 py-1 rounded-lg transition-all font-semibold"
-            :class="selectedCategory === 'paint' ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-400 hover:text-white'"
-          >
-            {{ currentLocale === 'ar' ? 'تصحيح طلاء (1)' : 'Paint Correction (1)' }}
+            {{ currentLocale === 'ar' ? 'مقصورات وتفصيل جلد (1)' : 'Bespoke Interiors (1)' }}
           </button>
         </div>
 
