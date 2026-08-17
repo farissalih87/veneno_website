@@ -32,8 +32,10 @@ class StorefrontController extends Controller
                     ? 'فيلم بولي يوريثين بصري شفاف فائق الجودة من 3M مقصوص بالكمبيوتر يعالج الخدوش الدقيقة ذاتياً بحرارة الشمس، ويحمي من الحصى وسافي الطرق السريعة.'
                     : 'Precision computer-cut optical clear polyurethane film from 3M that self-heals swirl marks with ambient heat. Protects against stone chips, highway sand abrasion, and road debris.',
                 'image' => '/images/services/ppf/IMG_5968.JPG',
-                'before_image' => '/images/services/ppf/IMG_5968.JPG',
-                'after_image' => '/images/services/ppf/IMG_5965.JPG',
+                'before_image' => '/images/before-after/aston-martin-vantage-before.jpg',
+                'after_image' => '/images/before-after/aston-martin-vantage-after.jpg',
+                'before_label' => $isAr ? 'قبل: طلاء أسود لامع (وكالة)' : 'Before: Gloss Black (OEM)',
+                'after_label' => $isAr ? 'بعد: تجليد أخضر بريطاني وحماية 3M PPF' : 'After: British Racing Green + 3M PPF',
                 'warranty' => $isAr ? 'ضمان 10 سنوات' : '10-Year Warranty',
                 'duration_hours' => 12,
                 'features' => $isAr ? [
@@ -64,6 +66,8 @@ class StorefrontController extends Controller
                 'image' => '/images/services/ceramic/PHOTO-2024-07-12-14-12-51 15.JPG',
                 'before_image' => '/images/services/ceramic/PHOTO-2024-07-12-14-12-51 10.JPG',
                 'after_image' => '/images/services/ceramic/PHOTO-2024-07-12-14-12-51 14.JPG',
+                'before_label' => $isAr ? 'قبل: طلاء باهت وترسبات كيميائية' : 'Before: Dull Clearcoat & Chemical Fallout',
+                'after_label' => $isAr ? 'بعد: درع نانو جرافين 9H وانعكاس مرآة' : 'After: 9H GYEON Graphene Hydrophobic Shield',
                 'warranty' => $isAr ? 'ضمان معتمد 5 سنوات' : '5-Year Certified Warranty',
                 'duration_hours' => 8,
                 'features' => $isAr ? [
@@ -94,6 +98,8 @@ class StorefrontController extends Controller
                 'image' => '/images/services/detailing/PHOTO-2024-07-12-14-12-51 13.JPG',
                 'before_image' => '/images/services/detailing/PHOTO-2024-07-12-14-12-51 18.JPG',
                 'after_image' => '/images/services/detailing/PHOTO-2024-07-12-14-12-51 24.JPG',
+                'before_label' => $isAr ? 'قبل: دوائر غسيل وخدوش مجهرية واضحة' : 'Before: Heavy Swirl Marks & Scratches',
+                'after_label' => $isAr ? 'بعد: تسوية مجهرية بالليزر وانعكاس مرآة' : 'After: Concourse Micro-Abrasive Leveling',
                 'warranty' => $isAr ? 'ضمان نقاء وانعكاس الطلاء' : 'Optical Reflection Guarantee',
                 'duration_hours' => 6,
                 'features' => $isAr ? [
@@ -124,6 +130,8 @@ class StorefrontController extends Controller
                 'image' => '/images/services/tinting/IMG_5971.JPG',
                 'before_image' => '/images/services/tinting/IMG_5969.JPG',
                 'after_image' => '/images/services/tinting/IMG_5971.JPG',
+                'before_label' => $isAr ? 'قبل: زجاج شفاف بنفاذية حرارية عالية' : 'Before: Clear Glass (High Solar Heat)',
+                'after_label' => $isAr ? 'بعد: عازل نانو سيراميك 3M بعزل 98% حرارة' : 'After: 3M Nano-Ceramic 98% IR Block',
                 'warranty' => $isAr ? 'ضمان مدى الحياة ضد التغير والفقاعات' : 'Lifetime Bubble-Free Warranty',
                 'duration_hours' => 3,
                 'features' => $isAr ? [
@@ -150,8 +158,10 @@ class StorefrontController extends Controller
                     ? 'غيّر مظهر سيارتك بالكامل بأفلام الفينيل الفاخرة من كبرى الشركات العالمية (3M) مع الحفاظ الكامل على صبغة الوكالة.'
                     : 'Transform your vehicle aesthetics with world-class vinyl wraps from 3M. Reversible protection with endless finish possibilities.',
                 'image' => '/images/services/wrapping/vinyl-wrap-bubbling-dubai.webp',
-                'before_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 20.JPG',
-                'after_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 23.JPG',
+                'before_image' => '/images/before-after/ferrari-488-gtb-before.jpg',
+                'after_image' => '/images/before-after/ferrari-488-gtb-after.jpg',
+                'before_label' => $isAr ? 'قبل: رمادي ميتاليك لامع (فيراري 488)' : 'Before: Grigio Silverstone Gloss',
+                'after_label' => $isAr ? 'بعد: تجليد أسود ساتان شبحي فاخر' : 'After: Stealth Satin Matte Black Wrap',
                 'warranty' => $isAr ? 'ضمان تركيب 3 سنوات' : '3-Year Installation Warranty',
                 'duration_hours' => 24,
                 'features' => $isAr ? [
@@ -180,6 +190,8 @@ class StorefrontController extends Controller
                 'image' => '/images/services/pdr/PHOTO-2024-07-12-14-12-51 11.JPG',
                 'before_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 11.JPG',
                 'after_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 19.JPG',
+                'before_label' => $isAr ? 'قبل: انبعاج حاد بباب السيارة' : 'Before: Door Ding Crease Defect',
+                'after_label' => $isAr ? 'بعد: استعدال 100% بدون أي دهان' : 'After: 100% Factory Line Restored',
                 'warranty' => $isAr ? 'ضمان سلامة الطلاء الأصلي' : 'Lifetime Paint Integrity',
                 'duration_hours' => 2,
                 'features' => $isAr ? [
@@ -208,6 +220,8 @@ class StorefrontController extends Controller
                 'image' => '/images/services/rims/PHOTO-2024-07-12-14-12-51 9.JPG',
                 'before_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 3.JPG',
                 'after_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 4.JPG',
+                'before_label' => $isAr ? 'قبل: حكات رصيف وتآكل الحواف' : 'Before: Severe Curb Scrapes',
+                'after_label' => $isAr ? 'بعد: خراطة CNC وسيراميك حراري 1200°' : 'After: CNC Diamond-Cut & Ceramic',
                 'warranty' => $isAr ? 'ضمان متانة وجودة التشطيب' : 'Finish Durability Guaranteed',
                 'duration_hours' => 4,
                 'features' => $isAr ? [
@@ -234,8 +248,10 @@ class StorefrontController extends Controller
                     ? 'صبغ ورش القطع والأجزاء في كبائن أفران حرارية خالية من الغبار باستخدام أجهزة مطابقة الألوان الطيفية وليرات اللكر عالية الصلابة المطابقة للمصنع.'
                     : 'Down-draft heated spray booth painting using computer-spectrometer color matching and OEM-approved high-solid clear coats for an undetectable finish.',
                 'image' => '/images/services/paint/IMG_5901.JPG',
-                'before_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 12.JPG',
-                'after_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 13.JPG',
+                'before_image' => '/images/before-after/audi-r8-front-before.jpg',
+                'after_image' => '/images/before-after/audi-r8-front-after.jpg',
+                'before_label' => $isAr ? 'قبل: لكر متقشر وتلف من حرارة الشمس' : 'Before: Sun-Damaged Peeling Clearcoat',
+                'after_label' => $isAr ? 'بعد: صبغ بالفرن الحراري وتجليد رملي' : 'After: Down-Draft Resurface & Sand Wrap',
                 'warranty' => $isAr ? 'ضمان مطابقة لون الوكالة' : 'Color Match Guaranteed',
                 'duration_hours' => 16,
                 'features' => $isAr ? [
@@ -264,6 +280,8 @@ class StorefrontController extends Controller
                 'image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 5.JPG',
                 'before_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51 7.JPG',
                 'after_image' => '/images/gallery/PHOTO-2024-07-12-14-12-51.JPG',
+                'before_label' => $isAr ? 'قبل: ترسبات حديدية وسافي على الهيكل' : 'Before: Road Film & Brake Fallout',
+                'after_label' => $isAr ? 'بعد: تنظيف رغوي دقيق ولمعان متعادل' : 'After: Decontaminated Mirror Finish',
                 'warranty' => $isAr ? 'ضمان غسيل آمن 100% بدون خدوش' : '100% Scratch-Free Guarantee',
                 'duration_hours' => 2,
                 'features' => $isAr ? [

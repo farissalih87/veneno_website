@@ -1,48 +1,250 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { Sparkles, ArrowRightLeft, CheckCircle2 } from 'lucide-vue-next';
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
+import { Sparkles, ArrowRightLeft, CheckCircle2, SlidersHorizontal, ShieldCheck } from 'lucide-vue-next';
 import { useI18n } from '../i18n';
 
 const { t, currentLocale } = useI18n();
 
 const props = defineProps({
+  // Standalone Single-Service Mode props
+  beforeImage: {
+    type: String,
+    default: null,
+  },
+  afterImage: {
+    type: String,
+    default: null,
+  },
+  beforeLabel: {
+    type: String,
+    default: null,
+  },
+  afterLabel: {
+    type: String,
+    default: null,
+  },
+  title: {
+    type: String,
+    default: null,
+  },
+  subtitle: {
+    type: String,
+    default: null,
+  },
+
+  // Multi-Vehicle Showcase Mode props
   items: {
     type: Array,
     default: () => [
       {
-        id: 'aston-martin',
+        id: 'aston-martin-vantage',
+        category: 'exterior',
         vehicle: 'Aston Martin Vantage',
+        vehicleAr: 'أستون مارتن فانتاج',
         service: 'Peelable Color Wrap & 3M PPF',
-        beforeImage: '/images/before-after/aston-martin-before.jpg',
-        afterImage: '/images/before-after/aston-martin-after.jpg',
-        beforeLabel: 'Before: Gloss Black (Original)',
-        afterLabel: 'After: British Racing Green Wrap',
-        beforeLabelAr: 'قبل: طلاء أسود لامع (أصلي)',
-        afterLabelAr: 'بعد: تجليد أخضر بريطاني ميتاليك',
-        treatment: 'Custom Peelable Wrap + Yellow Accent Aero Lip',
+        serviceAr: 'تجليد سائل مطاطي وحماية 3M PPF',
+        beforeImage: '/images/before-after/aston-martin-vantage-before.jpg',
+        afterImage: '/images/before-after/aston-martin-vantage-after.jpg',
+        beforeLabel: 'Before: Gloss Black (OEM)',
+        afterLabel: 'After: British Racing Green Metallic',
+        beforeLabelAr: 'قبل: أسود لامع (وكالة)',
+        afterLabelAr: 'بعد: أخضر بريطاني ميتاليك',
+        treatment: 'Liquid Wrap + Lime Aero Lip & Strakes',
+        treatmentAr: 'تجليد مطاطي فاخر + زوائد هوائية بلون ليموني',
+      },
+      {
+        id: 'ferrari-488',
+        category: 'exterior',
+        vehicle: 'Ferrari 488 GTB',
+        vehicleAr: 'فيراري 488 جي تي بي',
+        service: 'Stealth Satin Matte Black Wrap',
+        serviceAr: 'تجليد كامل أسود ساتان مطفي',
+        beforeImage: '/images/before-after/ferrari-488-gtb-before.jpg',
+        afterImage: '/images/before-after/ferrari-488-gtb-after.jpg',
+        beforeLabel: 'Before: Grigio Silverstone Gloss',
+        afterLabel: 'After: Stealth Satin Matte Black Wrap',
+        beforeLabelAr: 'قبل: رمادي ميتاليك لامع',
+        afterLabelAr: 'بعد: أسود ساتان مطفي شبحي',
+        treatment: '3M Cast Satin Wrap + Yellow Brembo Calipers',
+        treatmentAr: 'تجليد 3M ساتان + إبراز كليبرات بريمبو باللون الأصفر',
+      },
+      {
+        id: 'audi-r8-front',
+        category: 'exterior',
+        vehicle: 'Audi R8 V10 Plus',
+        vehicleAr: 'أودي R8 V10 بلس',
+        service: 'Paint Resurfacing & Desert Sand Wrap',
+        serviceAr: 'معالجة صبغ وتجليد بلون رملي صحراوي',
+        beforeImage: '/images/before-after/audi-r8-front-before.jpg',
+        afterImage: '/images/before-after/audi-r8-front-after.jpg',
+        beforeLabel: 'Before: Sun-Damaged Peeling Clearcoat',
+        afterLabel: 'After: Desert Sand Khaki + Gloss Black',
+        beforeLabelAr: 'قبل: لكر متقشر وتالف من الشمس',
+        afterLabelAr: 'بعد: تجليد رملي صحراوي ولمسات سوداء',
+        treatment: 'Clearcoat Resurfacing + High-Gloss Desert Sand Film',
+        treatmentAr: 'إعادة تسوية اللكر + فيلم رملي صحراوي فائق اللمعان',
+      },
+      {
+        id: 'audi-r8-rear',
+        category: 'exterior',
+        vehicle: 'Audi R8 V10 (Rear Aero)',
+        vehicleAr: 'أودي R8 V10 (الخلفية)',
+        service: 'Diffuser & Wing Gloss Black De-Chrome',
+        serviceAr: 'تجليد وتلميع الجناح والناشر الخلفي',
+        beforeImage: '/images/before-after/audi-r8-rear-before.jpg',
+        afterImage: '/images/before-after/audi-r8-rear-after.jpg',
+        beforeLabel: 'Before: Faded Grey Rear & Diffuser',
+        afterLabel: 'After: Desert Sand + Gloss Black Aero',
+        beforeLabelAr: 'قبل: بهتان باللون والناشر الخلفي',
+        afterLabelAr: 'بعد: لون رملي وجناح أسود لامع',
+        treatment: 'Carbon Fiber Restoration & High-Solid Gloss Topcoat',
+        treatmentAr: 'تجديد ألياف الكربون وطبقة لكر صلبة عالية اللمعان',
+      },
+      {
+        id: 'gwagon-cabin',
+        category: 'interior',
+        vehicle: 'Mercedes-AMG G63 (Cabin)',
+        vehicleAr: 'مرسيدس جي 63 (المقصورة)',
+        service: 'Bespoke Arctic White Quilted Nappa Leather',
+        serviceAr: 'تنجيد وتجديد جلد نابا أبيض قطبي ماسي',
+        beforeImage: '/images/before-after/gwagon-cabin-before.jpg',
+        afterImage: '/images/before-after/gwagon-cabin-after.jpg',
+        beforeLabel: 'Before: Worn & Discolored Beige Cabin',
+        afterLabel: 'After: Arctic White Diamond Quilted Nappa',
+        beforeLabelAr: 'قبل: مقصورة بيج متسخة ومستهلكة',
+        afterLabelAr: 'بعد: جلد نابا أبيض قطبي بتطريز ماسي فاخر',
+        treatment: 'Master Craftsmen Custom Italian Leather & Carbon Trim',
+        treatmentAr: 'تفصيل يدوي بحرفية إيطالية وديكورات كربون فايبر',
+      },
+      {
+        id: 'gwagon-steering',
+        category: 'interior',
+        vehicle: 'G63 AMG Steering Cockpit',
+        vehicleAr: 'مقود ومقصورة قيادة G63',
+        service: 'Performance Steering Wheel Re-Trim',
+        serviceAr: 'إعادة تنجيد المقود الرياضي بجلد نابا',
+        beforeImage: '/images/before-after/gwagon-steering-before.jpg',
+        afterImage: '/images/before-after/gwagon-steering-after.jpg',
+        beforeLabel: 'Before: Faded Beige OEM Steering',
+        afterLabel: 'After: Black Perforated Nappa + White Stitch',
+        beforeLabelAr: 'قبل: مقود بيج باهت من الاستخدام',
+        afterLabelAr: 'بعد: جلد نابا أسود مخرم مع خياطة بيضاء',
+        treatment: 'Ergonomic Re-Grip + AMG Sport Digital Cockpit',
+        treatmentAr: 'إعادة تشكيل المقبض الرياضي مع لمسات AMG الفاخرة',
+      },
+      {
+        id: 'rangerover-autobiography',
+        category: 'interior',
+        vehicle: 'Range Rover Autobiography',
+        vehicleAr: 'رينج روفر أوتوبيوغرافي',
+        service: 'Pearl Ivory Bespoke Upholstery',
+        serviceAr: 'تجديد وتفصيل مقصورة جلد لؤلؤي عاجي',
+        beforeImage: '/images/before-after/rangerover-autobiography-before.jpg',
+        afterImage: '/images/before-after/rangerover-autobiography-after.jpg',
+        beforeLabel: 'Before: Factory Mahogany Brown Cabin',
+        afterLabel: 'After: Pearl Ivory & Piano Black Console',
+        beforeLabelAr: 'قبل: مقصورة بنية داكنة تقليدية',
+        afterLabelAr: 'بعد: جلد عاجي لؤلؤي وكونسول بيانو بلاك',
+        treatment: 'Full Cabin Re-Upholstery with Ceramic Leather Shield',
+        treatmentAr: 'تنجيد شامل للمقصورة مع حماية سيراميك للجلد',
+      },
+      {
+        id: 'defender-interior',
+        category: 'interior',
+        vehicle: 'Land Rover Defender 110',
+        vehicleAr: 'لاند روفر ديفندر 110',
+        service: 'Italian Saddle Tan Custom Leather',
+        serviceAr: 'تفصيل جلد إيطالي تان صحراوي مخصص',
+        beforeImage: '/images/before-after/defender-interior-before.jpg',
+        afterImage: '/images/before-after/defender-interior-after.jpg',
+        beforeLabel: 'Before: Standard OEM Black Plastic & Fabric',
+        afterLabel: 'After: Saddle Tan Italian Nappa Leather',
+        beforeLabelAr: 'قبل: داخلية سوداء قياسية وبلاستيك',
+        afterLabelAr: 'بعد: جلد نابا إيطالي فاخر بلون تان جملي',
+        treatment: 'Hand-Stitched Dashboard, Console & Steering Wheel',
+        treatmentAr: 'خياطة يدوية للطبلون، الكونسول الأوسط، وعجلة القيادة',
       },
       {
         id: 'porsche-911',
+        category: 'paint',
         vehicle: 'Porsche 911 Turbo S',
+        vehicleAr: 'بورشه 911 تيربو إس',
         service: 'Concourse Paint Correction & Ceramic',
+        serviceAr: 'تصحيح طلاء كونكور وحماية نانو سيراميك',
         beforeImage: '/images/services/detailing/PHOTO-2024-07-12-14-12-51 18.JPG',
         afterImage: '/images/services/detailing/PHOTO-2024-07-12-14-12-51 24.JPG',
-        beforeLabel: 'Before: Swirls & Clearcoat Haze',
+        beforeLabel: 'Before: Heavy Swirls & Clearcoat Haze',
         afterLabel: 'After: 9H GYEON Quartz Ceramic Matrix',
-        beforeLabelAr: 'قبل: دوائر وخدوش واضحة',
+        beforeLabelAr: 'قبل: دوائر وخدوش واضحة وبهتان لكر',
         afterLabelAr: 'بعد: حماية نانو سيراميك 9H وانعكاس مرآة',
-        treatment: 'Multi-Stage Micro-Abrasive Leveling',
+        treatment: 'Multi-Stage Micro-Abrasive Leveling & 9H Ceramic',
+        treatmentAr: 'تسوية مجهرية متعددة المراحل وطبقة 9H جرافين',
       },
     ],
   },
   initialIndex: {
     type: Number,
-    default: 0,
+    default: null,
+  },
+  randomize: {
+    type: Boolean,
+    default: true,
+  },
+  category: {
+    type: String,
+    default: 'all',
   },
 });
 
-const activeIndex = ref(props.initialIndex);
-const activeItem = computed(() => props.items[activeIndex.value] || props.items[0]);
+// Detect single service mode vs multi-vehicle mode
+const isSingleMode = computed(() => !!(props.beforeImage && props.afterImage));
+
+const selectedCategory = ref(props.category);
+
+const filteredItems = computed(() => {
+  if (selectedCategory.value === 'all') return props.items;
+  return props.items.filter(item => item.category === selectedCategory.value);
+});
+
+// Pick a random starting item if in multi-mode and randomize is enabled
+const getInitialIndex = () => {
+  if (props.initialIndex !== null && props.initialIndex < filteredItems.value.length) {
+    return props.initialIndex;
+  }
+  if (props.randomize && filteredItems.value.length > 0) {
+    return Math.floor(Math.random() * filteredItems.value.length);
+  }
+  return 0;
+};
+
+const activeIndex = ref(getInitialIndex());
+
+// Watch for category change to reset index
+watch(selectedCategory, () => {
+  activeIndex.value = 0;
+  sliderPosition.value = 50;
+});
+
+// Active item resolved
+const activeItem = computed(() => {
+  if (isSingleMode.value) {
+    return {
+      vehicle: props.title || 'Veneno Transformation',
+      vehicleAr: props.title || 'تحول فينينو الفاخر',
+      service: props.title || 'Master Craftsmanship',
+      serviceAr: props.title || 'حرفية معتمدة',
+      beforeImage: props.beforeImage,
+      afterImage: props.afterImage,
+      beforeLabel: props.beforeLabel || 'Before Treatment',
+      afterLabel: props.afterLabel || 'After Transformation',
+      beforeLabelAr: props.beforeLabel || 'قبل المعالجة',
+      afterLabelAr: props.afterLabel || 'بعد التحول',
+      treatment: props.subtitle || 'Concourse Grade Precision Finish',
+      treatmentAr: props.subtitle || 'تشطيب دقيق بمواصفات كونكور',
+    };
+  }
+  return filteredItems.value[activeIndex.value] || filteredItems.value[0] || props.items[0];
+});
 
 const sliderPosition = ref(50);
 const containerRef = ref(null);
@@ -91,13 +293,54 @@ onUnmounted(() => {
 <template>
   <div class="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden glass-panel p-3 sm:p-5 border border-zinc-800 shadow-2xl shadow-black/90">
     
-    <!-- Header Controls: Vehicle Case Switcher Tabs & Info -->
-    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 border-b border-zinc-800/80 pb-3 mb-3 sm:mb-4">
+    <!-- Header Controls: Vehicle Case Switcher Tabs & Info (Only in Multi-Mode) -->
+    <div v-if="!isSingleMode" class="space-y-2.5 sm:space-y-3 border-b border-zinc-800/80 pb-3 mb-3 sm:mb-4">
       
-      <!-- Vehicle Case Switcher Buttons (No Scrollbar) -->
-      <div class="flex items-center gap-1.5 sm:gap-2 p-1 rounded-xl bg-zinc-950/80 border border-zinc-800 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+      <!-- Category Filter Pills (All / Wraps & Supercars / Bespoke Interiors / Paint Correction) -->
+      <div class="flex items-center justify-between gap-2 flex-wrap">
+        <div class="flex items-center gap-1.5 p-1 rounded-xl bg-zinc-950 border border-zinc-800 text-[11px] font-mono">
+          <button
+            @click="selectedCategory = 'all'"
+            class="px-2.5 py-1 rounded-lg transition-all font-semibold"
+            :class="selectedCategory === 'all' ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-400 hover:text-white'"
+          >
+            {{ currentLocale === 'ar' ? 'الكل (9)' : 'All (9)' }}
+          </button>
+          <button
+            @click="selectedCategory = 'exterior'"
+            class="px-2.5 py-1 rounded-lg transition-all font-semibold"
+            :class="selectedCategory === 'exterior' ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-400 hover:text-white'"
+          >
+            {{ currentLocale === 'ar' ? 'تجليد وسيارات خارقة (4)' : 'Wraps & Supercars (4)' }}
+          </button>
+          <button
+            @click="selectedCategory = 'interior'"
+            class="px-2.5 py-1 rounded-lg transition-all font-semibold"
+            :class="selectedCategory === 'interior' ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-400 hover:text-white'"
+          >
+            {{ currentLocale === 'ar' ? 'مقصورات وتفصيل جلد (4)' : 'Bespoke Interiors (4)' }}
+          </button>
+          <button
+            @click="selectedCategory = 'paint'"
+            class="px-2.5 py-1 rounded-lg transition-all font-semibold"
+            :class="selectedCategory === 'paint' ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-400 hover:text-white'"
+          >
+            {{ currentLocale === 'ar' ? 'تصحيح طلاء (1)' : 'Paint Correction (1)' }}
+          </button>
+        </div>
+
+        <!-- Interactive Instruction / Hint -->
+        <div class="flex items-center gap-2 text-[11px] font-mono text-zinc-400 self-end sm:self-auto">
+          <ArrowRightLeft class="w-3.5 h-3.5 text-red-500 animate-pulse" />
+          <span class="hidden sm:inline">{{ currentLocale === 'ar' ? 'اسحب المقبض لمشاهدة التحول' : 'Drag or click to reveal transformation' }}</span>
+          <span class="sm:hidden">{{ currentLocale === 'ar' ? 'اسحب للمقارنة' : 'Slide to compare' }}</span>
+        </div>
+      </div>
+
+      <!-- Vehicle Case Switcher Buttons Strip -->
+      <div class="flex items-center gap-1.5 sm:gap-2 p-1 rounded-xl bg-zinc-950/90 border border-zinc-800 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         <button
-          v-for="(item, idx) in items"
+          v-for="(item, idx) in filteredItems"
           :key="item.id"
           @click="activeIndex = idx; sliderPosition = 50;"
           class="px-3 sm:px-4 py-1.5 rounded-lg text-xs font-mono font-bold transition-all shrink-0 flex items-center gap-2"
@@ -106,15 +349,31 @@ onUnmounted(() => {
             : 'text-zinc-400 hover:text-white hover:bg-zinc-900'"
         >
           <Sparkles v-if="activeIndex === idx" class="w-3 h-3 text-white animate-pulse" />
-          <span>{{ item.vehicle }}</span>
+          <span>{{ currentLocale === 'ar' ? (item.vehicleAr || item.vehicle) : item.vehicle }}</span>
         </button>
       </div>
 
-      <!-- Interactive Instruction / Hint -->
-      <div class="flex items-center gap-2 text-[11px] font-mono text-zinc-400 self-end sm:self-auto">
+    </div>
+
+    <!-- Standalone Single Mode Header (For Service Detail Pages) -->
+    <div v-else class="flex items-center justify-between gap-3 border-b border-zinc-800/80 pb-3 mb-3 sm:mb-4">
+      <div class="flex items-center gap-2">
+        <div class="p-1.5 rounded-lg bg-red-600/20 text-red-500 border border-red-500/30">
+          <ShieldCheck class="w-4 h-4" />
+        </div>
+        <div>
+          <h4 class="text-xs sm:text-sm font-display uppercase font-bold text-white tracking-wide">
+            {{ activeItem.vehicle }}
+          </h4>
+          <p class="text-[10px] text-zinc-400 font-mono">{{ activeItem.treatment }}</p>
+        </div>
+      </div>
+
+      <!-- Slide Instruction Hint -->
+      <div class="flex items-center gap-2 text-[11px] font-mono text-zinc-400">
         <ArrowRightLeft class="w-3.5 h-3.5 text-red-500 animate-pulse" />
-        <span class="hidden sm:inline">{{ currentLocale === 'ar' ? 'اسحب المقبض لمشاهدة التحول' : 'Drag or click to reveal transformation' }}</span>
-        <span class="sm:hidden">{{ currentLocale === 'ar' ? 'اسحب للمقارنة' : 'Slide to compare' }}</span>
+        <span class="hidden sm:inline">{{ currentLocale === 'ar' ? 'اسحب المقبض لمقارنة النتيجة' : 'Drag slider to compare before & after' }}</span>
+        <span class="sm:hidden">{{ currentLocale === 'ar' ? 'اسحب للمقارنة' : 'Slide' }}</span>
       </div>
     </div>
 
@@ -185,9 +444,9 @@ onUnmounted(() => {
     <div class="mt-3 sm:mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs font-mono text-zinc-400 px-1">
       <div class="flex items-center gap-2 text-zinc-300">
         <CheckCircle2 class="w-4 h-4 text-red-500 shrink-0" />
-        <span class="font-bold text-white">{{ activeItem.service }}</span>
+        <span class="font-bold text-white">{{ currentLocale === 'ar' ? (activeItem.serviceAr || activeItem.service) : activeItem.service }}</span>
         <span class="text-zinc-500">•</span>
-        <span class="text-zinc-400 font-light">{{ activeItem.treatment }}</span>
+        <span class="text-zinc-400 font-light">{{ currentLocale === 'ar' ? (activeItem.treatmentAr || activeItem.treatment) : activeItem.treatment }}</span>
       </div>
 
       <div class="text-[11px] text-zinc-400 font-mono">

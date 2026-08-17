@@ -139,8 +139,10 @@ const isQuoteModalOpen = ref(false);
         <BeforeAfterSlider
           :beforeImage="activeService.before_image"
           :afterImage="activeService.after_image"
+          :beforeLabel="activeService.before_label"
+          :afterLabel="activeService.after_label"
           :title="`${activeService.name}`"
-          :subtitle="t('lab.caption')"
+          :subtitle="activeService.tagline || t('lab.caption')"
         />
       </div>
 
