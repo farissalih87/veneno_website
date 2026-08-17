@@ -193,13 +193,13 @@ const openQuoteWithService = (serviceName) => {
       <!-- Lane 1: Credentials, Certified Badges & Global Standards (Moving Left) -->
       <div class="animate-marquee flex items-center gap-4 py-1">
         <div v-for="i in 2" :key="'lane1-' + i" class="flex items-center gap-4 shrink-0">
-          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-red-500/30 text-white font-mono text-xs font-bold uppercase tracking-wider">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-red-500/40 text-white font-mono text-xs font-bold uppercase tracking-wider">
             <ShieldCheck class="w-3.5 h-3.5 text-red-500 shrink-0" />
             <span>{{ t('ticker.item1') }}</span>
           </span>
 
           <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-700/80 text-zinc-200 font-mono text-xs font-bold uppercase tracking-wider">
-            <Gem class="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <Gem class="w-3.5 h-3.5 text-zinc-300 shrink-0" />
             <span>{{ t('ticker.item2') }}</span>
           </span>
 
@@ -214,12 +214,12 @@ const openQuoteWithService = (serviceName) => {
           </span>
 
           <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-700/80 text-zinc-200 font-mono text-xs uppercase tracking-wider">
-            <Sparkles class="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <Sparkles class="w-3.5 h-3.5 text-red-500 shrink-0" />
             <span>{{ t('ticker.item5') }}</span>
           </span>
 
           <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-700/80 text-zinc-200 font-mono text-xs font-bold uppercase tracking-wider">
-            <BadgeCheck class="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <BadgeCheck class="w-3.5 h-3.5 text-zinc-300 shrink-0" />
             <span>{{ t('ticker.item6') }}</span>
           </span>
 
@@ -249,7 +249,7 @@ const openQuoteWithService = (serviceName) => {
           </span>
 
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900/60 border border-zinc-800 text-zinc-300 font-mono text-[11px]">
-            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-zinc-500"></span>
             <span>{{ t('ticker.strip2') }}</span>
           </span>
 
@@ -259,7 +259,7 @@ const openQuoteWithService = (serviceName) => {
           </span>
 
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900/60 border border-zinc-800 text-zinc-300 font-mono text-[11px]">
-            <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-zinc-400"></span>
             <span>{{ t('ticker.strip4') }}</span>
           </span>
 
@@ -269,7 +269,7 @@ const openQuoteWithService = (serviceName) => {
           </span>
 
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900/60 border border-zinc-800 text-zinc-300 font-mono text-[11px]">
-            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-zinc-500"></span>
             <span>{{ t('ticker.strip6') }}</span>
           </span>
 
@@ -279,7 +279,7 @@ const openQuoteWithService = (serviceName) => {
           </span>
 
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900/60 border border-zinc-800 text-zinc-300 font-mono text-[11px]">
-            <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-zinc-400"></span>
             <span>{{ t('ticker.strip8') }}</span>
           </span>
         </div>
@@ -341,7 +341,7 @@ const openQuoteWithService = (serviceName) => {
               </div>
 
               <div class="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-zinc-900/70 border border-zinc-800 space-y-1.5 sm:space-y-2">
-                <div class="flex items-center gap-1.5 sm:gap-2 text-amber-400">
+                <div class="flex items-center gap-1.5 sm:gap-2 text-red-500">
                   <Target class="w-4 h-4 sm:w-5 sm:h-5" />
                   <h4 class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-white">{{ t('about.missionTitle') }}</h4>
                 </div>
@@ -361,7 +361,7 @@ const openQuoteWithService = (serviceName) => {
                 href="https://wa.me/97126344403?text=Hello%20Veneno%20Auto%20Care,%20I%20would%20like%20to%20inquire%20about%20your%20services."
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-300 hover:text-white text-xs font-bold transition-colors"
+                class="flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 hover:border-emerald-500/50 text-zinc-200 hover:text-white text-xs font-bold transition-all shadow-md"
               >
                 <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#25D366] fill-current" viewBox="0 0 24 24">
                   <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.34C9.36 7.34 9.09 7.4 8.87 7.65C8.65 7.89 8.02 8.48 8.02 9.7C8.02 10.92 8.91 12.09 9.03 12.25C9.16 12.42 10.74 14.97 13.25 15.96C15.34 16.79 15.76 16.62 16.22 16.58C16.67 16.54 17.69 15.98 17.9 15.38C18.11 14.78 18.11 14.27 18.05 14.16C17.99 14.05 17.82 13.99 17.57 13.86C17.32 13.74 16.08 13.13 15.85 13.04C15.62 12.96 15.46 12.92 15.29 13.16C15.12 13.41 14.64 13.99 14.5 14.16C14.35 14.32 14.21 14.34 13.96 14.22C13.71 14.09 12.91 13.83 11.96 12.98C11.22 12.32 10.72 11.51 10.58 11.26C10.43 11.01 10.56 10.88 10.69 10.75C10.8 10.64 10.94 10.46 11.06 10.31C11.19 10.17 11.23 10.06 11.31 9.9C11.39 9.73 11.35 9.59 11.29 9.46C11.23 9.34 10.72 8.08 10.51 7.58C10.31 7.09 10.1 7.16 9.94 7.15C9.79 7.14 9.66 7.34 9.53 7.34Z"/>
@@ -557,7 +557,7 @@ const openQuoteWithService = (serviceName) => {
           </div>
 
           <!-- ISO 9001:2015 Card -->
-          <div class="glass-panel p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 text-center flex flex-col items-center justify-between space-y-2 sm:space-y-4 hover:border-blue-500/40 transition-all group">
+          <div class="glass-panel p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 text-center flex flex-col items-center justify-between space-y-2 sm:space-y-4 hover:border-red-500/40 transition-all group">
             <div class="h-10 sm:h-16 flex items-center justify-center">
               <img
                 src="/images/certifications/iso-9001.svg"
@@ -569,11 +569,11 @@ const openQuoteWithService = (serviceName) => {
               <h4 class="text-[11px] sm:text-xs font-bold text-white uppercase tracking-wider">ISO 9001:2015</h4>
               <p class="text-[9px] sm:text-[11px] text-zinc-400 mt-0.5 sm:mt-1 line-clamp-1 sm:line-clamp-none">{{ t('brands.iso9001') }}</p>
             </div>
-            <span class="px-2.5 py-0.5 sm:py-1 rounded-full bg-blue-950/60 text-blue-300 border border-blue-800/40 text-[9px] sm:text-[10px] font-mono">Quality Mgmt</span>
+            <span class="px-2.5 py-0.5 sm:py-1 rounded-full bg-zinc-900 text-zinc-300 border border-zinc-800 text-[9px] sm:text-[10px] font-mono">Quality Mgmt</span>
           </div>
 
           <!-- ISO 45001:2018 Card -->
-          <div class="glass-panel p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 text-center flex flex-col items-center justify-between space-y-2 sm:space-y-4 hover:border-emerald-500/40 transition-all group">
+          <div class="glass-panel p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 text-center flex flex-col items-center justify-between space-y-2 sm:space-y-4 hover:border-red-500/40 transition-all group">
             <div class="h-10 sm:h-16 flex items-center justify-center">
               <img
                 src="/images/certifications/iso-45001.png"
@@ -585,18 +585,18 @@ const openQuoteWithService = (serviceName) => {
               <h4 class="text-[11px] sm:text-xs font-bold text-white uppercase tracking-wider">ISO 45001:2018</h4>
               <p class="text-[9px] sm:text-[11px] text-zinc-400 mt-0.5 sm:mt-1 line-clamp-1 sm:line-clamp-none">{{ t('brands.iso45001') }}</p>
             </div>
-            <span class="px-2.5 py-0.5 sm:py-1 rounded-full bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[9px] sm:text-[10px] font-mono">Health & Safety</span>
+            <span class="px-2.5 py-0.5 sm:py-1 rounded-full bg-zinc-900 text-zinc-300 border border-zinc-800 text-[9px] sm:text-[10px] font-mono">Health & Safety</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- DYNAMIC IMPACT HIGHLIGHTS STRIP (Animated Badges & Visual Momentum) -->
+    <!-- DYNAMIC IMPACT HIGHLIGHTS STRIP (Luxury Obsidian & Brand Crimson Accents) -->
     <div class="relative py-6 bg-zinc-950/80 border-t border-zinc-900 overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-          <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex items-center gap-3 group">
-            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-red-600/15 border border-red-500/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+          <div class="glass-panel p-3.5 sm:p-4 rounded-2xl border border-zinc-800/80 hover:border-red-500/50 transition-all flex items-center gap-3 group bg-zinc-900/40 hover:bg-zinc-900/80">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-red-600/15 border border-red-500/30 text-red-500 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-red-600/25 transition-all">
               <ShieldCheck class="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />
             </div>
             <div>
@@ -605,9 +605,9 @@ const openQuoteWithService = (serviceName) => {
             </div>
           </div>
 
-          <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex items-center gap-3 group">
-            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-              <Car class="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
+          <div class="glass-panel p-3.5 sm:p-4 rounded-2xl border border-zinc-800/80 hover:border-red-500/50 transition-all flex items-center gap-3 group bg-zinc-900/40 hover:bg-zinc-900/80">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-red-600/15 border border-red-500/30 text-red-500 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-red-600/25 transition-all">
+              <Car class="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />
             </div>
             <div>
               <div class="text-xs sm:text-sm font-bold text-white font-mono uppercase tracking-wide">5,000+ Supercars</div>
@@ -615,9 +615,9 @@ const openQuoteWithService = (serviceName) => {
             </div>
           </div>
 
-          <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex items-center gap-3 group">
-            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-              <Gem class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" />
+          <div class="glass-panel p-3.5 sm:p-4 rounded-2xl border border-zinc-800/80 hover:border-red-500/50 transition-all flex items-center gap-3 group bg-zinc-900/40 hover:bg-zinc-900/80">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-red-600/15 border border-red-500/30 text-red-500 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-red-600/25 transition-all">
+              <Gem class="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />
             </div>
             <div>
               <div class="text-xs sm:text-sm font-bold text-white font-mono uppercase tracking-wide">9H+ GYEON Quartz</div>
@@ -625,9 +625,9 @@ const openQuoteWithService = (serviceName) => {
             </div>
           </div>
 
-          <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-zinc-800/80 hover:border-red-500/40 transition-all flex items-center gap-3 group">
-            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-              <MapPin class="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
+          <div class="glass-panel p-3.5 sm:p-4 rounded-2xl border border-zinc-800/80 hover:border-red-500/50 transition-all flex items-center gap-3 group bg-zinc-900/40 hover:bg-zinc-900/80">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-red-600/15 border border-red-500/30 text-red-500 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-red-600/25 transition-all">
+              <MapPin class="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />
             </div>
             <div>
               <div class="text-xs sm:text-sm font-bold text-white font-mono uppercase tracking-wide">2 Abu Dhabi Hubs</div>
@@ -807,8 +807,8 @@ const openQuoteWithService = (serviceName) => {
           </div>
 
           <!-- Card 2: Official WhatsApp -->
-          <div class="glass-panel p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 flex flex-col items-center text-center">
-            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mb-3 sm:mb-4">
+          <div class="glass-panel p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 flex flex-col items-center text-center hover:border-emerald-500/40 transition-all">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center mb-3 sm:mb-4">
               <svg class="w-5 h-5 sm:w-6 sm:h-6 fill-current text-[#25D366]" viewBox="0 0 24 24">
                 <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.34C9.36 7.34 9.09 7.4 8.87 7.65C8.65 7.89 8.02 8.48 8.02 9.7C8.02 10.92 8.91 12.09 9.03 12.25C9.16 12.42 10.74 14.97 13.25 15.96C15.34 16.79 15.76 16.62 16.22 16.58C16.67 16.54 17.69 15.98 17.9 15.38C18.11 14.78 18.11 14.27 18.05 14.16C17.99 14.05 17.82 13.99 17.57 13.86C17.32 13.74 16.08 13.13 15.85 13.04C15.62 12.96 15.46 12.92 15.29 13.16C15.12 13.41 14.64 13.99 14.5 14.16C14.35 14.32 14.21 14.34 13.96 14.22C13.71 14.09 12.91 13.83 11.96 12.98C11.22 12.32 10.72 11.51 10.58 11.26C10.43 11.01 10.56 10.88 10.69 10.75C10.8 10.64 10.94 10.46 11.06 10.31C11.19 10.17 11.23 10.06 11.31 9.9C11.39 9.73 11.35 9.59 11.29 9.46C11.23 9.34 10.72 8.08 10.51 7.58C10.31 7.09 10.1 7.16 9.94 7.15C9.79 7.14 9.66 7.34 9.53 7.34Z"/>
               </svg>
@@ -819,15 +819,15 @@ const openQuoteWithService = (serviceName) => {
               href="https://wa.me/97126344403?text=Hello%20Veneno%20Auto%20Care,%20I%20would%20like%20to%20inquire%20about%20your%20services."
               target="_blank"
               rel="noopener noreferrer"
-              class="px-4 py-2 rounded-xl bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-300 hover:text-white font-bold text-xs mt-2 sm:mt-3 flex items-center gap-1.5 transition-all shadow-md"
+              class="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 hover:border-emerald-500/50 text-zinc-200 hover:text-white font-bold text-xs mt-2 sm:mt-3 flex items-center gap-1.5 transition-all shadow-md"
             >
               <span>{{ t('hero.whatsappBtn') }}</span>
             </a>
           </div>
 
           <!-- Card 3: Email & Corporate -->
-          <div class="glass-panel p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 flex flex-col items-center text-center">
-            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center mb-3 sm:mb-4">
+          <div class="glass-panel p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 flex flex-col items-center text-center hover:border-red-500/40 transition-all">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-red-600/15 text-red-500 border border-red-500/30 flex items-center justify-center mb-3 sm:mb-4">
               <Mail class="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <h4 class="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">{{ t('branches.emailTitle') }}</h4>
@@ -900,7 +900,7 @@ const openQuoteWithService = (serviceName) => {
           <div class="glass-panel rounded-2xl sm:rounded-3xl border border-zinc-800/90 overflow-hidden shadow-2xl flex flex-col justify-between">
             <div class="p-5 sm:p-8 space-y-3 sm:space-y-4">
               <div class="flex items-center justify-between">
-                <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider">
+                <span class="px-3 py-1 rounded-full bg-zinc-900 text-zinc-300 border border-zinc-700 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider">
                   {{ t('branches.alQanaBadge') }}
                 </span>
                 <span class="text-[11px] sm:text-xs text-zinc-400 font-mono flex items-center gap-1">
