@@ -89,6 +89,52 @@ Ensure the following directories have write permissions (Permission **`755`** or
 
 ---
 
+## 🔧 Troubleshooting 500 Internal Server Error
+
+If you see `500 Internal Server Error` after uploading to cPanel, follow these 4 quick checks:
+
+### 1. Update the Root `.htaccess`
+Edit the `.htaccess` file in your `public_html/` root folder and ensure it contains:
+```apache
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # 1. Block access to sensitive files
+    RewriteRule ^(\.env.*|composer\.(json|lock)|package(-lock)?\.json|\.git.*|artisan|phpunit\.xml|vite\.config\.js|\.sql)$ - [F,L,NC]
+
+    # 2. Block access to internal directories
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|tests|vendor|scripts)($|/) - [F,L,NC]
+
+    # 3. Route traffic to public/ folder
+    RewriteRule ^$ public/index.php [L]
+    RewriteRule ^((?!public/).*)$ public/$1 [L]
+</IfModule>
+
+<IfModule mod_autoindex.c>
+    Options -Indexes
+</IfModule>
+```
+
+### 2. Check PHP Version (Must be PHP 8.2 or 8.3)
+Laravel 12 requires PHP 8.2+.
+1. In cPanel, search for **MultiPHP Manager** (or **Select PHP Version**).
+2. Select your domain (`veneno.ae`).
+3. Change the PHP Version to **PHP 8.2** or **PHP 8.3** and click **Apply**.
+
+### 3. Verify Folder Permissions (755 or 775)
+In cPanel File Manager:
+- Right-click `storage/` -> Change Permissions -> Set to **755** (or 775) and check recursive.
+- Right-click `bootstrap/cache/` -> Set to **755** (or 775).
+
+### 4. Enable Debug Mode to see the exact error
+If it still shows 500:
+1. In `public_html/.env`, change `APP_DEBUG=false` to `APP_DEBUG=true`.
+2. Refresh `veneno.ae` in your browser. Laravel will show the exact error (e.g. database credentials or missing extension).
+3. Once fixed, change `APP_DEBUG` back to `false`.
+
+---
+
 ## 🔑 Default Login Credentials
 
 | Role | Email | Password | Access Portal |
@@ -109,3 +155,4 @@ Ensure the following directories have write permissions (Permission **`755`** or
 - **Technician Bay Floor:** `https://veneno.ae/technician-portal`
 - **CRM Admin Dashboard:** `https://veneno.ae/dashboard`
 - **Staff Login:** `https://veneno.ae/login`
+
