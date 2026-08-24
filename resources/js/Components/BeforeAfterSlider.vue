@@ -215,14 +215,31 @@ const stopDrag = () => {
   isDragging.value = false;
 };
 
+const containerWidth = ref(0);
+let resizeObserver = null;
+
 onMounted(() => {
   window.addEventListener('mouseup', stopDrag);
   window.addEventListener('mouseleave', stopDrag);
+  if (containerRef.value) {
+    containerWidth.value = containerRef.value.offsetWidth;
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          containerWidth.value = entry.contentRect.width;
+        }
+      });
+      resizeObserver.observe(containerRef.value);
+    }
+  }
 });
 
 onUnmounted(() => {
   window.removeEventListener('mouseup', stopDrag);
   window.removeEventListener('mouseleave', stopDrag);
+  if (resizeObserver) {
+    resizeObserver.disconnect();
+  }
 });
 </script>
 
@@ -306,60 +323,70 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <!-- Image Comparison Frame -->
+    <!-- Image Comparison Frame: STRICTLY LTR PHYSICS AND COORDINATES -->
     <div
       ref="containerRef"
+      dir="ltr"
       class="relative w-full aspect-[16/10] sm:aspect-[16/9.3] rounded-xl sm:rounded-2xl overflow-hidden cursor-ew-resize select-none border border-zinc-800/60 bg-zinc-950"
+      style="direction: ltr !important;"
       @mousedown="startDrag"
       @mousemove="handleMouseMove"
       @touchmove="handleTouchMove"
       @touchstart="startDrag"
     >
-      <!-- AFTER IMAGE (Background - Layer 1) -->
+      <!-- AFTER IMAGE (Background - Layer 1 - Right Side of Handle) -->
       <img
         :src="activeItem.afterImage"
         :alt="activeItem.vehicle + ' After'"
         class="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-300"
+        style="left: 0; top: 0;"
       />
 
-      <!-- BEFORE IMAGE (Clipped Overlay - Layer 2) -->
+      <!-- BEFORE IMAGE (Clipped Overlay - Layer 2 - Left Side of Handle) -->
       <div
-        class="absolute inset-0 overflow-hidden pointer-events-none"
-        :style="{ width: `${sliderPosition}%` }"
+        class="absolute top-0 bottom-0 overflow-hidden pointer-events-none"
+        :style="{ left: '0', width: `${sliderPosition}%` }"
+        style="direction: ltr !important;"
       >
         <img
           :src="activeItem.beforeImage"
           :alt="activeItem.vehicle + ' Before'"
-          class="absolute inset-0 w-full h-full object-cover max-w-none pointer-events-none"
-          :style="{ width: containerRef ? `${containerRef.offsetWidth}px` : '100%' }"
+          class="absolute top-0 bottom-0 h-full object-cover max-w-none pointer-events-none"
+          :style="{ left: '0', width: containerWidth ? `${containerWidth}px` : (containerRef ? `${containerRef.offsetWidth}px` : '100%') }"
         />
       </div>
 
-      <!-- Before Floating Badge (Top Left - Layer 3 - Unclipped & Dynamic Opacity) -->
+      <!-- Before Floating Badge (Fixed Top-Left over Before Image) -->
       <div
-        class="absolute top-3 sm:top-4 left-3 sm:left-4 rtl:left-auto rtl:right-3 rtl:sm:right-4 z-20 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-black/85 backdrop-blur-md border border-red-500/50 text-red-400 text-[10px] sm:text-xs font-mono font-bold tracking-wider uppercase shadow-xl flex items-center gap-1.5 transition-opacity duration-200"
+        class="absolute top-3 sm:top-4 left-3 sm:left-4 z-20 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-black/85 backdrop-blur-md border border-red-500/50 text-red-400 text-[10px] sm:text-xs font-mono font-bold tracking-wider uppercase shadow-xl flex items-center gap-1.5 transition-opacity duration-200"
         :class="{ 'opacity-20': sliderPosition < 15 }"
+        style="left: 0.75rem; right: auto;"
       >
         <span class="w-2 h-2 rounded-full bg-red-500 shrink-0"></span>
         <span class="truncate max-w-[140px] sm:max-w-none">{{ currentLocale === 'ar' ? (activeItem.beforeLabelAr || activeItem.beforeLabel) : activeItem.beforeLabel }}</span>
       </div>
 
-      <!-- After Floating Badge (Top Right - Layer 3 - Unclipped & Dynamic Opacity) -->
+      <!-- After Floating Badge (Fixed Top-Right over After Image) -->
       <div
-        class="absolute top-3 sm:top-4 right-3 sm:right-4 rtl:right-auto rtl:left-3 rtl:sm:left-4 z-20 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-black/85 backdrop-blur-md border border-emerald-500/50 text-emerald-400 text-[10px] sm:text-xs font-mono font-bold tracking-wider uppercase shadow-xl flex items-center gap-1.5 transition-opacity duration-200"
+        class="absolute top-3 sm:top-4 right-3 sm:right-4 z-20 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-black/85 backdrop-blur-md border border-emerald-500/50 text-emerald-400 text-[10px] sm:text-xs font-mono font-bold tracking-wider uppercase shadow-xl flex items-center gap-1.5 transition-opacity duration-200"
         :class="{ 'opacity-20': sliderPosition > 85 }"
+        style="right: 0.75rem; left: auto;"
       >
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
         <span class="truncate max-w-[140px] sm:max-w-none">{{ currentLocale === 'ar' ? (activeItem.afterLabelAr || activeItem.afterLabel) : activeItem.afterLabel }}</span>
       </div>
 
-      <!-- Vertical Laser Divider Line & Handle -->
+      <!-- Vertical Laser Divider Line & Handle (Always positioned with left: sliderPosition%) -->
       <div
         class="absolute top-0 bottom-0 w-0.5 sm:w-1 bg-white pointer-events-none shadow-[0_0_15px_rgba(255,255,255,1)] z-30"
-        :style="{ left: `${sliderPosition}%` }"
+        :style="{ left: `${sliderPosition}%`, right: 'auto' }"
       >
         <!-- Center Handle Button -->
-        <div class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-black border-2 border-white shadow-2xl flex items-center justify-center pointer-events-auto cursor-ew-resize hover:scale-110 active:scale-95 transition-transform">
+        <div
+          dir="ltr"
+          class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-black border-2 border-white shadow-2xl flex items-center justify-center pointer-events-auto cursor-ew-resize hover:scale-110 active:scale-95 transition-transform"
+          style="direction: ltr !important;"
+        >
           <div class="flex items-center gap-1 text-white text-xs font-black">
             <span class="text-red-500">&#9664;</span>
             <span class="text-white text-[10px] font-mono">|</span>
