@@ -94,10 +94,12 @@ const scrollToTop = () => {
             <!-- Direct Hotline -->
             <a
               href="tel:+97126344403"
+              dir="ltr"
               class="w-full sm:w-auto h-12 sm:h-14 px-5 sm:px-6 rounded-xl sm:rounded-2xl bg-zinc-900 hover:bg-zinc-800 active:scale-95 border border-zinc-700 text-white font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 transition-colors"
+              style="direction: ltr !important;"
             >
               <Phone class="w-4 h-4 text-red-500 shrink-0" />
-              <span>+971 2 634 4403</span>
+              <span dir="ltr" class="font-mono inline-block" style="direction: ltr !important; unicode-bidi: isolate;">+971 2 634 4403</span>
             </a>
           </div>
 

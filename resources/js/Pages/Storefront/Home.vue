@@ -801,7 +801,7 @@ const getServiceUrl = (slug) => {
             </div>
             <h4 class="text-xs sm:text-sm font-bold text-white uppercase tracking-wider group-hover:text-red-400 transition-colors">{{ t('branches.landlineTitle') }}</h4>
             <p class="text-[11px] sm:text-xs text-zinc-400 mt-1">{{ t('branches.landlineDesc') }}</p>
-            <span class="text-sm sm:text-base font-mono font-bold text-red-400 group-hover:underline mt-3">
+            <span dir="ltr" class="text-sm sm:text-base font-mono font-bold text-red-400 group-hover:underline mt-3 inline-block" style="direction: ltr !important; unicode-bidi: isolate;">
               +971 2 634 4403
             </span>
           </a>
@@ -878,9 +878,13 @@ const getServiceUrl = (slug) => {
                 </a>
                 <a
                   href="tel:+97126344403"
-                  class="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs font-semibold font-mono"
+                  dir="ltr"
+                  class="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs font-semibold font-mono flex items-center gap-1.5"
+                  style="direction: ltr !important;"
                 >
-                  {{ t('branches.call') }}
+                  <Phone class="w-3.5 h-3.5 text-red-500 shrink-0" />
+                  <span>{{ currentLocale === 'ar' ? 'اتصل:' : 'Call:' }}</span>
+                  <span dir="ltr" class="font-mono inline-block" style="direction: ltr !important; unicode-bidi: isolate;">02 634 4403</span>
                 </a>
               </div>
             </div>
@@ -933,9 +937,13 @@ const getServiceUrl = (slug) => {
                 </a>
                 <a
                   href="tel:+97126344403"
-                  class="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs font-semibold font-mono"
+                  dir="ltr"
+                  class="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs font-semibold font-mono flex items-center gap-1.5"
+                  style="direction: ltr !important;"
                 >
-                  {{ t('branches.call') }}
+                  <Phone class="w-3.5 h-3.5 text-red-500 shrink-0" />
+                  <span>{{ currentLocale === 'ar' ? 'اتصل:' : 'Call:' }}</span>
+                  <span dir="ltr" class="font-mono inline-block" style="direction: ltr !important; unicode-bidi: isolate;">02 634 4403</span>
                 </a>
               </div>
             </div>
