@@ -69,6 +69,16 @@ SESSION_DRIVER=file
 CACHE_STORE=file
 QUEUE_CONNECTION=sync
 FILESYSTEM_DISK=public
+
+# Official Tasjeel SMTP Configuration (Instant Quote Lead Delivery)
+MAIL_MAILER=smtp
+MAIL_HOST=wayed.tasjeel.ae
+MAIL_PORT=465
+MAIL_USERNAME=info@veneno.ae
+MAIL_PASSWORD=Veneo2023
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS="info@veneno.ae"
+MAIL_FROM_NAME="Veneno Auto Care"
 ```
 6. Click **Save Changes**.
 

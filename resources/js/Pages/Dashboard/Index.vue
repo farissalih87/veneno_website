@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { Head, router, Link } from '@inertiajs/vue3';
 import Navbar from '@/Components/Navbar.vue';
 import Footer from '@/Components/Footer.vue';
@@ -21,7 +21,14 @@ import {
   ChevronRight,
   Filter,
   BarChart3,
-  Wrench
+  Wrench,
+  Trash2,
+  Mail,
+  Phone,
+  Search,
+  Clock,
+  MapPin,
+  ExternalLink
 } from 'lucide-vue-next';
 
 const props = defineProps({
@@ -35,6 +42,31 @@ const props = defineProps({
 });
 
 const currentTab = ref('overview'); // 'overview', 'bookings', 'clients', 'inquiries', 'campaigns', 'revenue'
+
+// Inquiry Filters & Search
+const inquiryStatusFilter = ref('all');
+const inquirySearch = ref('');
+
+const filteredInquiries = computed(() => {
+  let list = props.inquiries || [];
+  
+  if (inquiryStatusFilter.value !== 'all') {
+    list = list.filter(i => i.status === inquiryStatusFilter.value);
+  }
+  
+  if (inquirySearch.value.trim()) {
+    const q = inquirySearch.value.toLowerCase();
+    list = list.filter(i =>
+      (i.customer_name && i.customer_name.toLowerCase().includes(q)) ||
+      (i.phone && i.phone.toLowerCase().includes(q)) ||
+      (i.service_requested && i.service_requested.toLowerCase().includes(q)) ||
+      (i.vehicle_details && i.vehicle_details.toLowerCase().includes(q)) ||
+      (i.message_text && i.message_text.toLowerCase().includes(q))
+    );
+  }
+  
+  return list;
+});
 
 // New Marketing Campaign Form State
 const newCampaign = ref({
@@ -68,6 +100,12 @@ const handleCreateCampaign = () => {
 
 const handleUpdateInquiry = (inquiryId, status) => {
   router.patch(route('dashboard.inquiries.update', inquiryId), { status });
+};
+
+const handleDeleteInquiry = (inquiryId) => {
+  if (confirm('Are you sure you want to delete this quote lead record?')) {
+    router.delete(route('dashboard.inquiries.destroy', inquiryId));
+  }
 };
 </script>
 
@@ -150,7 +188,7 @@ const handleUpdateInquiry = (inquiryId, status) => {
             { id: 'overview', label: 'Overview' },
             { id: 'bookings', label: `Bookings (${bookings?.length || 0})` },
             { id: 'clients', label: `Clients (${clients?.length || 0})` },
-            { id: 'inquiries', label: `WhatsApp Leads (${inquiries?.length || 0})` },
+            { id: 'inquiries', label: `Quote Leads (${inquiries?.length || 0})` },
             { id: 'campaigns', label: 'Marketing Studio' },
             { id: 'revenue', label: 'Revenue Analytics' },
           ]"
@@ -298,49 +336,169 @@ const handleUpdateInquiry = (inquiryId, status) => {
         </div>
       </div>
 
-      <!-- TAB 4: WHATSAPP LEADS INBOX -->
-      <div v-if="currentTab === 'inquiries'" class="space-y-4">
-        <div class="glass-panel rounded-3xl border border-zinc-800 overflow-hidden">
-          <div class="p-6 border-b border-zinc-800 flex items-center justify-between">
-            <h3 class="text-base font-bold text-white">WhatsApp Customer Leads</h3>
-            <span class="text-xs font-mono text-zinc-400">Total Leads: {{ inquiries?.length }}</span>
+      <!-- TAB 4: QUOTE LEADS & INQUIRIES CRM -->
+      <div v-if="currentTab === 'inquiries'" class="space-y-6">
+        <div class="glass-panel p-6 rounded-3xl border border-zinc-800 space-y-6">
+          
+          <!-- Header & Search Controls -->
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800/80 pb-6">
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg font-bold text-white uppercase font-display">Quote Leads & Inquiries Inbox</h3>
+                <span class="px-2.5 py-0.5 rounded-full bg-red-600/20 text-red-400 border border-red-500/30 text-xs font-mono font-bold">
+                  {{ filteredInquiries.length }} Leads
+                </span>
+              </div>
+              <p class="text-xs text-zinc-400 mt-1">Real-time instant quotes from veneno.ae, dispatched to info@veneno.ae and recorded in CRM</p>
+            </div>
+
+            <!-- Search Input -->
+            <div class="relative w-full md:w-80">
+              <Search class="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                v-model="inquirySearch"
+                type="text"
+                placeholder="Search name, phone, service, branch..."
+                class="w-full pl-10 pr-4 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-red-500"
+              />
+            </div>
           </div>
 
-          <div class="divide-y divide-zinc-800/80 text-xs">
-            <div
-              v-for="inq in inquiries"
-              :key="inq.id"
-              class="p-6 flex flex-col md:flex-row md:items-center justify-between gap-4"
+          <!-- Status Filter Tabs -->
+          <div class="flex flex-wrap items-center gap-2">
+            <button
+              @click="inquiryStatusFilter = 'all'"
+              class="px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold uppercase transition-all"
+              :class="inquiryStatusFilter === 'all' ? 'bg-white text-black shadow-lg' : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'"
             >
-              <div class="space-y-1">
-                <div class="flex items-center gap-3">
-                  <span class="text-sm font-bold text-white">{{ inq.customer_name }}</span>
-                  <span class="text-xs font-mono text-emerald-400">{{ inq.phone }}</span>
+              All Leads ({{ inquiries?.length || 0 }})
+            </button>
+            <button
+              @click="inquiryStatusFilter = 'new'"
+              class="px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5"
+              :class="inquiryStatusFilter === 'new' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'"
+            >
+              <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+              <span>New ({{ inquiries?.filter(i => i.status === 'new').length || 0 }})</span>
+            </button>
+            <button
+              @click="inquiryStatusFilter = 'contacted'"
+              class="px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold uppercase transition-all"
+              :class="inquiryStatusFilter === 'contacted' ? 'bg-amber-600 text-white shadow-lg shadow-amber-600/30' : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'"
+            >
+              Contacted ({{ inquiries?.filter(i => i.status === 'contacted').length || 0 }})
+            </button>
+            <button
+              @click="inquiryStatusFilter = 'booked'"
+              class="px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold uppercase transition-all"
+              :class="inquiryStatusFilter === 'booked' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/30' : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'"
+            >
+              Converted / Booked ({{ inquiries?.filter(i => i.status === 'booked').length || 0 }})
+            </button>
+            <button
+              @click="inquiryStatusFilter = 'lost'"
+              class="px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold uppercase transition-all"
+              :class="inquiryStatusFilter === 'lost' ? 'bg-zinc-700 text-white' : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'"
+            >
+              Lost / Closed ({{ inquiries?.filter(i => i.status === 'lost').length || 0 }})
+            </button>
+          </div>
+
+          <!-- Inquiries List -->
+          <div v-if="filteredInquiries.length === 0" class="text-center py-12 text-zinc-500 font-mono text-xs">
+            No quote leads found matching your criteria.
+          </div>
+
+          <div v-else class="space-y-3">
+            <div
+              v-for="inq in filteredInquiries"
+              :key="inq.id"
+              class="p-5 rounded-2xl bg-zinc-900/70 border border-zinc-800/80 hover:border-zinc-700 transition-all flex flex-col lg:flex-row lg:items-center justify-between gap-5 group"
+            >
+              <!-- Left Info -->
+              <div class="space-y-2 flex-1">
+                <div class="flex flex-wrap items-center gap-3">
+                  <span class="text-base font-bold text-white">{{ inq.customer_name }}</span>
+                  <span class="text-xs font-mono text-emerald-400 font-bold">{{ inq.phone }}</span>
+                  
+                  <span
+                    class="text-[10px] font-mono px-2.5 py-0.5 rounded-full font-bold uppercase"
+                    :class="{
+                      'bg-blue-950 text-blue-400 border border-blue-800/60': inq.status === 'new',
+                      'bg-amber-950 text-amber-400 border border-amber-800/60': inq.status === 'contacted',
+                      'bg-emerald-950 text-emerald-400 border border-emerald-800/60': inq.status === 'booked',
+                      'bg-zinc-800 text-zinc-400 border border-zinc-700': inq.status === 'lost',
+                    }"
+                  >
+                    {{ inq.status }}
+                  </span>
+
+                  <span class="text-[10px] text-zinc-500 font-mono flex items-center gap-1 ml-auto lg:ml-0">
+                    <Clock class="w-3 h-3" />
+                    <span>#{{ inq.id }} • {{ new Date(inq.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) }}</span>
+                  </span>
                 </div>
-                <div class="text-zinc-400">Vehicle: <span class="text-zinc-200 font-semibold">{{ inq.vehicle_details }}</span> • Requested: <span class="text-red-400">{{ inq.service_requested }}</span></div>
-                <p class="text-zinc-300 italic pt-1">"{{ inq.message_text }}"</p>
+
+                <div class="text-xs flex flex-wrap items-center gap-x-4 gap-y-1 text-zinc-300">
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-zinc-500 font-mono uppercase text-[10px]">Service:</span>
+                    <span class="text-red-400 font-bold">{{ inq.service_requested }}</span>
+                  </div>
+
+                  <div v-if="inq.vehicle_details" class="flex items-center gap-1.5">
+                    <MapPin class="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+                    <span class="text-zinc-300">{{ inq.vehicle_details }}</span>
+                  </div>
+                </div>
+
+                <div v-if="inq.message_text" class="p-2.5 rounded-xl bg-zinc-950/60 border border-zinc-800/60 text-zinc-300 text-xs font-sans leading-relaxed whitespace-pre-line">
+                  {{ inq.message_text }}
+                </div>
               </div>
 
-              <div class="flex items-center gap-3">
+              <!-- Right Actions Hub -->
+              <div class="flex flex-wrap items-center gap-2.5 shrink-0 pt-2 lg:pt-0 border-t lg:border-t-0 border-zinc-800/60">
+                <!-- Status Dropdown -->
                 <select
                   :value="inq.status"
                   @change="handleUpdateInquiry(inq.id, $event.target.value)"
-                  class="px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-200 text-xs focus:outline-none"
+                  class="px-3 py-2 rounded-xl bg-zinc-950 border border-zinc-700 text-zinc-200 text-xs font-mono focus:outline-none focus:border-red-500"
                 >
-                  <option value="new">New Lead</option>
-                  <option value="contacted">Contacted</option>
-                  <option value="booked">Converted to Booking</option>
-                  <option value="lost">Lost</option>
+                  <option value="new">🔵 Mark as New</option>
+                  <option value="contacted">🟡 Contacted</option>
+                  <option value="booked">🟢 Booked / Converted</option>
+                  <option value="lost">⚪ Closed / Lost</option>
                 </select>
 
+                <!-- WhatsApp -->
                 <a
-                  :href="`https://wa.me/${inq.phone.replace(/[^0-9]/g, '')}`"
+                  :href="`https://wa.me/${inq.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hello ' + inq.customer_name + ', thank you for contacting Veneno Auto Care regarding your quote request for ' + inq.service_requested + '. How may we assist you?')}`"
                   target="_blank"
-                  class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5"
+                  rel="noopener noreferrer"
+                  class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold text-xs flex items-center gap-1.5 shadow-md transition-all"
+                  title="WhatsApp Customer"
                 >
                   <Send class="w-3.5 h-3.5" />
-                  <span>Reply</span>
+                  <span>WhatsApp</span>
                 </a>
+
+                <!-- Call -->
+                <a
+                  :href="`tel:${inq.phone}`"
+                  class="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white border border-zinc-700 transition-colors"
+                  title="Call Customer"
+                >
+                  <Phone class="w-4 h-4 text-red-400" />
+                </a>
+
+                <!-- Delete Lead -->
+                <button
+                  @click="handleDeleteInquiry(inq.id)"
+                  class="p-2 rounded-xl bg-zinc-900 hover:bg-red-950/80 text-zinc-500 hover:text-red-400 border border-zinc-800 hover:border-red-500/50 transition-colors"
+                  title="Delete Lead Record"
+                >
+                  <Trash2 class="w-4 h-4" />
+                </button>
               </div>
             </div>
           </div>

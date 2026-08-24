@@ -22,6 +22,8 @@ const { t, currentLocale } = useI18n();
 const form = ref({
   name: '',
   phone: '',
+  email: '',
+  branch: 'Musaffah — Main Facility',
   service: props.preselectedService || '3M Paint Protection Film (PPF)',
 });
 
@@ -41,6 +43,11 @@ const servicesOptions = [
   'Signature Decontamination Car Wash',
 ];
 
+const branchesOptions = [
+  'Musaffah — Main Facility',
+  'Al Qana Waterfront Studio',
+];
+
 watch(
   () => props.preselectedService,
   (newVal) => {
@@ -58,6 +65,8 @@ const handleSubmit = async () => {
     const res = await axios.post('/api/quote', {
       name: form.value.name,
       phone: form.value.phone,
+      email: form.value.email,
+      branch: form.value.branch,
       service: form.value.service,
       locale: currentLocale.value,
     });
@@ -162,31 +171,62 @@ const handleClose = () => {
           </select>
         </div>
 
-        <!-- 2. Full Name -->
-        <div>
-          <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5">{{ t('quote.fullName') }}</label>
-          <div class="relative">
-            <input
-              v-model="form.name"
-              type="text"
-              required
-              :placeholder="currentLocale === 'ar' ? 'الاسم الكريم' : 'Your Full Name'"
-              class="w-full px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white placeholder-zinc-500 focus:outline-none focus:border-red-500 text-sm transition-colors"
-            />
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- 2. Full Name -->
+          <div>
+            <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5">{{ t('quote.fullName') }}</label>
+            <div class="relative">
+              <input
+                v-model="form.name"
+                type="text"
+                required
+                :placeholder="currentLocale === 'ar' ? 'الاسم الكريم' : 'Your Full Name'"
+                class="w-full px-4 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white placeholder-zinc-500 focus:outline-none focus:border-red-500 text-sm transition-colors"
+              />
+            </div>
+          </div>
+
+          <!-- 3. Mobile / WhatsApp -->
+          <div>
+            <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5">{{ t('quote.phone') }}</label>
+            <div class="relative">
+              <input
+                v-model="form.phone"
+                type="tel"
+                required
+                placeholder="+971 50 123 4567"
+                class="w-full px-4 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white placeholder-zinc-500 focus:outline-none focus:border-red-500 text-sm transition-colors font-mono"
+              />
+            </div>
           </div>
         </div>
 
-        <!-- 3. Mobile / WhatsApp -->
-        <div>
-          <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5">{{ t('quote.phone') }}</label>
-          <div class="relative">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- 4. Email (Optional) -->
+          <div>
+            <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5 flex items-center justify-between">
+              <span>{{ currentLocale === 'ar' ? 'البريد الإلكتروني' : 'Email Address' }}</span>
+              <span class="text-[10px] text-zinc-500 font-normal">({{ currentLocale === 'ar' ? 'اختياري' : 'Optional' }})</span>
+            </label>
             <input
-              v-model="form.phone"
-              type="tel"
-              required
-              placeholder="+971 50 123 4567"
-              class="w-full px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white placeholder-zinc-500 focus:outline-none focus:border-red-500 text-sm transition-colors font-mono"
+              v-model="form.email"
+              type="email"
+              placeholder="client@example.com"
+              class="w-full px-4 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white placeholder-zinc-500 focus:outline-none focus:border-red-500 text-sm transition-colors font-mono"
             />
+          </div>
+
+          <!-- 5. Preferred Studio -->
+          <div>
+            <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5">
+              {{ currentLocale === 'ar' ? 'الفرع المفضل' : 'Preferred Studio' }}
+            </label>
+            <select
+              v-model="form.branch"
+              class="w-full px-4 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white focus:outline-none focus:border-red-500 text-sm transition-colors"
+            >
+              <option v-for="br in branchesOptions" :key="br" :value="br">{{ br }}</option>
+            </select>
           </div>
         </div>
 

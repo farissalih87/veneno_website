@@ -9,6 +9,8 @@ const { t, currentLocale } = useI18n();
 const form = ref({
   name: '',
   phone: '',
+  email: '',
+  branch: 'Musaffah — Main Facility',
   service: '3M Paint Protection Film (PPF)',
 });
 
@@ -28,6 +30,11 @@ const servicesOptions = [
   'Signature Decontamination Car Wash',
 ];
 
+const branchesOptions = [
+  'Musaffah — Main Facility',
+  'Al Qana Waterfront Studio',
+];
+
 const handleSubmit = async () => {
   isSubmitting.value = true;
   errorMessage.value = '';
@@ -36,6 +43,8 @@ const handleSubmit = async () => {
     const res = await axios.post('/api/quote', {
       name: form.value.name,
       phone: form.value.phone,
+      email: form.value.email,
+      branch: form.value.branch,
       service: form.value.service,
       locale: currentLocale.value,
     });
@@ -180,6 +189,35 @@ const handleSubmit = async () => {
                       class="w-full px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white placeholder-zinc-500 focus:outline-none focus:border-red-500 text-sm transition-colors font-mono"
                     />
                   </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- 4. Email (Optional) -->
+                <div>
+                  <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5 flex items-center justify-between">
+                    <span>{{ currentLocale === 'ar' ? 'البريد الإلكتروني' : 'Email Address' }}</span>
+                    <span class="text-[10px] text-zinc-500 font-normal">({{ currentLocale === 'ar' ? 'اختياري' : 'Optional' }})</span>
+                  </label>
+                  <input
+                    v-model="form.email"
+                    type="email"
+                    placeholder="client@example.com"
+                    class="w-full px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white placeholder-zinc-500 focus:outline-none focus:border-red-500 text-sm transition-colors font-mono"
+                  />
+                </div>
+
+                <!-- 5. Preferred Studio -->
+                <div>
+                  <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5">
+                    {{ currentLocale === 'ar' ? 'الفرع المفضل' : 'Preferred Studio' }}
+                  </label>
+                  <select
+                    v-model="form.branch"
+                    class="w-full px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white focus:outline-none focus:border-red-500 text-sm transition-colors"
+                  >
+                    <option v-for="br in branchesOptions" :key="br" :value="br">{{ br }}</option>
+                  </select>
                 </div>
               </div>
 

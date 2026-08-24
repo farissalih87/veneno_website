@@ -43,4 +43,5 @@ Route::post('/technician/bookings/{booking}/stage', [TechnicianPortalController:
 // Admin / Manager Dashboard CRM
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::patch('/dashboard/inquiries/{inquiry}', [DashboardController::class, 'updateInquiryStatus'])->name('dashboard.inquiries.update');
+Route::delete('/dashboard/inquiries/{inquiry}', [DashboardController::class, 'destroyInquiry'])->name('dashboard.inquiries.destroy');
 Route::post('/dashboard/campaigns', [DashboardController::class, 'storeCampaign'])->name('dashboard.campaigns.store');

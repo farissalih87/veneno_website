@@ -63,6 +63,10 @@ const openQuoteWithService = (serviceName) => {
   selectedServiceName.value = serviceName;
   isQuoteModalOpen.value = true;
 };
+
+const getServiceUrl = (slug) => {
+  return currentLocale.value === 'ar' ? `/ar/services/${slug}` : `/services/${slug}`;
+};
 </script>
 
 <template>
@@ -681,8 +685,11 @@ const openQuoteWithService = (serviceName) => {
             :key="service.id"
             class="group relative glass-panel rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-800/80 hover:border-red-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-red-950/20 flex flex-col"
           >
-            <!-- Service Image Banner -->
-            <div class="relative h-36 sm:h-52 overflow-hidden bg-zinc-900">
+            <!-- Service Image Banner (Clickable Link) -->
+            <Link
+              :href="getServiceUrl(service.slug)"
+              class="block relative h-36 sm:h-52 overflow-hidden bg-zinc-900 cursor-pointer"
+            >
               <img
                 :src="service.image"
                 :alt="service.name"
@@ -698,7 +705,7 @@ const openQuoteWithService = (serviceName) => {
                   <span class="text-white">{{ service.starting_price }}</span>
                 </span>
               </div>
-            </div>
+            </Link>
 
             <!-- Content -->
             <div class="p-4 sm:p-6 flex-1 flex flex-col justify-between space-y-3 sm:space-y-4 bg-zinc-950/90">
@@ -707,9 +714,13 @@ const openQuoteWithService = (serviceName) => {
                   <span class="text-[9px] sm:text-[10px] font-mono text-red-400 font-bold uppercase">{{ service.badge }}</span>
                   <span class="text-[9px] sm:text-[10px] text-zinc-400 font-mono">{{ service.warranty }}</span>
                 </div>
-                <h3 class="text-base sm:text-xl font-display font-semibold uppercase tracking-wide text-white group-hover:text-red-400 transition-colors">
-                  {{ service.name }}
-                </h3>
+
+                <!-- Service Title (Clickable Link) -->
+                <Link :href="getServiceUrl(service.slug)" class="block group/title">
+                  <h3 class="text-base sm:text-xl font-display font-semibold uppercase tracking-wide text-white group-hover/title:text-red-400 transition-colors">
+                    {{ service.name }}
+                  </h3>
+                </Link>
 
                 <p class="text-[11px] sm:text-xs text-zinc-400 mt-1.5 sm:mt-2 line-clamp-2 leading-relaxed">
                   {{ service.description }}
@@ -732,16 +743,16 @@ const openQuoteWithService = (serviceName) => {
               <!-- Action CTAs -->
               <div class="pt-2.5 sm:pt-3 border-t border-zinc-800/80 flex items-center justify-between gap-2">
                 <Link
-                  :href="`/services/${service.slug}`"
-                  class="text-[11px] sm:text-xs font-mono uppercase text-zinc-400 hover:text-white flex items-center gap-1 transition-colors py-1"
+                  :href="getServiceUrl(service.slug)"
+                  class="text-[11px] sm:text-xs font-mono uppercase text-zinc-400 hover:text-white flex items-center gap-1 transition-colors py-1 group/btn"
                 >
-                  <span>{{ t('services.explore') }}</span>
-                  <ArrowUpRight class="w-3.5 h-3.5 rtl:rotate-90" />
+                  <span class="group-hover/btn:underline">{{ t('services.explore') }}</span>
+                  <ArrowUpRight class="w-3.5 h-3.5 rtl:rotate-90 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                 </Link>
 
                 <button
                   @click="openQuoteWithService(service.name)"
-                  class="px-3.5 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-display font-semibold text-xs uppercase tracking-wider shadow-lg shadow-red-600/30 transition-all flex items-center gap-1.5"
+                  class="px-3.5 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 active:scale-95 text-white font-display font-semibold text-xs uppercase tracking-wider shadow-lg shadow-red-600/30 transition-all flex items-center gap-1.5 cursor-pointer"
                 >
                   <Sparkles class="w-3.5 h-3.5" />
                   <span>{{ t('services.getQuote') }}</span>
@@ -778,50 +789,56 @@ const openQuoteWithService = (serviceName) => {
           </p>
         </div>
 
-        <!-- 3 Contact Cards -->
+        <!-- 3 Contact Cards (Fully Clickable) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
-          <!-- Card 1: Landline & Phone -->
-          <div class="glass-panel p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 flex flex-col items-center text-center">
-            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-red-600/20 text-red-400 border border-red-500/30 flex items-center justify-center mb-3 sm:mb-4">
-              <Phone class="w-5 h-5 sm:w-6 sm:h-6" />
+          <!-- Card 1: Direct Landline & Hotline -->
+          <a
+            href="tel:+97126344403"
+            class="group glass-panel p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 hover:border-red-500/50 hover:bg-zinc-900/90 flex flex-col items-center text-center cursor-pointer transition-all duration-300 shadow-xl hover:shadow-red-950/30 hover:-translate-y-1"
+          >
+            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-red-600/20 text-red-400 border border-red-500/30 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 group-hover:bg-red-600/30 transition-all">
+              <Phone class="w-6 h-6 sm:w-7 sm:h-7 text-red-400" />
             </div>
-            <h4 class="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">{{ t('branches.landlineTitle') }}</h4>
-            <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5 sm:mt-1">{{ t('branches.landlineDesc') }}</p>
-            <a href="tel:+97126344403" class="text-sm sm:text-base font-mono font-bold text-red-400 hover:underline mt-2 sm:mt-3">
+            <h4 class="text-xs sm:text-sm font-bold text-white uppercase tracking-wider group-hover:text-red-400 transition-colors">{{ t('branches.landlineTitle') }}</h4>
+            <p class="text-[11px] sm:text-xs text-zinc-400 mt-1">{{ t('branches.landlineDesc') }}</p>
+            <span class="text-sm sm:text-base font-mono font-bold text-red-400 group-hover:underline mt-3">
               +971 2 634 4403
-            </a>
-          </div>
+            </span>
+          </a>
 
-          <!-- Card 2: Official WhatsApp -->
-          <div class="glass-panel p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 flex flex-col items-center text-center hover:border-emerald-500/40 transition-all">
-            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center mb-3 sm:mb-4">
-              <svg class="w-5 h-5 sm:w-6 sm:h-6 fill-current text-[#25D366]" viewBox="0 0 24 24">
+          <!-- Card 2: Official WhatsApp Concierge -->
+          <a
+            href="https://wa.me/97126344403?text=Hello%20Veneno%20Auto%20Care,%20I%20would%20like%20to%20inquire%20about%20your%20services."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group glass-panel p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 hover:border-emerald-500/50 hover:bg-zinc-900/90 flex flex-col items-center text-center cursor-pointer transition-all duration-300 shadow-xl hover:shadow-emerald-950/30 hover:-translate-y-1"
+          >
+            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-zinc-900 border border-zinc-800 group-hover:border-emerald-500/40 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-all">
+              <svg class="w-6 h-6 sm:w-7 sm:h-7 fill-current text-[#25D366]" viewBox="0 0 24 24">
                 <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.34C9.36 7.34 9.09 7.4 8.87 7.65C8.65 7.89 8.02 8.48 8.02 9.7C8.02 10.92 8.91 12.09 9.03 12.25C9.16 12.42 10.74 14.97 13.25 15.96C15.34 16.79 15.76 16.62 16.22 16.58C16.67 16.54 17.69 15.98 17.9 15.38C18.11 14.78 18.11 14.27 18.05 14.16C17.99 14.05 17.82 13.99 17.57 13.86C17.32 13.74 16.08 13.13 15.85 13.04C15.62 12.96 15.46 12.92 15.29 13.16C15.12 13.41 14.64 13.99 14.5 14.16C14.35 14.32 14.21 14.34 13.96 14.22C13.71 14.09 12.91 13.83 11.96 12.98C11.22 12.32 10.72 11.51 10.58 11.26C10.43 11.01 10.56 10.88 10.69 10.75C10.8 10.64 10.94 10.46 11.06 10.31C11.19 10.17 11.23 10.06 11.31 9.9C11.39 9.73 11.35 9.59 11.29 9.46C11.23 9.34 10.72 8.08 10.51 7.58C10.31 7.09 10.1 7.16 9.94 7.15C9.79 7.14 9.66 7.34 9.53 7.34Z"/>
               </svg>
             </div>
-            <h4 class="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">{{ t('branches.whatsappTitle') }}</h4>
-            <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5 sm:mt-1">{{ t('branches.whatsappDesc') }}</p>
-            <a
-              href="https://wa.me/97126344403?text=Hello%20Veneno%20Auto%20Care,%20I%20would%20like%20to%20inquire%20about%20your%20services."
-              target="_blank"
-              rel="noopener noreferrer"
-              class="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 hover:border-emerald-500/50 text-zinc-200 hover:text-white font-bold text-xs mt-2 sm:mt-3 flex items-center gap-1.5 transition-all shadow-md"
-            >
-              <span>{{ t('hero.whatsappBtn') }}</span>
-            </a>
-          </div>
+            <h4 class="text-xs sm:text-sm font-bold text-white uppercase tracking-wider group-hover:text-emerald-400 transition-colors">{{ t('branches.whatsappTitle') }}</h4>
+            <p class="text-[11px] sm:text-xs text-zinc-400 mt-1">{{ t('branches.whatsappDesc') }}</p>
+            <span class="px-4 py-2 rounded-xl bg-zinc-900 group-hover:bg-emerald-600 border border-zinc-700/80 group-hover:border-emerald-500 text-zinc-200 group-hover:text-white font-bold text-xs mt-3 flex items-center gap-1.5 transition-all shadow-md">
+              {{ t('hero.whatsappBtn') }}
+            </span>
+          </a>
 
-          <!-- Card 3: Email & Corporate -->
-          <div class="glass-panel p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 flex flex-col items-center text-center hover:border-red-500/40 transition-all">
-            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-red-600/15 text-red-500 border border-red-500/30 flex items-center justify-center mb-3 sm:mb-4">
-              <Mail class="w-5 h-5 sm:w-6 sm:h-6" />
+          <!-- Card 3: Corporate Inquiries & Email -->
+          <a
+            href="mailto:info@veneno.ae"
+            class="group glass-panel p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-zinc-800 hover:border-red-500/50 hover:bg-zinc-900/90 flex flex-col items-center text-center cursor-pointer transition-all duration-300 shadow-xl hover:shadow-red-950/30 hover:-translate-y-1"
+          >
+            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-red-600/15 text-red-500 border border-red-500/30 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 group-hover:bg-red-600/25 transition-all">
+              <Mail class="w-6 h-6 sm:w-7 sm:h-7 text-red-500" />
             </div>
-            <h4 class="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">{{ t('branches.emailTitle') }}</h4>
-            <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5 sm:mt-1">{{ t('branches.emailDesc') }}</p>
-            <a href="mailto:info@veneno.ae" class="text-sm sm:text-base font-mono font-bold text-red-400 hover:underline mt-2 sm:mt-3">
+            <h4 class="text-xs sm:text-sm font-bold text-white uppercase tracking-wider group-hover:text-red-400 transition-colors">{{ t('branches.emailTitle') }}</h4>
+            <p class="text-[11px] sm:text-xs text-zinc-400 mt-1">{{ t('branches.emailDesc') }}</p>
+            <span class="text-sm sm:text-base font-mono font-bold text-red-400 group-hover:underline mt-3">
               info@veneno.ae
-            </a>
-          </div>
+            </span>
+          </a>
         </div>
 
         <!-- 2 Branch Showcase Cards & Maps -->

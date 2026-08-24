@@ -284,45 +284,45 @@ const scrollToTop = () => {
           </h4>
 
           <div class="space-y-3 text-xs">
-            <!-- Musaffah Facility -->
-            <div class="p-3.5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition-colors">
+            <!-- Musaffah Facility (Clickable Card) -->
+            <a
+              href="https://maps.google.com/maps?q=VENENO+AUTO+CARE+CENTER+Musaffah+Abu+Dhabi"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block p-3.5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-red-500/60 hover:bg-zinc-800/80 transition-all duration-300 group cursor-pointer shadow-md"
+            >
               <div class="flex items-center justify-between">
-                <strong class="text-white font-mono text-xs uppercase flex items-center gap-2">
-                  <MapPin class="w-4 h-4 text-red-500 shrink-0" />
+                <strong class="text-white font-mono text-xs uppercase flex items-center gap-2 group-hover:text-red-400 transition-colors">
+                  <MapPin class="w-4 h-4 text-red-500 shrink-0 group-hover:scale-110 transition-transform" />
                   <span>{{ t('footer.musaffahLabel') }}</span>
                 </strong>
-                <a
-                  href="https://maps.google.com/maps?q=VENENO+AUTO+CARE+CENTER+Musaffah+Abu+Dhabi"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="px-2 py-0.5 rounded-md bg-zinc-950 text-[10px] text-white hover:text-red-400 border border-zinc-800 font-mono flex items-center gap-1"
-                >
+                <span class="px-2 py-0.5 rounded-md bg-zinc-950 text-[10px] text-zinc-300 group-hover:text-red-400 border border-zinc-800 group-hover:border-red-500/40 font-mono flex items-center gap-1 transition-colors">
                   <span>Google Maps</span>
                   <ExternalLink class="w-2.5 h-2.5 rtl:rotate-90" />
-                </a>
+                </span>
               </div>
-              <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed font-light">{{ t('footer.musaffahLoc') }}</p>
-            </div>
+              <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed font-light group-hover:text-zinc-300 transition-colors">{{ t('footer.musaffahLoc') }}</p>
+            </a>
 
-            <!-- Al Qana Studio -->
-            <div class="p-3.5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition-colors">
+            <!-- Al Qana Studio (Clickable Card) -->
+            <a
+              href="https://maps.google.com/maps?q=VENENO+AUTO+CARE+CENTER+AL+QANA+Abu+Dhabi"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block p-3.5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-red-500/60 hover:bg-zinc-800/80 transition-all duration-300 group cursor-pointer shadow-md"
+            >
               <div class="flex items-center justify-between">
-                <strong class="text-white font-mono text-xs uppercase flex items-center gap-2">
-                  <MapPin class="w-4 h-4 text-white shrink-0" />
+                <strong class="text-white font-mono text-xs uppercase flex items-center gap-2 group-hover:text-red-400 transition-colors">
+                  <MapPin class="w-4 h-4 text-white shrink-0 group-hover:text-red-400 group-hover:scale-110 transition-all" />
                   <span>{{ t('footer.alQanaLabel') }}</span>
                 </strong>
-                <a
-                  href="https://maps.google.com/maps?q=VENENO+AUTO+CARE+CENTER+AL+QANA+Abu+Dhabi"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="px-2 py-0.5 rounded-md bg-zinc-950 text-[10px] text-white hover:text-red-400 border border-zinc-800 font-mono flex items-center gap-1"
-                >
+                <span class="px-2 py-0.5 rounded-md bg-zinc-950 text-[10px] text-zinc-300 group-hover:text-red-400 border border-zinc-800 group-hover:border-red-500/40 font-mono flex items-center gap-1 transition-colors">
                   <span>Google Maps</span>
                   <ExternalLink class="w-2.5 h-2.5 rtl:rotate-90" />
-                </a>
+                </span>
               </div>
-              <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed font-light">{{ t('footer.alQanaLoc') }}</p>
-            </div>
+              <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed font-light group-hover:text-zinc-300 transition-colors">{{ t('footer.alQanaLoc') }}</p>
+            </a>
 
             <!-- Operational Details -->
             <div class="pt-1 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono text-zinc-300">

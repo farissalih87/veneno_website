@@ -78,6 +78,16 @@ class DashboardController extends Controller
     }
 
     /**
+     * Delete Inquiry
+     */
+    public function destroyInquiry(Inquiry $inquiry)
+    {
+        $inquiry->delete();
+
+        return back()->with('success', 'Inquiry deleted successfully.');
+    }
+
+    /**
      * Create Marketing Campaign
      */
     public function storeCampaign(Request $request)

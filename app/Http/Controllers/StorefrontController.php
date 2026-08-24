@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AdminQuoteLeadMail;
+use App\Mail\CustomerQuoteConfirmationMail;
 use App\Models\Inquiry;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -371,45 +373,50 @@ class StorefrontController extends Controller
         ]);
 
         $selectedBranch = $validated['branch'] ?? 'Musaffah — Main Branch';
-        $clientEmail = $validated['email'] ?? 'Not Provided (Instant Web Quote)';
+        $clientEmail = !empty($validated['email']) ? $validated['email'] : null;
         $serviceName = $validated['service'] ?? 'General Inquiry';
         $clientMsg = $validated['message'] ?? 'Direct Instant Quote Lead via veneno.ae';
+
+        $leadPayload = [
+            'name' => $validated['name'],
+            'phone' => $validated['phone'],
+            'email' => $clientEmail,
+            'branch' => $selectedBranch,
+            'service' => $serviceName,
+            'message' => $clientMsg,
+        ];
 
         // 1. Log Inquiry to CRM database
         $inquiry = Inquiry::create([
             'customer_name' => $validated['name'],
             'phone' => $validated['phone'],
+            'vehicle_details' => $selectedBranch,
             'service_requested' => "{$serviceName} ({$selectedBranch})",
-            'message_text' => "Branch: {$selectedBranch}\nEmail: {$clientEmail}\nService: {$serviceName}\nMessage:\n{$clientMsg}",
+            'message_text' => "Branch: {$selectedBranch}\nEmail: " . ($clientEmail ?? 'Not Provided') . "\nService: {$serviceName}\nMessage:\n{$clientMsg}",
             'status' => 'new',
         ]);
 
         // 2. Dispatch Email notification to company email info@veneno.ae
         try {
             $toEmail = 'info@veneno.ae';
-            $subject = "🏎️ Instant Quote Lead: {$serviceName} from {$validated['name']} ({$validated['phone']})";
-            $emailBody = "New Instant Lead via veneno.ae\n\n"
-                . "Client Name: {$validated['name']}\n"
-                . "Phone: {$validated['phone']}\n"
-                . "Service Requested: {$serviceName}\n"
-                . "Email: {$clientEmail}\n"
-                . "Preferred Branch: {$selectedBranch}\n"
-                . "Inquiry ID: #{$inquiry->id}\n"
-                . "Date: " . now()->format('Y-m-d H:i:s T');
-
-            Mail::raw($emailBody, function ($msg) use ($toEmail, $subject, $validated, $clientEmail) {
-                $m = $msg->to($toEmail)->subject($subject);
-                if (!empty($validated['email'])) {
-                    $m->replyTo($validated['email'], $validated['name']);
-                }
-            });
+            Mail::to($toEmail)->send(new AdminQuoteLeadMail($inquiry, $leadPayload));
         } catch (\Throwable $e) {
             Log::error("Failed to send quote email to info@veneno.ae: " . $e->getMessage());
+        }
+
+        // 3. Dispatch confirmation email to customer (if email was provided)
+        if ($clientEmail && filter_var($clientEmail, FILTER_VALIDATE_EMAIL)) {
+            try {
+                Mail::to($clientEmail)->send(new CustomerQuoteConfirmationMail($inquiry, $leadPayload));
+            } catch (\Throwable $e) {
+                Log::warning("Failed to send customer confirmation email to {$clientEmail}: " . $e->getMessage());
+            }
         }
 
         return response()->json([
             'success' => true,
             'message' => 'Thank you! Your quote request has been received. Our concierge team will contact you shortly.',
+            'inquiry_id' => $inquiry->id,
         ]);
     }
 
