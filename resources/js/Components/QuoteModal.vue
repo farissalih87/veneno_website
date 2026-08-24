@@ -3,6 +3,7 @@ import { ref, watch } from 'vue';
 import axios from 'axios';
 import { X, Send, CheckCircle2, Phone, User, Sparkles, ShieldCheck } from 'lucide-vue-next';
 import { useI18n } from '../i18n';
+import InternationalPhoneInput from './InternationalPhoneInput.vue';
 
 const props = defineProps({
   isOpen: {
@@ -186,18 +187,14 @@ const handleClose = () => {
             </div>
           </div>
 
-          <!-- 3. Mobile / WhatsApp -->
+          <!-- 3. Mobile / WhatsApp (International Dropdown & Input) -->
           <div>
             <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5">{{ t('quote.phone') }}</label>
-            <div class="relative">
-              <input
-                v-model="form.phone"
-                type="tel"
-                required
-                placeholder="+971 50 123 4567"
-                class="w-full px-4 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 text-white placeholder-zinc-500 focus:outline-none focus:border-red-500 text-sm transition-colors font-mono"
-              />
-            </div>
+            <InternationalPhoneInput
+              v-model="form.phone"
+              :required="true"
+              input-class="font-mono text-sm"
+            />
           </div>
         </div>
 

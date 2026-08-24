@@ -2,7 +2,7 @@ $ErrorActionPreference = "Stop"
 
 $rootDir = "d:\Veneno\Veneno_ae_Website\Gemini_veneno_website"
 $tempDir = Join-Path $env:TEMP "veneno_deploy_temp"
-$zipFile = Join-Path $rootDir "veneno-ae-cpanel-deploy.zip"
+$zipFile = Join-Path $rootDir "veneno-ae-cpanel-deploy-update.zip"
 
 Write-Host "Creating clean temporary staging directory at $tempDir..."
 if (Test-Path $tempDir) {
@@ -52,6 +52,19 @@ if (Test-Path $sqliteDb) {
 $hotFile = Join-Path $tempDir "public\hot"
 if (Test-Path $hotFile) {
     Remove-Item $hotFile -Force
+}
+
+# Exclude heavy media folders (images and videos) as requested
+$tempImages = Join-Path $tempDir "public\images"
+if (Test-Path $tempImages) {
+    Write-Host "Excluding public\images from deployment zip..."
+    Remove-Item -Path $tempImages -Recurse -Force
+}
+
+$tempVideos = Join-Path $tempDir "public\videos"
+if (Test-Path $tempVideos) {
+    Write-Host "Excluding public\videos from deployment zip..."
+    Remove-Item -Path $tempVideos -Recurse -Force
 }
 
 # Ensure storage directories exist

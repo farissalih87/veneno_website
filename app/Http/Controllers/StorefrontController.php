@@ -363,61 +363,86 @@ class StorefrontController extends Controller
      */
     public function submitQuote(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:50',
-            'email' => 'nullable|email|max:255',
-            'branch' => 'nullable|string|max:255',
-            'service' => 'nullable|string|max:255',
-            'message' => 'nullable|string|max:3000',
-        ]);
-
-        $selectedBranch = $validated['branch'] ?? 'Musaffah — Main Branch';
-        $clientEmail = !empty($validated['email']) ? $validated['email'] : null;
-        $serviceName = $validated['service'] ?? 'General Inquiry';
-        $clientMsg = $validated['message'] ?? 'Direct Instant Quote Lead via veneno.ae';
-
-        $leadPayload = [
-            'name' => $validated['name'],
-            'phone' => $validated['phone'],
-            'email' => $clientEmail,
-            'branch' => $selectedBranch,
-            'service' => $serviceName,
-            'message' => $clientMsg,
-        ];
-
-        // 1. Log Inquiry to CRM database
-        $inquiry = Inquiry::create([
-            'customer_name' => $validated['name'],
-            'phone' => $validated['phone'],
-            'vehicle_details' => $selectedBranch,
-            'service_requested' => "{$serviceName} ({$selectedBranch})",
-            'message_text' => "Branch: {$selectedBranch}\nEmail: " . ($clientEmail ?? 'Not Provided') . "\nService: {$serviceName}\nMessage:\n{$clientMsg}",
-            'status' => 'new',
-        ]);
-
-        // 2. Dispatch Email notification to company email info@veneno.ae
         try {
-            $toEmail = 'info@veneno.ae';
-            Mail::to($toEmail)->send(new AdminQuoteLeadMail($inquiry, $leadPayload));
-        } catch (\Throwable $e) {
-            Log::error("Failed to send quote email to info@veneno.ae: " . $e->getMessage());
-        }
+            // Normalize inputs
+            $request->merge([
+                'name' => trim((string) $request->input('name')),
+                'phone' => trim((string) $request->input('phone')),
+                'email' => filled($request->input('email')) ? trim((string) $request->input('email')) : null,
+                'branch' => filled($request->input('branch')) ? trim((string) $request->input('branch')) : 'Musaffah — Main Facility',
+                'service' => filled($request->input('service')) ? trim((string) $request->input('service')) : 'General Inquiry',
+                'message' => filled($request->input('message')) ? trim((string) $request->input('message')) : 'Direct Instant Quote Lead via veneno.ae',
+            ]);
 
-        // 3. Dispatch confirmation email to customer (if email was provided)
-        if ($clientEmail && filter_var($clientEmail, FILTER_VALIDATE_EMAIL)) {
+            $validated = $request->validate([
+                'name' => 'required|string|min:2|max:255',
+                'phone' => 'required|string|min:5|max:50',
+                'email' => 'nullable|email|max:255',
+                'branch' => 'nullable|string|max:255',
+                'service' => 'nullable|string|max:255',
+                'message' => 'nullable|string|max:3000',
+            ]);
+
+            $selectedBranch = $validated['branch'] ?? 'Musaffah — Main Facility';
+            $clientEmail = !empty($validated['email']) ? $validated['email'] : null;
+            $serviceName = $validated['service'] ?? 'General Inquiry';
+            $clientMsg = $validated['message'] ?? 'Direct Instant Quote Lead via veneno.ae';
+
+            $leadPayload = [
+                'name' => $validated['name'],
+                'phone' => $validated['phone'],
+                'email' => $clientEmail,
+                'branch' => $selectedBranch,
+                'service' => $serviceName,
+                'message' => $clientMsg,
+            ];
+
+            // 1. Log Inquiry to CRM database
+            $inquiry = Inquiry::create([
+                'customer_name' => $validated['name'],
+                'phone' => $validated['phone'],
+                'vehicle_details' => $selectedBranch,
+                'service_requested' => "{$serviceName} ({$selectedBranch})",
+                'message_text' => "Branch: {$selectedBranch}\nEmail: " . ($clientEmail ?? 'Not Provided') . "\nService: {$serviceName}\nMessage:\n{$clientMsg}",
+                'status' => 'new',
+            ]);
+
+            // 2. Dispatch Email notification to company email info@veneno.ae
             try {
-                Mail::to($clientEmail)->send(new CustomerQuoteConfirmationMail($inquiry, $leadPayload));
+                $toEmail = 'info@veneno.ae';
+                Mail::to($toEmail)->send(new AdminQuoteLeadMail($inquiry, $leadPayload));
             } catch (\Throwable $e) {
-                Log::warning("Failed to send customer confirmation email to {$clientEmail}: " . $e->getMessage());
+                Log::error("Failed to send quote email to info@veneno.ae: " . $e->getMessage());
             }
-        }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Thank you! Your quote request has been received. Our concierge team will contact you shortly.',
-            'inquiry_id' => $inquiry->id,
-        ]);
+            // 3. Dispatch confirmation email to customer (if email was provided)
+            if ($clientEmail && filter_var($clientEmail, FILTER_VALIDATE_EMAIL)) {
+                try {
+                    Mail::to($clientEmail)->send(new CustomerQuoteConfirmationMail($inquiry, $leadPayload));
+                } catch (\Throwable $e) {
+                    Log::warning("Failed to send customer confirmation email to {$clientEmail}: " . $e->getMessage());
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Thank you! Your quote request has been received. Our concierge team will contact you shortly.',
+                'inquiry_id' => $inquiry->id,
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => collect($e->errors())->flatten()->first() ?? 'Invalid form submission.',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Throwable $e) {
+            Log::error("Quote submission unexpected error: " . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Unable to submit quote. Please contact us directly via WhatsApp.',
+                'debug' => config('app.debug') ? $e->getMessage() : null,
+            ], 500);
+        }
     }
 
     /**

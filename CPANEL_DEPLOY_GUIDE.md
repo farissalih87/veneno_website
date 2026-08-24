@@ -4,15 +4,15 @@ This guide walks you through deploying the complete, production-ready **Veneno A
 
 ---
 
-## 📦 What is in the Deployment Zip?
-The archive `veneno-ae-cpanel-deploy.zip` contains:
+## 📦 What is in the Deployment Update Zip?
+The archive **`veneno-ae-cpanel-deploy-update.zip`** (107 MB) contains:
 - ✅ **Full Laravel 12 Backend & Core Files**
 - ✅ **Complete PHP `vendor/` Directory** (Pre-installed & optimized — no SSH/Composer command needed on hosting)
-- ✅ **Compiled Production Frontend Bundles (`public/build`)** (Vue 3 + Tailwind v4 + Inertia.js)
-- ✅ **High-Resolution Media & Assets** (`public/images/`, `public/videos/`, icons, before/after graphics)
+- ✅ **Compiled Production Frontend Bundles (`public/build`)** (Vue 3 + Tailwind v4 + Inertia.js + International Phone Input)
+- ✅ **Excludes heavy media (`public/images/`, `public/videos/`)** for ultra-fast, lightweight upload
 - ✅ **Security-Hardened `.htaccess`** at the root (Auto-routes web traffic to `public/` & protects sensitive system files)
 - ✅ **Performance-Optimized `public/.htaccess`** (Gzip compression & browser asset caching)
-- ✅ **Pre-configured Production Environment** (`.env.production`)
+- ✅ **Pre-configured Production Environment** (`.env.production` with Tasjeel SMTP configured)
 - ✅ **One-Click Database Import File** (`database/veneno_database_schema_and_seed.sql`)
 
 ---
@@ -23,9 +23,9 @@ The archive `veneno-ae-cpanel-deploy.zip` contains:
 1. Log into your **cPanel Account** (e.g. `https://veneno.ae:2083` or your hosting cPanel URL).
 2. Click on **File Manager**.
 3. Navigate to `public_html` (or your domain's document root folder, e.g., `public_html/veneno.ae`).
-4. Click **Upload** at the top toolbar and select **`veneno-ae-cpanel-deploy.zip`**.
+4. Click **Upload** at the top toolbar and select **`veneno-ae-cpanel-deploy-update.zip`**.
 5. Once the upload hits 100% (green bar), return to File Manager.
-6. Right-click **`veneno-ae-cpanel-deploy.zip`** and click **Extract** -> **Extract Files**.
+6. Right-click **`veneno-ae-cpanel-deploy-update.zip`** and click **Extract** -> **Extract Files** (overwrites updated files while preserving existing media files).
 7. *(Optional)* Delete the uploaded `.zip` file to save disk space.
 
 ---

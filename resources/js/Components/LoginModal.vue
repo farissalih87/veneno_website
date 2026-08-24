@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useForm, router } from '@inertiajs/vue3';
 import { X, ShieldCheck, UserCheck, Wrench, LayoutDashboard, Car, Lock, Mail, ArrowRight, Loader2 } from 'lucide-vue-next';
+import InternationalPhoneInput from './InternationalPhoneInput.vue';
 
 const props = defineProps({
   isOpen: Boolean,
@@ -203,12 +204,10 @@ const handleQuickLogin = (role) => {
           </div>
           <div>
             <label class="block text-zinc-400 mb-1">Phone Number</label>
-            <input
+            <InternationalPhoneInput
               v-model="registerForm.phone"
-              type="tel"
-              required
-              placeholder="+971 50 123 4567"
-              class="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white focus:outline-none focus:border-red-500 text-xs"
+              :required="true"
+              input-class="text-xs"
             />
           </div>
         </div>

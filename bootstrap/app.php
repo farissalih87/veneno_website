@@ -19,6 +19,12 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleInertiaRequests::class,
         ]);
 
+        $middleware->validateCsrfTokens(except: [
+            'api/*',
+            'api/quote',
+            'api/inquiries',
+        ]);
+
         $middleware->alias([
             'role' => RoleMiddleware::class,
             'permission' => PermissionMiddleware::class,
