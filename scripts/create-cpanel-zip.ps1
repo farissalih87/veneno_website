@@ -88,11 +88,11 @@ foreach ($dir in $storageDirs) {
     }
 }
 
-# Clean cache files from storage/framework/views and cache
 Get-ChildItem -Path (Join-Path $tempDir "storage\framework\views\*") -Exclude ".gitignore" -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse
 Get-ChildItem -Path (Join-Path $tempDir "storage\framework\cache\data\*") -Exclude ".gitignore" -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse
 Get-ChildItem -Path (Join-Path $tempDir "storage\framework\sessions\*") -Exclude ".gitignore" -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse
 Get-ChildItem -Path (Join-Path $tempDir "storage\logs\*") -Exclude ".gitignore" -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse
+Get-ChildItem -Path (Join-Path $tempDir "bootstrap\cache\*") -Exclude ".gitignore" -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse
 
 # Create .env from .env.production as default in staging
 Copy-Item (Join-Path $tempDir ".env.production") (Join-Path $tempDir ".env") -Force
