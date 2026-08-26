@@ -1043,7 +1043,7 @@ onUnmounted(() => {
     </div>
 
     <!-- Main Container Frame (Responsive Tablet - Mobile Phone) -->
-    <div class="w-full max-w-lg sm:max-w-xl md:max-w-2xl min-h-screen flex flex-col justify-between z-10 px-4 pt-6 pb-20 sm:px-8 sm:pt-8 sm:pb-24 transition-all">
+    <div :class="[currentStep === 1 ? 'min-h-[100dvh] h-[100dvh] py-2 px-3 sm:py-5 sm:px-6 overflow-hidden' : 'min-h-screen pt-6 pb-20 sm:pt-8 sm:pb-24 px-4 sm:px-8', 'w-full max-w-lg sm:max-w-xl md:max-w-2xl flex flex-col justify-between z-10 transition-all']">
       
       <!-- Top Branding Header (Visible on Steps 2 to 7) -->
       <header v-if="currentStep > 1" class="flex items-center justify-between py-3 border-b border-zinc-800/80 mb-5 animate-in fade-in duration-300">
@@ -1109,18 +1109,18 @@ onUnmounted(() => {
       </div>
 
       <!-- ==========================================================
-           STEP 1: LANDING & LANGUAGE SELECTION
+           STEP 1: LANDING & LANGUAGE SELECTION (RESPONSIVE NO-SCROLL LAYOUT)
            ========================================================== -->
-      <div v-if="currentStep === 1" class="flex-1 flex flex-col justify-center items-center text-center space-y-6 sm:space-y-8 my-auto pt-1 pb-6 sm:pt-4 sm:pb-8 animate-in fade-in zoom-in-95 duration-400">
+      <div v-if="currentStep === 1" class="flex-1 flex flex-col justify-between items-center text-center w-full h-full my-auto py-1 sm:py-3 animate-in fade-in zoom-in-95 duration-400">
         
-        <!-- Big & Clear Logos (Same Width): Veneno Top, ADIHEX Down (margin-bottom: 80px) -->
-        <div class="flex flex-col items-center justify-center gap-5 sm:gap-6 w-full mb-[80px]" >
+        <!-- Tier 1: Big & Clear Logos (Same Width): Veneno Top, ADIHEX Below -->
+        <div class="flex flex-col items-center justify-center gap-2 xs:gap-2.5 sm:gap-4 w-full pt-1">
           <!-- Veneno White Text Logo -->
           <div class="w-full flex items-center justify-center">
             <img
               src="/images/adihex/veneno-brand-logo.png"
               alt="Veneno Auto Care Center"
-              class="w-full max-w-[270px] sm:max-w-xs md:max-w-sm h-auto object-contain drop-shadow-[0_4px_24px_rgba(255,255,255,0.15)]"
+              class="w-full max-w-[190px] xs:max-w-[220px] sm:max-w-[260px] md:max-w-[290px] h-auto object-contain drop-shadow-[0_4px_20px_rgba(255,255,255,0.15)]"
             />
           </div>
 
@@ -1129,74 +1129,130 @@ onUnmounted(() => {
             <img
               src="/images/adihex/adihex-brand-logo.png"
               alt="ADIHEX 2026 Abu Dhabi"
-              class="w-full max-w-[270px] sm:max-w-xs md:max-w-sm h-auto object-contain drop-shadow-[0_4px_24px_rgba(255,255,255,0.15)]"
+              class="w-full max-w-[190px] xs:max-w-[220px] sm:max-w-[260px] md:max-w-[290px] h-auto object-contain drop-shadow-[0_4px_20px_rgba(255,255,255,0.15)]"
             />
           </div>
         </div>
 
-        <!-- Luxury Handwriting Welcome Text (No Label Style) & Main Title -->
-        <div class="space-y-3 sm:space-y-4 max-w-xl mx-auto px-2 mt-2 sm:mt-4">
-          <div class="font-script text-2xl sm:text-3xl md:text-4xl text-white font-normal tracking-wide drop-shadow-[0_2px_10px_rgba(255,255,255,0.3)] leading-relaxed">
+        <!-- Tier 2: Luxury Handwriting Welcome Text & Language Selection -->
+        <div class="space-y-1.5 xs:space-y-2 sm:space-y-3 max-w-xl mx-auto px-2 my-auto">
+          <div class="font-script text-lg xs:text-xl sm:text-2xl md:text-3xl text-white font-normal tracking-wide drop-shadow-[0_2px_10px_rgba(255,255,255,0.3)] leading-tight">
             Welcome to Veneno Auto Care Center
           </div>
 
-          <!-- SCAN. SPIN. WIN. -->
-          <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight uppercase">
+          <!-- SCAN. SPIN. WIN -->
+          <h1 class="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight uppercase leading-none">
             SCAN. <span class="text-red-500">SPIN.</span> <span class="text-amber-400">WIN</span>
           </h1>
 
-          <!-- Subtitle Description (As is) -->
-          <p class="text-xs sm:text-sm md:text-base text-zinc-300 max-w-md sm:max-w-lg mx-auto leading-relaxed font-medium">
+          <!-- Subtitle Description -->
+          <p class="text-[11px] xs:text-xs sm:text-sm text-zinc-300 max-w-[280px] xs:max-w-xs sm:max-w-md mx-auto leading-snug font-medium">
             Select your preferred language to begin your exclusive ADIHEX giveaway experience.
           </p>
+
+          <!-- Language Buttons Beside Each Other (Compact & Elegant) -->
+          <div class="grid grid-cols-2 gap-2.5 xs:gap-3 sm:gap-4 w-full max-w-[310px] xs:max-w-[340px] sm:max-w-[420px] mx-auto pt-1 sm:pt-2">
+            <!-- English Button -->
+            <button
+              type="button"
+              @click="selectLanguageAndAdvance('en')"
+              class="group relative overflow-hidden py-2.5 px-3 sm:py-3.5 sm:px-4 rounded-xl sm:rounded-2xl bg-gradient-to-b from-zinc-900/95 via-zinc-900/90 to-zinc-950/95 hover:from-zinc-800 hover:to-zinc-900 border border-zinc-800/90 hover:border-red-500/80 active:scale-[0.97] transition-all duration-300 shadow-xl shadow-black/80 flex items-center justify-center gap-2 sm:gap-2.5 cursor-pointer backdrop-blur-md"
+            >
+              <div class="absolute inset-0 bg-gradient-to-tr from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <!-- UK Flag SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex-shrink-0 drop-shadow-md transition-transform group-hover:scale-105" viewBox="0 0 256 256">
+                <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+                  <path d="M 88.35 57.052 c 0.034 -0.123 0.076 -0.243 0.109 -0.367 l -0.004 -0.002 C 89.457 52.957 90 49.043 90 45 c 0 -4.033 -0.54 -7.938 -1.538 -11.657 l 0.004 -0.002 c -0.039 -0.146 -0.088 -0.289 -0.128 -0.434 c -0.137 -0.492 -0.28 -0.982 -0.434 -1.468 c -0.081 -0.257 -0.167 -0.512 -0.253 -0.768 c -0.073 -0.217 -0.139 -0.437 -0.215 -0.653 h -0.015 c -1.645 -4.653 -4.021 -8.96 -7.01 -12.768 L 59.997 27.458 V 2.57 c -4.368 -1.544 -9.046 -2.427 -13.915 -2.542 h -2.164 c -4.868 0.115 -9.545 0.998 -13.913 2.541 v 24.889 L 9.589 17.249 c -2.989 3.809 -5.366 8.116 -7.01 12.769 H 2.564 c -0.076 0.216 -0.143 0.436 -0.216 0.653 c -0.086 0.255 -0.172 0.509 -0.253 0.765 c -0.154 0.486 -0.297 0.977 -0.434 1.47 c -0.04 0.145 -0.089 0.287 -0.128 0.432 l 0.004 0.002 C 0.54 37.061 0 40.966 0 45 c 0 4.043 0.543 7.957 1.545 11.684 l -0.004 0.002 c 0.033 0.123 0.074 0.242 0.108 0.365 c 0.146 0.524 0.298 1.046 0.462 1.562 c 0.075 0.236 0.154 0.47 0.233 0.705 c 0.077 0.231 0.148 0.464 0.229 0.693 H 2.59 c 1.647 4.651 4.025 8.955 7.016 12.761 l 20.4 -10.2 v 24.86 C 34.697 89.089 39.741 90 45 90 c 5.26 0 10.305 -0.911 14.997 -2.57 V 62.572 l 20.398 10.199 c 2.991 -3.806 5.368 -8.11 7.015 -12.76 h 0.015 c 0.081 -0.229 0.152 -0.463 0.23 -0.694 c 0.079 -0.234 0.158 -0.468 0.233 -0.704 C 88.052 58.096 88.205 57.575 88.35 57.052 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(243,244,245); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                  <path d="M 53.999 0.902 c -2.565 -0.521 -5.213 -0.81 -7.917 -0.874 h -2.164 c -2.703 0.064 -5.35 0.354 -7.914 0.874 v 35.116 H 0.899 C 0.311 38.92 0 41.924 0 45 c 0 3.087 0.312 6.1 0.904 9.012 h 35.1 v 35.087 C 38.911 89.689 41.919 90 45 90 c 3.082 0 6.091 -0.311 8.999 -0.902 V 54.012 h 35.097 C 89.688 51.1 90 48.087 90 45 c 0 -3.076 -0.311 -6.08 -0.899 -8.983 H 53.999 V 0.902 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(204,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                  <path d="M 85.242 65.135 c 0.829 -1.653 1.56 -3.363 2.184 -5.125 H 74.993 L 85.242 65.135 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(204,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                  <path d="M 82.216 19.701 L 61.581 30.019 h 13.412 l 10.261 -5.131 C 84.353 23.088 83.341 21.354 82.216 19.701 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(204,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                  <path d="M 4.747 24.887 c -0.829 1.655 -1.559 3.368 -2.182 5.132 H 15.01 L 4.747 24.887 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(204,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                  <path d="M 7.8 70.321 L 28.422 60.01 H 15.01 L 4.758 65.136 C 5.661 66.936 6.674 68.67 7.8 70.321 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(204,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                  <path d="M 9.589 17.249 l 20.416 10.208 v -3.99 V 2.584 C 21.874 5.458 14.813 10.593 9.589 17.249 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,102); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                  <path d="M 59.997 2.585 v 22.302 v 2.57 L 80.411 17.25 C 75.188 10.594 68.128 5.459 59.997 2.585 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,102); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                  <path d="M 30.006 72.77 V 62.572 l -20.4 10.2 c 5.222 6.646 12.276 11.774 20.4 14.646 V 72.77 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,102); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                  <path d="M 59.997 62.572 v 9.296 v 15.548 c 8.123 -2.872 15.176 -8 20.398 -14.646 L 59.997 62.572 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,102); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                </g>
+              </svg>
+              <span class="text-sm sm:text-base font-bold text-white group-hover:text-red-400 transition-colors tracking-wide">English</span>
+            </button>
+
+            <!-- Arabic Button -->
+            <button
+              type="button"
+              @click="selectLanguageAndAdvance('ar')"
+              class="group relative overflow-hidden py-2.5 px-3 sm:py-3.5 sm:px-4 rounded-xl sm:rounded-2xl bg-gradient-to-b from-zinc-900/95 via-zinc-900/90 to-zinc-950/95 hover:from-zinc-800 hover:to-zinc-900 border border-zinc-800/90 hover:border-amber-500/80 active:scale-[0.97] transition-all duration-300 shadow-xl shadow-black/80 flex items-center justify-center gap-2 sm:gap-2.5 cursor-pointer backdrop-blur-md"
+            >
+              <div class="absolute inset-0 bg-gradient-to-tr from-amber-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <!-- UAE Flag SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex-shrink-0 drop-shadow-md transition-transform group-hover:scale-105" viewBox="0 0 256 256">
+                <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+                  <path d="M 2.57 30 l 84.859 0 C 81.254 12.534 64.611 0.015 45.033 0 l -0.068 0 C 25.388 0.015 8.745 12.534 2.57 30 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,111,46); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                  <path d="M 87.429 60 L 2.57 60 C 8.749 77.476 25.408 90 45 90 S 81.25 77.476 87.429 60 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                  <path d="M 87.429 60 C 89.088 55.307 90 50.261 90 45 c 0 -5.261 -0.911 -10.307 -2.571 -15 L 2.57 30 C 0.911 34.693 0 39.739 0 45 c 0 5.261 0.912 10.307 2.571 15 L 87.429 60 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(243,244,245); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                  <path d="M 30 87.429 l 0 -84.858 C 12.524 8.75 0 25.408 0 45 S 12.524 81.25 30 87.429 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(247,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                </g>
+              </svg>
+              <span class="text-sm sm:text-base font-bold text-white font-arabic group-hover:text-amber-400 transition-colors tracking-wide">العربية</span>
+            </button>
+          </div>
         </div>
 
-        <!-- Language Buttons Beside Each Other With UAE & UK Flags (No Additional Text / No Codes) -->
-        <div class="grid grid-cols-2 gap-3.5 sm:gap-6 w-full max-w-sm sm:max-w-md md:max-w-lg mx-auto pt-2 sm:pt-4">
-          <!-- English Button -->
-          <button
-            type="button"
-            @click="selectLanguageAndAdvance('en')"
-            class="group relative overflow-hidden p-3.5 sm:p-4 md:p-5 rounded-2xl sm:rounded-3xl bg-gradient-to-b from-zinc-900/95 via-zinc-900/90 to-zinc-950/95 hover:from-zinc-800 hover:to-zinc-900 border border-zinc-800/90 hover:border-red-500/80 active:scale-[0.97] transition-all duration-300 shadow-2xl shadow-black/80 flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer backdrop-blur-md"
-          >
-            <div class="absolute inset-0 bg-gradient-to-tr from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <!-- UK Flag SVG -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 flex-shrink-0 drop-shadow-md transition-transform group-hover:scale-105" viewBox="0 0 256 256">
-              <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
-                <path d="M 88.35 57.052 c 0.034 -0.123 0.076 -0.243 0.109 -0.367 l -0.004 -0.002 C 89.457 52.957 90 49.043 90 45 c 0 -4.033 -0.54 -7.938 -1.538 -11.657 l 0.004 -0.002 c -0.039 -0.146 -0.088 -0.289 -0.128 -0.434 c -0.137 -0.492 -0.28 -0.982 -0.434 -1.468 c -0.081 -0.257 -0.167 -0.512 -0.253 -0.768 c -0.073 -0.217 -0.139 -0.437 -0.215 -0.653 h -0.015 c -1.645 -4.653 -4.021 -8.96 -7.01 -12.768 L 59.997 27.458 V 2.57 c -4.368 -1.544 -9.046 -2.427 -13.915 -2.542 h -2.164 c -4.868 0.115 -9.545 0.998 -13.913 2.541 v 24.889 L 9.589 17.249 c -2.989 3.809 -5.366 8.116 -7.01 12.769 H 2.564 c -0.076 0.216 -0.143 0.436 -0.216 0.653 c -0.086 0.255 -0.172 0.509 -0.253 0.765 c -0.154 0.486 -0.297 0.977 -0.434 1.47 c -0.04 0.145 -0.089 0.287 -0.128 0.432 l 0.004 0.002 C 0.54 37.061 0 40.966 0 45 c 0 4.043 0.543 7.957 1.545 11.684 l -0.004 0.002 c 0.033 0.123 0.074 0.242 0.108 0.365 c 0.146 0.524 0.298 1.046 0.462 1.562 c 0.075 0.236 0.154 0.47 0.233 0.705 c 0.077 0.231 0.148 0.464 0.229 0.693 H 2.59 c 1.647 4.651 4.025 8.955 7.016 12.761 l 20.4 -10.2 v 24.86 C 34.697 89.089 39.741 90 45 90 c 5.26 0 10.305 -0.911 14.997 -2.57 V 62.572 l 20.398 10.199 c 2.991 -3.806 5.368 -8.11 7.015 -12.76 h 0.015 c 0.081 -0.229 0.152 -0.463 0.23 -0.694 c 0.079 -0.234 0.158 -0.468 0.233 -0.704 C 88.052 58.096 88.205 57.575 88.35 57.052 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(243,244,245); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-                <path d="M 53.999 0.902 c -2.565 -0.521 -5.213 -0.81 -7.917 -0.874 h -2.164 c -2.703 0.064 -5.35 0.354 -7.914 0.874 v 35.116 H 0.899 C 0.311 38.92 0 41.924 0 45 c 0 3.087 0.312 6.1 0.904 9.012 h 35.1 v 35.087 C 38.911 89.689 41.919 90 45 90 c 3.082 0 6.091 -0.311 8.999 -0.902 V 54.012 h 35.097 C 89.688 51.1 90 48.087 90 45 c 0 -3.076 -0.311 -6.08 -0.899 -8.983 H 53.999 V 0.902 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(204,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-                <path d="M 85.242 65.135 c 0.829 -1.653 1.56 -3.363 2.184 -5.125 H 74.993 L 85.242 65.135 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(204,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-                <path d="M 82.216 19.701 L 61.581 30.019 h 13.412 l 10.261 -5.131 C 84.353 23.088 83.341 21.354 82.216 19.701 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(204,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-                <path d="M 4.747 24.887 c -0.829 1.655 -1.559 3.368 -2.182 5.132 H 15.01 L 4.747 24.887 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(204,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-                <path d="M 7.8 70.321 L 28.422 60.01 H 15.01 L 4.758 65.136 C 5.661 66.936 6.674 68.67 7.8 70.321 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(204,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-                <path d="M 9.589 17.249 l 20.416 10.208 v -3.99 V 2.584 C 21.874 5.458 14.813 10.593 9.589 17.249 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,102); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-                <path d="M 59.997 2.585 v 22.302 v 2.57 L 80.411 17.25 C 75.188 10.594 68.128 5.459 59.997 2.585 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,102); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-                <path d="M 30.006 72.77 V 62.572 l -20.4 10.2 c 5.222 6.646 12.276 11.774 20.4 14.646 V 72.77 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,102); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-                <path d="M 59.997 62.572 v 9.296 v 15.548 c 8.123 -2.872 15.176 -8 20.398 -14.646 L 59.997 62.572 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,102); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-              </g>
-            </svg>
-            <span class="text-base sm:text-lg md:text-xl font-bold text-white group-hover:text-red-400 transition-colors tracking-wide">English</span>
-          </button>
+        <!-- Tier 3: In-Flow Countdown & Live Urgency Card (Never overlaps) -->
+        <div class="w-full flex flex-col items-center gap-1.5 sm:gap-2 pt-1 pb-1">
+          <!-- Flip Countdown Card -->
+          <div class="w-full max-w-[290px] xs:max-w-[320px] sm:max-w-[350px] px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl bg-zinc-950/90 border border-zinc-800/90 backdrop-blur-xl shadow-xl flex flex-col items-center">
+            <div class="text-[9px] xs:text-[10px] sm:text-[11px] font-bold text-zinc-300 uppercase tracking-widest mb-1 sm:mb-1.5 flex items-center gap-1.5 font-mono">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+              <span>{{ currentLocale === 'ar' ? 'ينتهي في 6 سبتمبر 2026 • 10:00 مساءً' : 'ENDS IN 6 SEPT 2026 • 10:00 PM' }}</span>
+            </div>
 
-          <!-- Arabic Button -->
-          <button
-            type="button"
-            @click="selectLanguageAndAdvance('ar')"
-            class="group relative overflow-hidden p-3.5 sm:p-4 md:p-5 rounded-2xl sm:rounded-3xl bg-gradient-to-b from-zinc-900/95 via-zinc-900/90 to-zinc-950/95 hover:from-zinc-800 hover:to-zinc-900 border border-zinc-800/90 hover:border-amber-500/80 active:scale-[0.97] transition-all duration-300 shadow-2xl shadow-black/80 flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer backdrop-blur-md"
-          >
-            <div class="absolute inset-0 bg-gradient-to-tr from-amber-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <!-- UAE Flag SVG -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 flex-shrink-0 drop-shadow-md transition-transform group-hover:scale-105" viewBox="0 0 256 256">
-              <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
-                <path d="M 2.57 30 l 84.859 0 C 81.254 12.534 64.611 0.015 45.033 0 l -0.068 0 C 25.388 0.015 8.745 12.534 2.57 30 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,111,46); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-                <path d="M 87.429 60 L 2.57 60 C 8.749 77.476 25.408 90 45 90 S 81.25 77.476 87.429 60 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-                <path d="M 87.429 60 C 89.088 55.307 90 50.261 90 45 c 0 -5.261 -0.911 -10.307 -2.571 -15 L 2.57 30 C 0.911 34.693 0 39.739 0 45 c 0 5.261 0.912 10.307 2.571 15 L 87.429 60 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(243,244,245); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-                <path d="M 30 87.429 l 0 -84.858 C 12.524 8.75 0 25.408 0 45 S 12.524 81.25 30 87.429 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(247,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-              </g>
-            </svg>
-            <span class="text-base sm:text-lg md:text-xl font-bold text-white font-arabic group-hover:text-amber-400 transition-colors tracking-wide">العربية</span>
-          </button>
+            <div class="grid grid-cols-4 gap-1.5 sm:gap-2 w-full">
+              <!-- Days -->
+              <div class="flex flex-col items-center">
+                <div class="w-full h-8 xs:h-9 sm:h-11 rounded-lg bg-gradient-to-b from-[#2a2a2e] to-[#141416] border border-zinc-700/80 shadow-md relative flex items-center justify-center overflow-hidden">
+                  <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-black/90"></div>
+                  <span class="text-sm xs:text-base sm:text-xl font-black text-zinc-100 font-mono z-10">{{ countdown.days }}</span>
+                </div>
+                <span class="text-[7px] xs:text-[8px] sm:text-[9px] font-bold text-amber-400 uppercase tracking-wider mt-0.5">{{ currentLocale === 'ar' ? 'أيام' : 'DAYS' }}</span>
+              </div>
+
+              <!-- Hours -->
+              <div class="flex flex-col items-center">
+                <div class="w-full h-8 xs:h-9 sm:h-11 rounded-lg bg-gradient-to-b from-[#2a2a2e] to-[#141416] border border-zinc-700/80 shadow-md relative flex items-center justify-center overflow-hidden">
+                  <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-black/90"></div>
+                  <span class="text-sm xs:text-base sm:text-xl font-black text-zinc-100 font-mono z-10">{{ countdown.hours }}</span>
+                </div>
+                <span class="text-[7px] xs:text-[8px] sm:text-[9px] font-bold text-amber-400 uppercase tracking-wider mt-0.5">{{ currentLocale === 'ar' ? 'ساعات' : 'HOURS' }}</span>
+              </div>
+
+              <!-- Minutes -->
+              <div class="flex flex-col items-center">
+                <div class="w-full h-8 xs:h-9 sm:h-11 rounded-lg bg-gradient-to-b from-[#2a2a2e] to-[#141416] border border-zinc-700/80 shadow-md relative flex items-center justify-center overflow-hidden">
+                  <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-black/90"></div>
+                  <span class="text-sm xs:text-base sm:text-xl font-black text-zinc-100 font-mono z-10">{{ countdown.minutes }}</span>
+                </div>
+                <span class="text-[7px] xs:text-[8px] sm:text-[9px] font-bold text-amber-400 uppercase tracking-wider mt-0.5">{{ currentLocale === 'ar' ? 'دقائق' : 'MINS' }}</span>
+              </div>
+
+              <!-- Seconds -->
+              <div class="flex flex-col items-center">
+                <div class="w-full h-8 xs:h-9 sm:h-11 rounded-lg bg-gradient-to-b from-[#2a2a2e] to-[#141416] border border-zinc-700/80 shadow-md relative flex items-center justify-center overflow-hidden">
+                  <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-black/90"></div>
+                  <span class="text-sm xs:text-base sm:text-xl font-black text-amber-400 font-mono z-10">{{ countdown.seconds }}</span>
+                </div>
+                <span class="text-[7px] xs:text-[8px] sm:text-[9px] font-bold text-amber-400 uppercase tracking-wider mt-0.5">{{ currentLocale === 'ar' ? 'ثواني' : 'SECS' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Urgency Pill -->
+          <div class="px-2.5 py-0.5 rounded-full bg-zinc-900/90 border border-zinc-800/90 backdrop-blur-md shadow-lg flex items-center gap-1.5 text-[9.5px] xs:text-[10px] sm:text-[11px] text-zinc-300 font-mono">
+            <div class="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></div>
+            <span>🔴 Live: <strong class="text-amber-400 font-bold">{{ liveSpinCount }}</strong> {{ t.liveSpunText }}</span>
+          </div>
         </div>
+
       </div>
 
       <!-- ==========================================================
@@ -1628,63 +1684,9 @@ onUnmounted(() => {
 
     </div>
 
-    <!-- Persistent Floating Countdown & Live Urgency Container -->
-    <div class="fixed bottom-2.5 sm:bottom-4 z-30 flex flex-col items-center gap-2 px-3 w-full max-w-sm sm:max-w-md pointer-events-none">
-      
-      <!-- Formal Flip-Clock Countdown Card (Ends in 6 SEPT 2026 10:00pm) - Only for Step 1 -->
-      <div
-        v-if="currentStep === 1"
-        class="pointer-events-auto w-full px-4 py-3 rounded-2xl bg-zinc-950/92 border border-zinc-800/90 backdrop-blur-xl shadow-2xl flex flex-col items-center animate-in fade-in duration-300"
-      >
-        
-        <!-- Header Text: Formal -->
-        <div class="text-[10.5px] sm:text-[11px] font-bold text-zinc-300 uppercase tracking-widest mb-2.5 flex items-center gap-1.5 font-mono">
-          <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-          <span>{{ currentLocale === 'ar' ? 'ينتهي في 6 سبتمبر 2026 • 10:00 مساءً' : 'ENDS IN 6 SEPT 2026 • 10:00 PM' }}</span>
-        </div>
-
-        <!-- 4 Flip Boxes (Days, Hours, Minutes, Seconds) -->
-        <div class="grid grid-cols-4 gap-2 sm:gap-2.5 w-full max-w-[280px] sm:max-w-xs">
-          <!-- Days -->
-          <div class="flex flex-col items-center">
-            <div class="w-full h-12 sm:h-14 rounded-xl bg-gradient-to-b from-[#2a2a2e] to-[#141416] border border-zinc-700/80 shadow-md relative flex items-center justify-center overflow-hidden">
-              <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-black/90 shadow-[0_1px_0_rgba(255,255,255,0.06)]"></div>
-              <span class="text-xl sm:text-2xl font-black text-zinc-100 font-mono tracking-tight z-10">{{ countdown.days }}</span>
-            </div>
-            <span class="text-[8px] sm:text-[9px] font-bold text-amber-400 uppercase tracking-wider mt-1">{{ currentLocale === 'ar' ? 'أيام' : 'DAYS' }}</span>
-          </div>
-
-          <!-- Hours -->
-          <div class="flex flex-col items-center">
-            <div class="w-full h-12 sm:h-14 rounded-xl bg-gradient-to-b from-[#2a2a2e] to-[#141416] border border-zinc-700/80 shadow-md relative flex items-center justify-center overflow-hidden">
-              <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-black/90 shadow-[0_1px_0_rgba(255,255,255,0.06)]"></div>
-              <span class="text-xl sm:text-2xl font-black text-zinc-100 font-mono tracking-tight z-10">{{ countdown.hours }}</span>
-            </div>
-            <span class="text-[8px] sm:text-[9px] font-bold text-amber-400 uppercase tracking-wider mt-1">{{ currentLocale === 'ar' ? 'ساعات' : 'HOURS' }}</span>
-          </div>
-
-          <!-- Minutes -->
-          <div class="flex flex-col items-center">
-            <div class="w-full h-12 sm:h-14 rounded-xl bg-gradient-to-b from-[#2a2a2e] to-[#141416] border border-zinc-700/80 shadow-md relative flex items-center justify-center overflow-hidden">
-              <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-black/90 shadow-[0_1px_0_rgba(255,255,255,0.06)]"></div>
-              <span class="text-xl sm:text-2xl font-black text-zinc-100 font-mono tracking-tight z-10">{{ countdown.minutes }}</span>
-            </div>
-            <span class="text-[8px] sm:text-[9px] font-bold text-amber-400 uppercase tracking-wider mt-1">{{ currentLocale === 'ar' ? 'دقائق' : 'MINUTES' }}</span>
-          </div>
-
-          <!-- Seconds -->
-          <div class="flex flex-col items-center">
-            <div class="w-full h-12 sm:h-14 rounded-xl bg-gradient-to-b from-[#2a2a2e] to-[#141416] border border-zinc-700/80 shadow-md relative flex items-center justify-center overflow-hidden">
-              <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-black/90 shadow-[0_1px_0_rgba(255,255,255,0.06)]"></div>
-              <span class="text-xl sm:text-2xl font-black text-zinc-100 font-mono tracking-tight z-10">{{ countdown.seconds }}</span>
-            </div>
-            <span class="text-[8px] sm:text-[9px] font-bold text-amber-400 uppercase tracking-wider mt-1">{{ currentLocale === 'ar' ? 'ثواني' : 'SECONDS' }}</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Persistent Floating Live Urgency Pill (Steps 1 & 2 only) -->
-      <div v-if="currentStep <= 2" class="pointer-events-auto px-3.5 py-1 rounded-full bg-zinc-900/90 border border-zinc-800/90 backdrop-blur-md shadow-xl flex items-center gap-2 text-[10.5px] sm:text-[11px] text-zinc-300 font-mono">
+    <!-- Persistent Floating Live Urgency Container (Step 2 only) -->
+    <div v-if="currentStep === 2" class="fixed bottom-2.5 sm:bottom-4 z-30 flex flex-col items-center gap-2 px-3 w-full max-w-sm sm:max-w-md pointer-events-none">
+      <div class="pointer-events-auto px-3.5 py-1 rounded-full bg-zinc-900/90 border border-zinc-800/90 backdrop-blur-md shadow-xl flex items-center gap-2 text-[10.5px] sm:text-[11px] text-zinc-300 font-mono">
         <div class="w-2 h-2 rounded-full bg-red-500 animate-ping"></div>
         <span>🔴 Live: <strong class="text-amber-400 font-bold">{{ liveSpinCount }}</strong> {{ t.liveSpunText }}</span>
       </div>
