@@ -1,68 +1,58 @@
-# Veneno Auto Care Platform - Comprehensive Architecture & Memory
+# Veneno Auto Care Platform — Comprehensive Architecture & Memory
 
 ## 1. Project Overview & Identity
-- **Project Name:** Veneno Auto Care Platform
-- **Domain:** Luxury & Exotic Automotive Detailing, Ceramic Coating, PPF, Paint Correction, Interior Restoration & Window Tinting.
-- **Brand Aesthetic:** Sleek, high-end dark luxury theme (`zinc-950`, gold/red accents `red-600`, glassmorphism, responsive micro-animations, interactive before/after comparison sliders).
+- **Project Name:** Veneno Auto Care Center (Official Website & ADIHEX 2026 Platform)
+- **Domain:** `https://veneno.ae`
+- **Location:** Musaffah M37, Abu Dhabi, UAE (`📍 مصفح M37، أبوظبي` • `02 634 4403`)
+- **Brand Aesthetic:** Sleek dark luxury theme (`#070709`, `#121216`), Veneno brushed gold (`#c5a059`, `#e5c07b`, `#9a7b38`), crimson red accents (`#ef4444`), glassmorphism, responsive micro-animations.
 
 ---
 
-## 2. Tech Stack & Infrastructure
-- **Frontend Framework:** React 19 + TypeScript + Vite 6
-- **Styling:** TailwindCSS v4 + Lucide React Icons + Framer Motion (`motion`)
-- **Effects & UI:** `canvas-confetti`, custom interactive SVG sliders, responsive modal dialogs
-- **Backend / API Engine:** Express 4 on Node.js running via `tsx`
-- **AI Integration:** `@google/genai` (Gemini 3.7 Flash) for AI Vehicle Inspection, Detailing Quote Estimation, and AI Luxury Marketing Copy Generation.
-- **State Management:** React Context API (`AppContext`, `AuthContext`) with persistent state patterns and real-time reactive updates.
+## 2. Server Infrastructure & Remote SSH Access
+- **Host:** `91.134.84.187`
+- **Port:** `22`
+- **User:** `venenoae`
+- **Password:** `Veneno@2023`
+- **Remote Root:** `/home/venenoae/public_html`
+- **Automated Deployment:** `python scripts/deploy_live.py`
+- **Data Reset Tool:** `python scripts/wipe_test_data.py`
 
 ---
 
-## 3. Core Modules & User Flows
-
-### A. Customer-Facing Storefront & Portal
-1. **Hero & Dynamic Showcase (`HomePage.tsx`):**
-   - Interactive service cards, before/after interactive image sliders, pricing calculator teaser, client testimonials, and workshop stats.
-2. **Detailed Service Pages (`ServiceLandingPage.tsx`):**
-   - Deep-dive into service categories (Diamond Ceramic, Self-Healing PPF, Multi-Stage Correction, Interior Rejuvenation, Ceramic Tinting, Engine Bay).
-   - Dynamic price adjustment based on vehicle type (`sedan`, `coupe`, `suv`, `truck`, `exotic`).
-3. **5-Step Booking Wizard (`BookingWizard.tsx`):**
-   - Step 1: Vehicle selection (Make, Model, Year, Color, Type, License Plate).
-   - Step 2: Service & Add-ons selection with real-time dynamic pricing calculation.
-   - Step 3: Date, Time slot selection & Special handling instructions.
-   - Step 4: Stripe Checkout simulation & Authorization ($250 deposit or full payment).
-   - Step 5: Instant Booking Confirmation with printable receipt, reservation code (`VEN-XXXX`), and confetti animation.
-4. **AI Detailing Quote & Inspection Advisor (`AIQuoteAdvisor.tsx`):**
-   - Intelligent analysis using Gemini AI: predicts required detailing stages, hours, price range, urgency level, and custom add-on recommendations.
-5. **Customer VIP Portal (`CustomerPortal.tsx`):**
-   - Vehicle registry, active detailing job tracking, inspection reports, invoice downloads, loyalty tier status (`Silver`, `Gold`, `VIP Platinum`), and booking history.
-6. **WhatsApp Chat & Inquiry Widget (`WhatsAppWidget.tsx`):**
-   - Direct lead generation floating widget; logs inquiries directly to the CRM database backend.
-
-### B. Workshop & Business Operations
-1. **Technician Bay Portal (`TechnicianPortal.tsx`):**
-   - Live bay status tracker with interactive workflow stages:
-     - `Bay Booked & Check-In` -> `Paint Correction & Polish` -> `Ceramic / PPF Application` -> `Heat Curing & Final QC` -> `Ready for Customer Pickup`
-   - Upload inspection notes, add stage milestones, and track technician ratings.
-2. **Staff & Admin CRM Hub (`DashboardLayout.tsx`):**
-   - **Bay Jobs & Bookings (`BookingsManagement.tsx`):** Kanban pipeline board + list view with stage movement and status filtering.
-   - **Client Database & CRM (`ClientManagement.tsx`):** Customer records, spend metrics, loyalty tiers, vehicle profiles, and direct customer communication triggers.
-   - **Inquiries Management (`InquiriesManagement.tsx`):** WhatsApp/web inquiries inbox with lead conversion directly into bookings.
-   - **Marketing Campaign Studio (`MarketingCampaigns.tsx`):** AI-powered luxury copywriter for SMS/Email/WhatsApp campaigns with discount generator, audience segmentation, and ROI metrics.
-   - **Revenue & Financial Analytics (`RevenueAnalytics.tsx`):** Monthly revenue charts, profit margins, average ticket value, and category-level breakdown.
-   - **Staff & Team Management (`StaffManagement.tsx`):** Role-based access control (`super_admin`, `manager`, `technician`, `receptionist`), granular permissions, and job allocations.
+## 3. Tech Stack & Integration Ecosystem
+- **Backend:** Laravel 11 (PHP 8.2+) with MySQL Database
+- **Frontend:** Vue 3 (Composition API) + Inertia.js + TailwindCSS v4 + Vite 6
+- **SMS Gateway:** SMSGlobal HTTP API (`app/Services/SmsGlobalService.php`) — Sender: `Veneno`
+- **Payment Gateway:** Stripe Payments API (`app/Http/Controllers/AdihexController.php`)
+- **Email Service:** Laravel Mail with blade templates (`resources/views/emails/adihex_voucher.blade.php`)
 
 ---
 
-## 4. API & Backend Endpoints (`server.ts`)
-- `GET /api/health` - Server health check & Gemini API key status
-- `POST /api/gemini/quote-estimate` - AI Vehicle appraisal & package recommender
-- `POST /api/gemini/marketing-copy` - AI luxury promotional copy generator
-- `POST /api/stripe/create-checkout-session` - Stripe card payment authorization & session creation
-- `POST /api/inquiries` - CRM lead logger for WhatsApp & Web inquiries
+## 4. Core Features & Campaigns
+
+### A. ADIHEX 2026 Interactive Experience (`/adihex`)
+- 7-Step gamified lead capture with high-frame-rate canvas spin wheel.
+- Generates dynamic unique voucher codes (`VEN-ADIHEX-XXXX`) with 60-day expiry.
+- Automated instant SMS delivery via SMSGlobal.
+- Strict 1-chance-per-phone validation to prevent duplicate entries.
+- SMS voucher is the official proof of prize redemption.
+
+### B. 22-Inch Portrait Digital Signage Kiosk (`/adihex/display`)
+- 60 FPS gold & crimson embers canvas background engine.
+- High-res QR code with embedded official red Veneno emblem and laser scanline animation.
+- Bilingual typography (`SCAN • SPIN • WIN` / `امسح • أدِر • اربح`).
+- Native Screen Wake Lock API and borderless fullscreen toggle.
+- 4-Box live synchronized countdown to 6 September 2026.
+
+### C. Admin CRM Hub (`/dashboard`)
+- Full telemetry for live leads, prize winners, deposit payments, and voucher redemption tracking.
 
 ---
 
-## 5. Development & Testing Commands
-- `npm run dev` - Runs `tsx server.ts` (backend Express + Vite dev middleware)
-- `npm run lint` - Runs `tsc --noEmit`
-- `npm run build` - Builds production Vite bundle & Node server bundle (`dist/server.cjs`)
+## 5. Standard Commands
+```bash
+npm run build
+python scripts/deploy_live.py
+python scripts/wipe_test_data.py
+git add -A; git commit -m "feat: update"; git push origin main
+```
