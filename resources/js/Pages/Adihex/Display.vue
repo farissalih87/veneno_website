@@ -243,14 +243,14 @@ onUnmounted(() => {
            ========================================================== -->
       <header class="w-full flex flex-col items-center text-center pt-2 sm:pt-4 space-y-1.5">
         <!-- English Title -->
-        <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight uppercase leading-none drop-shadow-[0_4px_25px_rgba(239,68,68,0.4)]">
+        <h1 class="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight uppercase leading-none drop-shadow-[0_4px_25px_rgba(239,68,68,0.4)]">
           <span class="bg-gradient-to-r from-[#ef4444] via-[#e5c07b] to-[#c5a059] bg-clip-text text-transparent">
             SCAN • SPIN • WIN
           </span>
         </h1>
 
         <!-- Arabic Title -->
-        <h2 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-normal leading-tight drop-shadow-[0_4px_25px_rgba(197,160,89,0.4)]" dir="rtl">
+        <h2 class="text-2xl sm:text-4xl md:text-7xl font-black tracking-normal leading-tight drop-shadow-[0_4px_25px_rgba(197,160,89,0.4)]" dir="rtl">
           <span class="bg-gradient-to-r from-[#e5c07b] via-[#c5a059] to-[#ef4444] bg-clip-text text-transparent font-['Cairo',sans-serif]">
             امسح • أدِر • اربح
           </span>
