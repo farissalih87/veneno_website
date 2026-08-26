@@ -236,21 +236,21 @@ onUnmounted(() => {
     <div class="absolute inset-0 bg-[radial-gradient(#1f1f23_1px,transparent_1px)] [background-size:16px_16px] opacity-25 pointer-events-none z-0"></div>
 
     <!-- Main Fixed Center Column -->
-    <div class="relative z-10 w-full max-w-[460px] h-full flex flex-col justify-between items-center">
+    <div class="relative z-10 w-full max-w-[420px] sm:max-w-[540px] md:max-w-[620px] h-full flex flex-col justify-between items-center py-2">
 
       <!-- ==========================================================
            TOP HEADER: MULTILINGUAL BOLD TITLES (VENENO GOLD PALETTE)
            ========================================================== -->
-      <header class="w-full flex flex-col items-center text-center pt-2 sm:pt-4 space-y-1">
+      <header class="w-full flex flex-col items-center text-center pt-2 sm:pt-4 space-y-1.5">
         <!-- English Title -->
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight uppercase leading-none drop-shadow-[0_4px_20px_rgba(239,68,68,0.35)]">
+        <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight uppercase leading-none drop-shadow-[0_4px_25px_rgba(239,68,68,0.4)]">
           <span class="bg-gradient-to-r from-[#ef4444] via-[#e5c07b] to-[#c5a059] bg-clip-text text-transparent">
             SCAN • SPIN • WIN
           </span>
         </h1>
 
         <!-- Arabic Title -->
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-normal leading-tight drop-shadow-[0_4px_20px_rgba(197,160,89,0.35)]" dir="rtl">
+        <h2 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-normal leading-tight drop-shadow-[0_4px_25px_rgba(197,160,89,0.4)]" dir="rtl">
           <span class="bg-gradient-to-r from-[#e5c07b] via-[#c5a059] to-[#ef4444] bg-clip-text text-transparent font-['Cairo',sans-serif]">
             امسح • دوّر • اربح
           </span>
@@ -263,19 +263,19 @@ onUnmounted(() => {
       <main class="w-full flex flex-col items-center justify-center my-auto py-2">
         
         <!-- Luxury Gold & Crimson Frame with Corner Accents -->
-        <div class="w-full relative group p-3.5 sm:p-4 rounded-[2rem] sm:rounded-[2.5rem] bg-gradient-to-b from-[#18181c] via-[#0d0d10] to-[#121216] border-2 border-[#c5a059] shadow-[0_0_50px_rgba(197,160,89,0.25)] flex flex-col items-center">
+        <div class="w-full relative group p-4 sm:p-5 rounded-[2.2rem] sm:rounded-[2.8rem] bg-gradient-to-b from-[#18181c] via-[#0d0d10] to-[#121216] border-2 border-[#c5a059] shadow-[0_0_60px_rgba(197,160,89,0.25)] flex flex-col items-center">
           
           <!-- Corner Gold / Red Brackets -->
-          <div class="absolute -top-1.5 -left-1.5 w-6 h-6 border-t-4 border-l-4 border-[#ef4444] rounded-tl-xl pointer-events-none"></div>
-          <div class="absolute -top-1.5 -right-1.5 w-6 h-6 border-t-4 border-r-4 border-[#ef4444] rounded-tr-xl pointer-events-none"></div>
-          <div class="absolute -bottom-1.5 -left-1.5 w-6 h-6 border-b-4 border-l-4 border-[#c5a059] rounded-bl-xl pointer-events-none"></div>
-          <div class="absolute -bottom-1.5 -right-1.5 w-6 h-6 border-b-4 border-r-4 border-[#c5a059] rounded-br-xl pointer-events-none"></div>
+          <div class="absolute -top-1.5 -left-1.5 w-7 h-7 border-t-4 border-l-4 border-[#ef4444] rounded-tl-xl pointer-events-none"></div>
+          <div class="absolute -top-1.5 -right-1.5 w-7 h-7 border-t-4 border-r-4 border-[#ef4444] rounded-tr-xl pointer-events-none"></div>
+          <div class="absolute -bottom-1.5 -left-1.5 w-7 h-7 border-b-4 border-l-4 border-[#c5a059] rounded-bl-xl pointer-events-none"></div>
+          <div class="absolute -bottom-1.5 -right-1.5 w-7 h-7 border-b-4 border-r-4 border-[#c5a059] rounded-br-xl pointer-events-none"></div>
 
           <!-- Ambient Breathing Halo Glow Behind QR -->
           <div class="absolute inset-4 rounded-3xl bg-gradient-to-r from-red-600/15 via-[#c5a059]/15 to-red-600/15 blur-xl animate-pulse pointer-events-none"></div>
 
           <!-- The White High-Contrast Canvas QR Mount with Laser Scanline (Strict Aspect-Square to Prevent Overflow) -->
-          <div class="relative w-full aspect-square rounded-2xl sm:rounded-3xl bg-white shadow-2xl overflow-hidden flex items-center justify-center p-2.5 sm:p-3">
+          <div class="relative w-full aspect-square rounded-2xl sm:rounded-3xl bg-white shadow-2xl overflow-hidden flex items-center justify-center p-3 sm:p-4">
             <canvas ref="qrCanvasRef" class="w-full h-full block object-contain"></canvas>
 
             <!-- Laser Scanline Animation Sweep -->
@@ -283,11 +283,11 @@ onUnmounted(() => {
           </div>
 
           <!-- Scannable Instruction Banner -->
-          <div class="mt-3 w-full px-3.5 py-2 rounded-xl bg-gradient-to-r from-red-950/70 via-zinc-900 to-amber-950/70 border border-[#c5a059]/40 text-center shadow-lg flex items-center justify-center gap-2">
-            <div class="w-6 h-6 rounded-lg bg-red-600/30 border border-red-500/50 text-[#e5c07b] flex items-center justify-center shrink-0">
-              <Camera class="w-3.5 h-3.5" />
+          <div class="mt-3.5 w-full px-4 py-2.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-red-950/70 via-zinc-900 to-amber-950/70 border border-[#c5a059]/40 text-center shadow-lg flex items-center justify-center gap-2.5">
+            <div class="w-7 h-7 rounded-lg bg-red-600/30 border border-red-500/50 text-[#e5c07b] flex items-center justify-center shrink-0">
+              <Camera class="w-4 h-4" />
             </div>
-            <span class="text-[11px] sm:text-xs font-black text-[#e5c07b] uppercase tracking-wider">
+            <span class="text-xs sm:text-sm font-black text-[#e5c07b] uppercase tracking-wider">
               POINT YOUR CAMERA TO PLAY • امسح بالكاميرا للمشاركة
             </span>
           </div>
@@ -295,11 +295,11 @@ onUnmounted(() => {
         </div>
 
         <!-- Clean Subtitle Typography (Directly on Background, No Container Box) -->
-        <div class="mt-3.5 text-center space-y-1.5 px-2">
-          <p class="text-xs sm:text-sm font-bold text-[#e5c07b] leading-tight tracking-wide drop-shadow">
+        <div class="mt-4 sm:mt-5 text-center space-y-1.5 px-2">
+          <p class="text-xs sm:text-base md:text-lg font-bold text-[#e5c07b] leading-tight tracking-wide drop-shadow">
             Win Instant VIP Detailing Vouchers & Complimentary Services Up to AED 3,000
           </p>
-          <p class="text-xs sm:text-sm font-bold text-zinc-300 leading-tight tracking-normal font-['Cairo',sans-serif] drop-shadow" dir="rtl">
+          <p class="text-xs sm:text-base md:text-lg font-bold text-zinc-300 leading-tight tracking-normal font-['Cairo',sans-serif] drop-shadow" dir="rtl">
             اربح جوائز فورية وقسائم خدمات مجانية تصل إلى 3,000 درهم في جناح فينينو
           </p>
         </div>
@@ -309,41 +309,41 @@ onUnmounted(() => {
       <!-- ==========================================================
            FOOTER: EXHIBITION COUNTDOWN ONLY
            ========================================================== -->
-      <footer class="w-full flex flex-col items-center text-center pb-1">
+      <footer class="w-full flex flex-col items-center text-center pb-2">
         <!-- 4-Box Countdown Timer Card Only -->
-        <div class="w-full max-w-[340px] px-3.5 py-2 rounded-xl bg-zinc-950/90 border border-zinc-800/90 backdrop-blur-xl shadow-xl flex flex-col items-center">
-          <div class="text-[9.5px] font-bold text-zinc-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5 font-mono">
+        <div class="w-full max-w-[380px] px-4 py-2.5 rounded-2xl bg-zinc-950/90 border border-zinc-800/90 backdrop-blur-xl shadow-xl flex flex-col items-center">
+          <div class="text-[10px] sm:text-[11px] font-bold text-zinc-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5 font-mono">
             <span class="w-1.5 h-1.5 rounded-full bg-[#c5a059] animate-pulse"></span>
             <span>ADIHEX 2026 • اختتام الفعاليات في 6 سبتمبر</span>
           </div>
 
-          <div class="grid grid-cols-4 gap-2 w-full">
+          <div class="grid grid-cols-4 gap-2.5 w-full">
             <div class="flex flex-col items-center">
-              <div class="w-full h-9 rounded-lg bg-[#1a1a1d] border border-zinc-700/70 flex items-center justify-center">
-                <span class="text-sm sm:text-base font-black text-white font-mono">{{ countdown.days }}</span>
+              <div class="w-full h-10 rounded-xl bg-[#1a1a1d] border border-zinc-700/70 flex items-center justify-center">
+                <span class="text-base sm:text-lg font-black text-white font-mono">{{ countdown.days }}</span>
               </div>
-              <span class="text-[7.5px] font-bold text-[#e5c07b] mt-0.5">DAYS / أيام</span>
+              <span class="text-[8px] sm:text-[9px] font-bold text-[#e5c07b] mt-1">DAYS / أيام</span>
             </div>
 
             <div class="flex flex-col items-center">
-              <div class="w-full h-9 rounded-lg bg-[#1a1a1d] border border-zinc-700/70 flex items-center justify-center">
-                <span class="text-sm sm:text-base font-black text-white font-mono">{{ countdown.hours }}</span>
+              <div class="w-full h-10 rounded-xl bg-[#1a1a1d] border border-zinc-700/70 flex items-center justify-center">
+                <span class="text-base sm:text-lg font-black text-white font-mono">{{ countdown.hours }}</span>
               </div>
-              <span class="text-[7.5px] font-bold text-[#e5c07b] mt-0.5">HOURS / ساعات</span>
+              <span class="text-[8px] sm:text-[9px] font-bold text-[#e5c07b] mt-1">HOURS / ساعات</span>
             </div>
 
             <div class="flex flex-col items-center">
-              <div class="w-full h-9 rounded-lg bg-[#1a1a1d] border border-zinc-700/70 flex items-center justify-center">
-                <span class="text-sm sm:text-base font-black text-white font-mono">{{ countdown.minutes }}</span>
+              <div class="w-full h-10 rounded-xl bg-[#1a1a1d] border border-zinc-700/70 flex items-center justify-center">
+                <span class="text-base sm:text-lg font-black text-white font-mono">{{ countdown.minutes }}</span>
               </div>
-              <span class="text-[7.5px] font-bold text-[#e5c07b] mt-0.5">MINS / دقائق</span>
+              <span class="text-[8px] sm:text-[9px] font-bold text-[#e5c07b] mt-1">MINS / دقائق</span>
             </div>
 
             <div class="flex flex-col items-center">
-              <div class="w-full h-9 rounded-lg bg-[#1a1a1d] border border-zinc-700/70 flex items-center justify-center">
-                <span class="text-sm sm:text-base font-black text-[#ef4444] font-mono">{{ countdown.seconds }}</span>
+              <div class="w-full h-10 rounded-xl bg-[#1a1a1d] border border-zinc-700/70 flex items-center justify-center">
+                <span class="text-base sm:text-lg font-black text-[#ef4444] font-mono">{{ countdown.seconds }}</span>
               </div>
-              <span class="text-[7.5px] font-bold text-red-400 mt-0.5">SECS / ثواني</span>
+              <span class="text-[8px] sm:text-[9px] font-bold text-red-400 mt-1">SECS / ثواني</span>
             </div>
           </div>
         </div>
