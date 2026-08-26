@@ -13,6 +13,36 @@
     --color-gold-400: #fbbf24;
     --color-gold-500: #f59e0b;
     --color-gold-600: #d97706;
+    --color-amber-400: oklch(0.69 0.12 88.31);
+    --color-amber-600: oklch(0.57 0.05 68.29);
+}
+
+.to-amber-600 {
+    --tw-gradient-to: oklch(0.57 0.05 68.29);
+    --tw-gradient-stops: var(--tw-gradient-via-stops);
+}
+
+.via-red-500 {
+    --tw-gradient-via: var(--color-red-500);
+    --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-via-stops);
+}
+
+.bg-gradient-to-r {
+    --tw-gradient-position: to right in oklab;
+    background-image: linear-gradient(var(--tw-gradient-stops));
+}
+
+.text-amber-400 {
+    color: oklch(0.69 0.12 88.31) !important;
+}
+
+.bg-amber-400 {
+    background-color: oklch(0.69 0.12 88.31) !important;
+}
+
+.border-amber-400 {
+    border-color: oklch(0.69 0.12 88.31) !important;
 }
 
 /* English / Default Typography */

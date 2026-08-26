@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="htmlRoot">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SCAN. SPIN. WIN. — Veneno Auto Care Center × ADIHEX 2026</title>
+  <meta name="description" content="Exclusive ADIHEX 2026 giveaway and VIP offers by Veneno Auto Care Center. Scan at the booth, spin the wheel, and win luxury auto care prizes.">
+  <meta name="theme-color" content="#09090b">
+
+  <!-- Google Fonts: Outfit (EN) & Cairo (AR) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Luxury Glow Background -->
+  <div class="ambient-glow"></div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- Expired Campaign Modal (Guard after 6 Sept 2026) -->
+  <div id="expiredOverlay">
+    <div style="font-size: 48px; margin-bottom: 12px;">🏁</div>
+    <h2 style="font-size: 24px; color: var(--gold); margin-bottom: 8px;">ADIHEX 2026 Campaign Concluded</h2>
+    <p style="font-size: 14px; color: var(--text-dim); max-width: 320px; line-height: 1.5; margin-bottom: 20px;">
+      Thank you for visiting Veneno Auto Care Center at ADIHEX 2026. For inquiries and bookings, visit our main website.
+    </p>
+    <a href="https://veneno.ae" class="btn-primary" style="text-decoration: none; max-width: 240px;">
+      Visit Veneno.ae ➔
+    </a>
+  </div>
+
+  <!-- Main Mobile App Wrapper -->
+  <div class="app-container">
+
+    <!-- Top App Header -->
+    <header class="app-header">
+      <div class="header-branding">
+        <img src="assets/images/veneno-badge.png" alt="Veneno" class="brand-badge">
+        <img src="assets/images/veneno-logo.png" alt="Veneno Auto Care Center" class="brand-logo">
+        <span class="brand-divider">|</span>
+        <img src="assets/images/adihex-logo.png" alt="ADIHEX 2026" class="adihex-logo">
+      </div>
+      <button type="button" class="lang-switch-btn" id="globalLangBtn" onclick="toggleLanguage()">
+        العربية 🇦🇪
+      </button>
+    </header>
+
+    <!-- Wizard Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-steps-labels">
+        <span class="step-indicator-text" id="stepIndicator">STEP 1 OF 7</span>
+        <span>ADIHEX 2026 • ADNEC</span>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         STEP 1: LANGUAGE SELECT
+         ==================================================================== -->
+    <section class="wizard-step active" id="step-1">
+      <div class="step-header">
+        <span class="step-tag" data-i18n="s1_tag">WELCOME TO VENENO × ADIHEX 2026</span>
+        <h1 class="step-title" data-i18n="s1_title">SCAN. <span class="highlight-red">SPIN.</span> <span class="highlight-gold">WIN.</span></h1>
+        <p class="step-desc" data-i18n="s1_desc">Select your preferred language to begin your exclusive ADIHEX giveaway experience.</p>
+      </div>
+
+      <div class="lang-select-grid">
+        <!-- English Card -->
+        <div class="lang-card" onclick="selectLanguageAndAdvance('en')">
+          <div class="lang-card-left">
+            <span class="lang-flag">🇬🇧</span>
+            <div>
+              <div class="lang-name-en">English</div>
+              <div class="lang-sub-en">Continue in English</div>
+            </div>
+          </div>
+          <div class="lang-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+
+        <!-- Arabic Card -->
+        <div class="lang-card" onclick="selectLanguageAndAdvance('ar')">
+          <div class="lang-card-left">
+            <span class="lang-flag">🇦🇪</span>
+            <div>
+              <div class="lang-name-en" style="font-family: var(--font-ar);">العربية</div>
+              <div class="lang-sub-en" style="font-family: var(--font-ar);">المتابعة باللغة العربية (RTL)</div>
+            </div>
+          </div>
+          <div class="lang-arrow"><i class="fa-solid fa-chevron-left"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         STEP 2: FAST REGISTRATION
+         ==================================================================== -->
+    <section class="wizard-step" id="step-2">
+      <div class="step-header">
+        <span class="step-tag" data-i18n="s2_tag">FAST REGISTRATION</span>
+        <h2 class="step-title" data-i18n="s2_title">Register to <span class="highlight-gold">Spin & Win</span></h2>
+        <p class="step-desc" data-i18n="s2_desc">Enter your contact details to unlock your guaranteed spin at our booth.</p>
+      </div>
+
+      <form id="registrationForm" style="display: flex; flex-direction: column; gap: 12px; margin-top: 6px;">
+        <!-- Full Name -->
+        <div class="form-group">
+          <label class="form-label" for="regName">
+            <span data-i18n="name_label">Full Name</span> <span class="req">*</span>
+          </label>
+          <input type="text" id="regName" class="form-input" data-i18n-ph="name_ph" placeholder="e.g. Sultan Al Mansoori" required autocomplete="name">
+        </div>
+
+        <!-- Phone Number -->
+        <div class="form-group">
+          <label class="form-label" for="regPhone">
+            <span data-i18n="phone_label">Mobile Number (+971 UAE Format)</span> <span class="req">*</span>
+          </label>
+          <input type="tel" id="regPhone" class="form-input" data-i18n-ph="phone_ph" placeholder="050 123 4567" required autocomplete="tel">
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-group">
+          <label class="form-label" for="regEmail">
+            <span data-i18n="email_label">Email Address (Optional)</span>
+          </label>
+          <input type="email" id="regEmail" class="form-input" data-i18n-ph="email_ph" placeholder="name@example.com" autocomplete="email">
+        </div>
+
+        <!-- Service Interest Checkboxes -->
+        <div class="form-group">
+          <label class="form-label" data-i18n="services_label">Interested Services (Select all that apply):</label>
+          <div class="services-grid">
+            <div class="service-check-item selected" data-service="ppf" onclick="toggleServiceCheck(this)">
+              <div class="custom-box">✓</div>
+              <span data-i18n="srv_ppf">PPF Paint Protection</span>
+            </div>
+            <div class="service-check-item selected" data-service="ceramic" onclick="toggleServiceCheck(this)">
+              <div class="custom-box">✓</div>
+              <span data-i18n="srv_ceramic">Ceramic Coating</span>
+            </div>
+            <div class="service-check-item" data-service="detailing" onclick="toggleServiceCheck(this)">
+              <div class="custom-box">✓</div>
+              <span data-i18n="srv_detailing">Detailing & Polish</span>
+            </div>
+            <div class="service-check-item" data-service="tinting" onclick="toggleServiceCheck(this)">
+              <div class="custom-box">✓</div>
+              <span data-i18n="srv_tint">Window Tinting</span>
+            </div>
+            <div class="service-check-item" data-service="peelable_paint" onclick="toggleServiceCheck(this)">
+              <div class="custom-box">✓</div>
+              <span data-i18n="srv_paint">Peelable Paint</span>
+            </div>
+            <div class="service-check-item" data-service="pdr" onclick="toggleServiceCheck(this)">
+              <div class="custom-box">✓</div>
+              <span data-i18n="srv_pdr">PDR Dent Repair</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="privacy-note" data-i18n="privacy_note">
+          🔒 100% Secure. Used strictly for prize verification & concierge service.
+        </p>
+
+        <button type="submit" class="btn-primary" style="margin-top: 6px;">
+          <span data-i18n="btn_proceed_spin">PROCEED TO SPIN ➔</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- ====================================================================
+         STEP 3: SPIN THE WHEEL
+         ==================================================================== -->
+    <section class="wizard-step" id="step-3">
+      <div class="step-header">
+        <span class="step-tag" data-i18n="s3_tag">LUCKY SPIN WHEEL</span>
+        <h2 class="step-title" data-i18n="s3_title">Spin & Win <span class="highlight-gold">Exclusive Prizes</span></h2>
+        <p class="step-desc" data-i18n="s3_desc">Tap the wheel or button below. Guaranteed prize on every spin!</p>
+      </div>
+
+      <!-- Canvas Wheel Component -->
+      <div class="wheel-wrapper">
+        <!-- Golden Arrow Pointer -->
+        <svg class="wheel-pointer" viewBox="0 0 30 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 38L2 10C-1.5 4.5 2.5 0 9 0H21C27.5 0 31.5 4.5 28 10L15 38Z" fill="#E31E24" stroke="#F2DA96" stroke-width="2"/>
+        </svg>
+
+        <canvas id="wheelCanvas" width="320" height="320"></canvas>
+
+        <!-- Center Hub with Veneno Badge -->
+        <div class="wheel-center-hub">
+          <img src="assets/images/veneno-badge.png" alt="Veneno">
+        </div>
+      </div>
+
+      <button type="button" class="btn-primary btn-gold" id="spinActionBtn">
+        <span data-i18n="btn_tap_spin">TAP TO SPIN NOW 🎯</span>
+      </button>
+    </section>
+
+    <!-- ====================================================================
+         STEP 4: PRIZE REVEAL & VOUCHER
+         ==================================================================== -->
+    <section class="wizard-step" id="step-4">
+      <div class="step-header">
+        <span class="step-tag" data-i18n="s4_tag">CONGRATULATIONS!</span>
+        <h2 class="step-title" data-i18n="s4_title">MABROOK! <span class="highlight-gold">YOU WON</span></h2>
+        <p class="step-desc" data-i18n="s4_desc">Present this voucher at Veneno Auto Care Center or book via WhatsApp.</p>
+      </div>
+
+      <div class="reveal-card">
+        <div class="reveal-icon">🎉</div>
+        <div class="prize-won-name" id="revealPrizeName">FREE DIAMOND CAR WASH</div>
+        <div class="prize-value-tag" id="revealPrizeVal">Estimated Value: AED 250</div>
+
+        <!-- Glowing Voucher Box -->
+        <div class="voucher-box">
+          <span class="voucher-label" data-i18n="voucher_label">YOUR UNIQUE VOUCHER CODE</span>
+          <span class="voucher-code-val" id="revealVoucherCode">VEN-ADIHEX-8492</span>
+        </div>
+
+        <div class="voucher-actions">
+          <button type="button" class="btn-voucher-action" id="copyCodeBtn" onclick="copyVoucherCode()">
+            <i class="fa-solid fa-copy"></i> <span data-i18n="btn_copy">Copy Code</span>
+          </button>
+          <button type="button" class="btn-voucher-action" onclick="downloadPrizeCertificate()">
+            <i class="fa-solid fa-file-arrow-down"></i> <span data-i18n="btn_download_pdf">Certificate (PDF)</span>
+          </button>
+        </div>
+
+        <button type="button" class="btn-primary" onclick="goToStep(5)" style="margin-top: 4px;">
+          <span data-i18n="btn_see_offers">SEE EXCLUSIVE ADIHEX OFFERS ➔</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         STEP 5: ADIHEX EXCLUSIVE SHOW OFFERS
+         ==================================================================== -->
+    <section class="wizard-step" id="step-5">
+      <div class="offers-header-row">
+        <span class="step-tag" data-i18n="s5_tag">ADIHEX 2026 EXCLUSIVE SHOW OFFERS</span>
+        <button type="button" class="skip-btn" onclick="skipOffersToConfirmation()" data-i18n="btn_skip">
+          Skip to Confirmation ➔
+        </button>
+      </div>
+
+      <div class="step-header" style="text-align: left;">
+        <h2 class="step-title" data-i18n="s5_title">Lock In <span class="highlight-gold">Historic Show Savings</span></h2>
+        <p class="step-desc" data-i18n="s5_desc">Reserve any show package today for only AED 50 (100% deductible from final invoice).</p>
+      </div>
+
+      <!-- Packages Container rendered via JS -->
+      <div class="packages-stack" id="packagesContainer"></div>
+
+      <button type="button" class="btn-secondary" onclick="skipOffersToConfirmation()" style="margin-top: 8px;">
+        <span data-i18n="btn_skip">Skip to Confirmation ➔</span>
+      </button>
+    </section>
+
+    <!-- ====================================================================
+         STEP 6: STRIPE PAYMENT CHECKOUT MOCKUP
+         ==================================================================== -->
+    <section class="wizard-step" id="step-6">
+      <div class="step-header">
+        <span class="step-tag" data-i18n="s6_tag">SECURE RESERVATION</span>
+        <h2 class="step-title" data-i18n="s6_title">Confirm <span class="highlight-gold">AED 50 Reservation</span></h2>
+        <p class="step-desc" data-i18n="s6_desc">Your AED 50 deposit is 100% deductible upon service and valid for 90 days.</p>
+      </div>
+
+      <div class="order-summary-box">
+        <div class="summary-row">
+          <span data-i18n="pkg_reserved">Reserved Package:</span>
+          <strong id="paySummaryPkgTitle" style="color: #FFF;">Golden Package</strong>
+        </div>
+        <div class="summary-row">
+          <span>Show Offer Price:</span>
+          <strong id="paySummaryPkgPrice" style="color: var(--gold-light);">AED 3,999</strong>
+        </div>
+        <div class="summary-row">
+          <span data-i18n="balance_label">Balance Due Upon Service:</span>
+          <span id="paySummaryBalance" style="color: var(--text-dim);">AED 3,949</span>
+        </div>
+        <div class="summary-row total-row">
+          <span data-i18n="deposit_label">Deposit Due Today:</span>
+          <span style="color: var(--gold-light);">AED 50.00</span>
+        </div>
+
+        <div class="deductible-banner" data-i18n="deductible_note">
+          ✓ 100% deductible from final invoice upon vehicle check-in.
+        </div>
+      </div>
+
+      <!-- Express Pay Buttons -->
+      <div class="express-pay-grid">
+        <button type="button" class="btn-apple-pay" onclick="processMockPayment('Apple Pay')">
+          <i class="fa-brands fa-apple"></i> <span data-i18n="apple_pay_btn">Pay with Apple Pay</span>
+        </button>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 8px; margin: 4px 0;">
+        <div style="flex: 1; height: 1px; background: var(--border);"></div>
+        <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;" data-i18n="or_card">OR PAY WITH CREDIT / DEBIT CARD</span>
+        <div style="flex: 1; height: 1px; background: var(--border);"></div>
+      </div>
+
+      <!-- Card Input Mockup -->
+      <div class="card-form-box">
+        <div class="form-group">
+          <label class="form-label" style="font-size: 10.5px;" data-i18n="card_num">Card Number</label>
+          <input type="text" class="form-input" placeholder="4242 •••• •••• 4242" value="•••• •••• •••• 4242" readonly>
+        </div>
+        <div class="card-row-split">
+          <div class="form-group">
+            <label class="form-label" style="font-size: 10.5px;" data-i18n="card_exp">MM / YY</label>
+            <input type="text" class="form-input" placeholder="12 / 28" value="12 / 28" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size: 10.5px;" data-i18n="card_cvc">CVC</label>
+            <input type="text" class="form-input" placeholder="•••" value="•••" readonly>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn-primary btn-gold" id="confirmPayBtn" onclick="processMockPayment('Card')">
+        <span data-i18n="btn_pay_50">CONFIRM & PAY AED 50 ➔</span>
+      </button>
+
+      <div class="stripe-badge-footer">
+        <i class="fa-solid fa-lock"></i> <span>256-Bit SSL Encrypted • Powered by Stripe Payments</span>
+      </div>
+
+      <button type="button" class="btn-secondary" onclick="goToStep(5)" style="margin-top: 4px;">
+        <span data-i18n="btn_back_offers">← Change Package</span>
+      </button>
+    </section>
+
+    <!-- ====================================================================
+         STEP 7: CONFIRMATION
+         ==================================================================== -->
+    <section class="wizard-step" id="step-7">
+      <div class="confirmation-card">
+        <div class="check-circle">
+          <i class="fa-solid fa-check"></i>
+        </div>
+
+        <h2 class="step-title" data-i18n="s7_title">All Set! <span class="highlight-gold">Mabrook!</span></h2>
+        <p class="step-desc" data-i18n="s7_desc">Your prize and reservation details have been confirmed and sent to your phone.</p>
+
+        <!-- Summary Details -->
+        <div class="confirm-details-list">
+          <div class="confirm-row">
+            <span class="label" data-i18n="summary_name">Customer Name:</span>
+            <span class="val" id="confName">Sultan Al Mansoori</span>
+          </div>
+          <div class="confirm-row">
+            <span class="label" data-i18n="summary_phone">Mobile Number:</span>
+            <span class="val" id="confPhone">+971 50 123 4567</span>
+          </div>
+          <div class="confirm-row">
+            <span class="label" data-i18n="summary_prize">Won Prize:</span>
+            <span class="val" id="confPrize" style="color: var(--gold-light);">Free Diamond Car Wash</span>
+          </div>
+          <div class="confirm-row">
+            <span class="label" data-i18n="summary_code">Voucher Code:</span>
+            <span class="val" id="confCode" style="color: #FFA3A6; font-family: monospace;">VEN-ADIHEX-8492</span>
+          </div>
+          <div class="confirm-row" id="confPkgRow" style="display: none;">
+            <span class="label" data-i18n="summary_pkg">Show Package:</span>
+            <span class="val" id="confPkgName" style="color: var(--gold-light);">Golden Package</span>
+          </div>
+          <div class="confirm-row" id="confPaidRow" style="display: none;">
+            <span class="label" data-i18n="summary_paid">Deposit Paid:</span>
+            <span class="val" style="color: #25D366;">AED 50.00 (Deductible)</span>
+          </div>
+          <div class="confirm-row">
+            <span class="label" data-i18n="summary_valid">Validity Window:</span>
+            <span class="val" data-i18n="validity_90_days">90 Days (Valid until 5 Dec 2026)</span>
+          </div>
+        </div>
+
+        <!-- WhatsApp Direct Booking CTA -->
+        <a id="whatsappConciergeBtn" href="https://wa.me/97126344403" target="_blank" class="btn-whatsapp">
+          <i class="fa-brands fa-whatsapp" style="font-size: 18px;"></i>
+          <span data-i18n="btn_whatsapp_concierge">Open WhatsApp Concierge 💬</span>
+        </a>
+
+        <!-- Download Pass CTA -->
+        <button type="button" class="btn-secondary" onclick="downloadPrizeCertificate()">
+          <i class="fa-solid fa-file-pdf"></i> <span data-i18n="btn_download_receipt">Download Receipt & Pass (PDF)</span>
+        </button>
+
+        <!-- Google Maps Location -->
+        <a href="https://maps.google.com/?q=Veneno+Auto+Care+Musaffah+M37+Abu+Dhabi" target="_blank" class="btn-secondary" style="text-decoration: none;">
+          <i class="fa-solid fa-location-dot text-gold"></i> <span data-i18n="btn_directions">Directions to Workshop (Musaffah M37) 📍</span>
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Persistent Floating Live Urgency Pill -->
+  <div class="live-urgency-pill">
+    <div class="pulse-dot"></div>
+    <span>🔴 Live: <strong id="liveSpinCount" style="color: var(--gold-light);">184</strong> <span data-i18n="spinCount">visitors have spun today at ADIHEX</span></span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

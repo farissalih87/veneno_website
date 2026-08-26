@@ -5,12 +5,18 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CustomerPortalController;
 use App\Http\Controllers\TechnicianPortalController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdihexController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 // Clean Primary Storefront Routes (In-Place Multilingual - Zero 404s)
 Route::get('/', [StorefrontController::class, 'home'])->name('home');
 Route::get('/services/{slug}', [StorefrontController::class, 'serviceDetail'])->name('service.detail');
+
+// ADIHEX 2026 Campaign Portal
+Route::get('/adihex', [AdihexController::class, 'index'])->name('adihex.index');
+Route::get('/{locale}/adihex', [AdihexController::class, 'index'])
+    ->where('locale', 'en|ar');
 
 // Multilingual URL prefix fallbacks (en | ar)
 Route::get('/{locale}', [StorefrontController::class, 'home'])
@@ -21,6 +27,12 @@ Route::get('/{locale}/services/{slug}', [StorefrontController::class, 'serviceDe
 // API Routes
 Route::post('/api/quote', [StorefrontController::class, 'submitQuote'])->name('api.quote.submit');
 Route::post('/api/inquiries', [StorefrontController::class, 'storeInquiry'])->name('api.inquiries.store');
+
+// ADIHEX 2026 Activation APIs
+Route::post('/api/adihex/spin', [AdihexController::class, 'spin'])->name('api.adihex.spin');
+Route::post('/api/adihex/reserve', [AdihexController::class, 'reserve'])->name('api.adihex.reserve');
+Route::post('/api/adihex/payment-intent', [AdihexController::class, 'createPaymentIntent'])->name('api.adihex.payment-intent');
+Route::post('/api/adihex/redeem', [AdihexController::class, 'redeemVoucher'])->name('api.adihex.redeem');
 
 // Booking Engine
 Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
@@ -45,3 +57,5 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::patch('/dashboard/inquiries/{inquiry}', [DashboardController::class, 'updateInquiryStatus'])->name('dashboard.inquiries.update');
 Route::delete('/dashboard/inquiries/{inquiry}', [DashboardController::class, 'destroyInquiry'])->name('dashboard.inquiries.destroy');
 Route::post('/dashboard/campaigns', [DashboardController::class, 'storeCampaign'])->name('dashboard.campaigns.store');
+Route::get('/dashboard/adihex/export', [AdihexController::class, 'exportLeads'])->name('dashboard.adihex.export');
+

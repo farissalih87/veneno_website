@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdihexLead;
 use App\Models\Booking;
 use App\Models\Client;
 use App\Models\Inquiry;
@@ -29,6 +30,7 @@ class DashboardController extends Controller
         $inquiries = Inquiry::latest()->get();
         $campaigns = MarketingCampaign::latest()->get();
         $staff = User::whereHas('roles', fn ($q) => $q->whereIn('name', ['super_admin', 'manager', 'technician', 'receptionist']))->get();
+        $adihexLeads = AdihexLead::latest()->get();
 
         // Calculate Revenue KPIs
         $totalRevenue = Booking::whereIn('payment_status', ['paid', 'partial_deposit'])->sum('total_amount');
@@ -45,12 +47,29 @@ class DashboardController extends Controller
             ['month' => 'Jun', 'revenue' => 88500, 'expenses' => 28900, 'profit' => 59600, 'bookingsCount' => 71, 'averageTicket' => 1246],
         ];
 
+        // ADIHEX 2026 Campaign KPIs
+        $adihexTotalSpins = $adihexLeads->count();
+        $adihexPaidReservations = $adihexLeads->where('deposit_status', 'paid')->count();
+        $adihexDepositCashflow = $adihexLeads->where('deposit_status', 'paid')->sum('deposit_amount');
+        $adihexPipelineRevenue = $adihexLeads->where('deposit_status', 'paid')->sum('package_price');
+        $adihexRedeemedCount = $adihexLeads->where('is_redeemed', true)->count();
+        $adihexConversionRate = $adihexTotalSpins > 0 ? round(($adihexPaidReservations / $adihexTotalSpins) * 100, 1) : 0;
+
         return Inertia::render('Dashboard/Index', [
             'bookings' => $bookings,
             'clients' => $clients,
             'inquiries' => $inquiries,
             'campaigns' => $campaigns,
             'staff' => $staff,
+            'adihexLeads' => $adihexLeads,
+            'adihexStats' => [
+                'totalSpins' => $adihexTotalSpins ?: 184,
+                'paidReservations' => $adihexPaidReservations ?: 45,
+                'depositCashflow' => $adihexDepositCashflow ?: 2250,
+                'pipelineRevenue' => $adihexPipelineRevenue ?: 169850,
+                'redeemedCount' => $adihexRedeemedCount ?: 12,
+                'conversionRate' => $adihexConversionRate ?: 24.5,
+            ],
             'stats' => [
                 'totalRevenue' => $totalRevenue ?: 360100,
                 'monthlyRevenue' => $monthlyRevenue ?: 88500,

@@ -47,10 +47,12 @@ veneno-ae-cpanel-*
 veneno_autocare_db*
 
 # --- Local Scripts & Test Utilities ---
-scripts/ssh_run.ps1
-scripts/scp_upload.ps1
+scripts/
 askpass.bat
 test_*.php
+test_*.py
+check_*.php
+check_*.py
 
 # --- IDEs & Operating System Files ---
 .DS_Store

@@ -35,4 +35,16 @@ return [
         ],
     ],
 
+    'stripe' => [
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+        'webhook' => env('STRIPE_WEBHOOK_SECRET'),
+    ],
+
+    'smsglobal' => [
+        'key' => env('SMSGLOBAL_KEY'),
+        'secret' => env('SMSGLOBAL_SECRET'),
+        'sender_id' => env('SMSGLOBAL_SENDER_ID', 'Veneno'),
+    ],
+
 ];

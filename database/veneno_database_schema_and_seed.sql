@@ -419,6 +419,43 @@ CREATE TABLE IF NOT EXISTS `marketing_campaigns` (
 INSERT INTO `marketing_campaigns` (`id`, `title`, `subject`, `type`, `audience`, `status`, `scheduled_at`, `sent_count`, `open_rate`, `click_rate`, `conversions`, `revenue_generated`, `budget`, `discount_code`, `body_content`, `created_at`, `updated_at`) VALUES
   (1, 'VIP Spring Graphene Protection', '✨ Your Vehicle Deserves Showroom Mirror Armor: Exclusive $150 Off', 'email', 'vip', 'active', '2026-08-18 15:56:17', 840, 52.4, 24.1, 38, 45600, 650, 'VENENO150', 'Exclusive invitation for luxury vehicle owners to refresh their hydrophobic ceramic barrier with complimentary glass protection.', '2026-08-21 15:56:17', '2026-08-21 15:56:17');
 
+DROP TABLE IF EXISTS `adihex_leads`;
+CREATE TABLE IF NOT EXISTS `adihex_leads` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `service_intent` json DEFAULT NULL,
+  `won_prize_tier` varchar(255) NOT NULL DEFAULT 'discount_10',
+  `won_prize_label` varchar(255) NOT NULL DEFAULT '10% Discount Voucher',
+  `voucher_code` varchar(255) NOT NULL,
+  `voucher_expires_at` timestamp NULL DEFAULT NULL,
+  `is_redeemed` tinyint(1) NOT NULL DEFAULT 0,
+  `redeemed_at` timestamp NULL DEFAULT NULL,
+  `selected_package_id` varchar(255) DEFAULT NULL,
+  `selected_package_name` varchar(255) DEFAULT NULL,
+  `package_price` decimal(10,2) DEFAULT NULL,
+  `deposit_amount` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `deposit_status` enum('skipped','pending','paid') NOT NULL DEFAULT 'pending',
+  `stripe_payment_id` varchar(255) DEFAULT NULL,
+  `lead_tier` varchar(255) NOT NULL DEFAULT 'SPIN_PRIZE',
+  `status` varchar(255) NOT NULL DEFAULT 'new',
+  `notes` text DEFAULT NULL,
+  `locale` varchar(10) NOT NULL DEFAULT 'en',
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `adihex_leads_voucher_code_unique` (`voucher_code`),
+  KEY `adihex_leads_phone_index` (`phone`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `adihex_leads` (`id`, `name`, `phone`, `email`, `service_intent`, `won_prize_tier`, `won_prize_label`, `voucher_code`, `voucher_expires_at`, `is_redeemed`, `redeemed_at`, `selected_package_id`, `selected_package_name`, `package_price`, `deposit_amount`, `deposit_status`, `stripe_payment_id`, `lead_tier`, `status`, `notes`, `locale`, `created_at`, `updated_at`) VALUES
+  (1, 'Sultan Al Mansoori', '+971 50 123 4567', 'sultan@example.ae', '["PPF Protection","Ceramic Coating"]', 'wash_diamond', 'Free Diamond Car Wash', 'VEN-ADIHEX-8492', '2026-12-05 23:59:59', 0, NULL, 'golden', 'Golden Package (Front PPF + 5Yr Ceramic)', 3999.00, 50.00, 'paid', 'pi_mock_adihex_sultan', 'VIP_RESERVED', 'new', 'VIP customer from ADIHEX Hall 4 stand. Interested in Patrol Nismo protection.', 'en', '2026-08-25 14:00:00', '2026-08-25 14:00:00'),
+  (2, 'Hamad Al Nuaimi', '+971 55 987 6543', 'hamad@example.com', '["Window Tinting","Detailing"]', 'tint_10', '10% Off Window Tinting', 'VEN-ADIHEX-3109', '2026-12-05 23:59:59', 0, NULL, 'show_special', 'Detailing + Ceramic Tinting Package', 1699.00, 50.00, 'paid', 'pi_mock_adihex_hamad', 'VIP_RESERVED', 'new', 'Requires heat rejection ceramic tinting on Land Cruiser 300.', 'ar', '2026-08-25 14:15:00', '2026-08-25 14:15:00'),
+  (3, 'Rashid Al Dhaheri', '+971 52 444 8899', NULL, '["PPF Protection"]', 'discount_10', '10% Discount Voucher', 'VEN-ADIHEX-5521', '2026-12-05 23:59:59', 0, NULL, NULL, NULL, NULL, 0.00, 'skipped', NULL, 'HIGH_INTENT_PPF', 'new', 'Interested in Full G100 PPF for Porsche 911 GT3 RS.', 'en', '2026-08-25 14:22:00', '2026-08-25 14:22:00');
+
 DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE IF NOT EXISTS `migrations` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -432,6 +469,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
   (2, '0001_01_01_000001_create_cache_table', 1),
   (3, '0001_01_01_000002_create_jobs_table', 1),
   (4, '2026_08_15_154617_create_permission_tables', 1),
-  (5, '2026_08_15_160000_create_veneno_core_tables', 1);
+  (5, '2026_08_15_160000_create_veneno_core_tables', 1),
+  (6, '2026_08_25_000001_create_adihex_leads_table', 2);
 
 SET FOREIGN_KEY_CHECKS = 1;

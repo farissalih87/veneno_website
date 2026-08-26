@@ -10,6 +10,8 @@
         "@inertiajs/vue3": "^2.0.25",
         "canvas-confetti": "^1.9.4",
         "clsx": "^2.1.1",
+        "html2canvas": "^1.4.1",
+        "jspdf": "^4.2.1",
         "lucide-vue-next": "^0.475.0",
         "tailwind-merge": "^3.0.2",
         "vue": "^3.5.13"
