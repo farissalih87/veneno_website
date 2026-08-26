@@ -285,79 +285,39 @@ onUnmounted(() => {
     <!-- Subtle Carbon Fiber Mesh Texture Overlay -->
     <div class="absolute inset-0 bg-[radial-gradient(#1f1f23_1px,transparent_1px)] [background-size:16px_16px] opacity-25 pointer-events-none z-0"></div>
 
-    <!-- Hidden / Floating Kiosk Toolbar (Top Controls) -->
-    <div class="absolute top-4 inset-x-6 sm:inset-x-10 flex items-center justify-between z-30 pointer-events-auto">
-      <!-- Live Status Pill -->
-      <div class="flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-zinc-950/80 border border-zinc-800/80 backdrop-blur-xl shadow-lg">
-        <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
-        <span class="text-xs font-mono font-bold tracking-widest text-zinc-300 uppercase">
-          {{ currentLocale === 'ar' ? 'جناح فينينو • أديهيكس 2026' : 'VENENO BOOTH • ADIHEX 2026' }}
-        </span>
-      </div>
+    <!-- Discreet Floating Kiosk Controls (Top Edge) -->
+    <div class="absolute top-4 inset-x-6 flex items-center justify-between z-30 pointer-events-auto">
+      <button
+        type="button"
+        @click="toggleLanguage"
+        class="px-3 py-1 rounded-xl bg-zinc-950/60 hover:bg-zinc-900 border border-zinc-800/80 text-amber-300 font-bold text-xs flex items-center gap-1.5 transition-all shadow-md active:scale-95 cursor-pointer backdrop-blur-md"
+      >
+        <Globe class="w-3.5 h-3.5" />
+        <span>{{ currentLocale === 'ar' ? 'English' : 'العربية' }}</span>
+      </button>
 
-      <!-- Quick Action Controls -->
-      <div class="flex items-center gap-2">
-        <button
-          type="button"
-          @click="toggleLanguage"
-          class="px-3.5 py-1.5 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/80 text-amber-300 font-bold text-xs flex items-center gap-1.5 transition-all shadow-md active:scale-95 cursor-pointer backdrop-blur-md"
-        >
-          <Globe class="w-3.5 h-3.5" />
-          <span>{{ currentLocale === 'ar' ? 'English' : 'العربية' }}</span>
-        </button>
-
-        <button
-          type="button"
-          @click="toggleFullscreen"
-          class="p-2 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/80 text-zinc-300 hover:text-white transition-all shadow-md active:scale-95 cursor-pointer backdrop-blur-md"
-          :title="isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen (22-inch Kiosk)'"
-        >
-          <Minimize2 v-if="isFullscreen" class="w-4 h-4" />
-          <Maximize2 v-else class="w-4 h-4" />
-        </button>
-      </div>
+      <button
+        type="button"
+        @click="toggleFullscreen"
+        class="p-2 rounded-xl bg-zinc-950/60 hover:bg-zinc-900 border border-zinc-800/80 text-zinc-400 hover:text-white transition-all shadow-md active:scale-95 cursor-pointer backdrop-blur-md"
+        :title="isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen (22-inch Kiosk)'"
+      >
+        <Minimize2 v-if="isFullscreen" class="w-4 h-4" />
+        <Maximize2 v-else class="w-4 h-4" />
+      </button>
     </div>
 
     <!-- ==========================================================
-         TOP HEADER: DUAL BRAND BADGES
+         TOP HERO TITLE: SCAN • SPIN • WIN (MATCHES QR CONTAINER WIDTH)
          ========================================================== -->
-    <header class="relative z-10 pt-10 sm:pt-12 flex flex-col items-center text-center space-y-4">
-      <!-- Dual Glowing Badges -->
-      <div class="flex items-center justify-center gap-6 sm:gap-10">
-        <!-- Veneno Logo -->
-        <div class="flex items-center gap-3">
-          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-zinc-950 border border-red-500/40 p-2.5 flex items-center justify-center shadow-xl shadow-red-950/40">
-            <img src="/images/adihex/veneno-badge.png" alt="Veneno" class="w-full h-full object-contain drop-shadow-[0_0_12px_rgba(239,68,68,0.6)]" />
-          </div>
-          <div class="text-start">
-            <span class="block text-lg sm:text-2xl font-black text-red-500 tracking-wider">VENENO</span>
-            <span class="block text-[10px] sm:text-xs font-bold text-zinc-400 tracking-widest uppercase">AUTO CARE CENTER</span>
-          </div>
-        </div>
-
-        <!-- Vertical Gold Divider -->
-        <div class="h-10 w-[1.5px] bg-gradient-to-b from-transparent via-amber-500/80 to-transparent"></div>
-
-        <!-- ADIHEX Logo -->
-        <div class="flex items-center gap-3">
-          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-zinc-950 border border-amber-500/40 p-2.5 flex items-center justify-center shadow-xl shadow-amber-950/40">
-            <img src="/images/adihex/adihex-logo.png" alt="ADIHEX 2026" class="w-full h-full object-contain" />
-          </div>
-          <div class="text-start">
-            <span class="block text-lg sm:text-2xl font-black text-amber-400 tracking-wider">ADIHEX 2026</span>
-            <span class="block text-[10px] sm:text-xs font-bold text-zinc-400 tracking-widest uppercase">ADNEC ABU DHABI</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Main Exhibition Hook Title -->
-      <div class="space-y-1.5 max-w-xl">
-        <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white uppercase drop-shadow-md">
+    <header class="relative z-10 pt-10 sm:pt-14 flex flex-col items-center text-center">
+      <div class="w-full max-w-sm sm:max-w-md md:max-w-lg space-y-2">
+        <h1 class="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight uppercase leading-none drop-shadow-lg">
           <span class="bg-gradient-to-r from-red-500 via-amber-400 to-amber-200 bg-clip-text text-transparent">
             {{ currentLocale === 'ar' ? 'امسح • دوّر • اربح' : 'SCAN • SPIN • WIN' }}
           </span>
         </h1>
-        <p class="text-xs sm:text-sm text-zinc-300 font-medium tracking-wide">
+        <p class="text-sm sm:text-base md:text-lg font-bold text-zinc-200 leading-snug tracking-wide">
           {{ currentLocale === 'ar' 
             ? 'اربح جوائز فورية وقسائم خدمات مجانية تصل إلى 3,000 درهم في جناح فينينو' 
             : 'Win Instant VIP Detailing Vouchers & Complimentary Services Up to AED 3,000' }}
