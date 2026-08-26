@@ -188,6 +188,32 @@ class AdihexController extends Controller
     }
 
     /**
+     * Show the ADIHEX 2026 22-inch Portrait Digital Signage Kiosk Screen
+     */
+    public function display(Request $request, ?string $locale = null): Response
+    {
+        $currentLocale = $locale ?: $request->get('locale', 'ar'); // Default to Arabic for ADNEC booth display
+        if (!in_array($currentLocale, ['en', 'ar'])) {
+            $currentLocale = 'ar';
+        }
+
+        $todaySpinsCount = AdihexLead::whereDate('created_at', Carbon::today())->count();
+        $displaySpinCount = 184 + $todaySpinsCount;
+
+        $targetUrl = url('/adihex');
+
+        return Inertia::render('Adihex/Display', [
+            'initialLocale' => $currentLocale,
+            'prizes' => $this->prizes,
+            'packages' => $this->packages,
+            'targetUrl' => $targetUrl,
+            'stats' => [
+                'displaySpinCount' => $displaySpinCount,
+            ],
+        ]);
+    }
+
+    /**
      * Register Lead & Calculate Winning Spin Server-Side
      */
     public function spin(Request $request)

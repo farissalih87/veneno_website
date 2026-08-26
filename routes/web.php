@@ -13,9 +13,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [StorefrontController::class, 'home'])->name('home');
 Route::get('/services/{slug}', [StorefrontController::class, 'serviceDetail'])->name('service.detail');
 
-// ADIHEX 2026 Campaign Portal
+// ADIHEX 2026 Campaign Portal & Digital Signage Kiosk
 Route::get('/adihex', [AdihexController::class, 'index'])->name('adihex.index');
+Route::get('/adihex/display', [AdihexController::class, 'display'])->name('adihex.display');
+Route::get('/adihex/screen', [AdihexController::class, 'display'])->name('adihex.screen');
 Route::get('/{locale}/adihex', [AdihexController::class, 'index'])
+    ->where('locale', 'en|ar');
+Route::get('/{locale}/adihex/display', [AdihexController::class, 'display'])
     ->where('locale', 'en|ar');
 
 // Multilingual URL prefix fallbacks (en | ar)
