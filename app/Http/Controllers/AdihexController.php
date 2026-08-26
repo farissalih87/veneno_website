@@ -213,35 +213,20 @@ class AdihexController extends Controller
             ->first();
 
         if ($existingLead) {
-            $existingLead->update([
-                'name' => $validated['name'] ?: $existingLead->name,
-                'email' => !empty($validated['email']) ? $validated['email'] : $existingLead->email,
-                'locale' => $validated['locale'] ?? $existingLead->locale,
-                'service_intent' => $validated['service_intent'] ?? $existingLead->service_intent,
-            ]);
-            $existingLead->refresh();
-
-            // Find corresponding prize index
-            $prizeIndex = 0;
-            foreach ($this->prizes as $idx => $p) {
-                if ($p['id'] === $existingLead->won_prize_tier) {
-                    $prizeIndex = $idx;
-                    break;
-                }
-            }
-
+            $isAr = ($validated['locale'] ?? $existingLead->locale) === 'ar';
             return response()->json([
-                'success' => true,
-                'is_existing' => true,
+                'success' => false,
+                'already_participated' => true,
                 'lead_id' => $existingLead->id,
-                'winning_prize_index' => $prizeIndex,
-                'won_prize' => $this->prizes[$prizeIndex],
                 'voucher_code' => $existingLead->voucher_code,
-                'voucher_expires_at' => $existingLead->voucher_expires_at ? $existingLead->voucher_expires_at->format('Y-m-d') : Carbon::now()->addDays(60)->format('Y-m-d'),
-                'selected_package_id' => $existingLead->selected_package_id,
-                'deposit_status' => $existingLead->deposit_status,
-                'message' => 'Your spin and voucher have been restored.',
-            ]);
+                'won_prize_tier' => $existingLead->won_prize_tier,
+                'won_prize_label' => $existingLead->getPrizeLabel($isAr ? 'ar' : 'en'),
+                'whatsapp_url' => $existingLead->getWhatsAppUrl(),
+                'title_en' => 'Phone Number Already Registered',
+                'title_ar' => 'هذا الرقم مسجل مسبقاً',
+                'message_en' => "You have already participated in the ADIHEX 2026 spin. Each visitor is eligible for 1 lucky chance only.\n\nYour official voucher code and prize details were sent via SMS to your phone ({$normalizedPhone}). Please present your SMS message upon visiting the Veneno Auto Care center to claim your reward.",
+                'message_ar' => "لقد شاركت مسبقاً في سحب أديهيكس 2026. يحق لكل زائر فرصة مشاركة واحدة فقط.\n\nتم إرسال كود القسيمة الرسمي وتفاصيل جائزتك في رسالة SMS نصية إلى هاتفك ({$normalizedPhone}). يرجى إبراز رسالة الـ SMS عند زيارة مركز فينينو للعناية بالسيارات لاستلام جائزتك.",
+            ], 422);
         }
 
         // Server-Side Deterministic Weighted RNG with Daily Cap Check

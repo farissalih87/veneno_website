@@ -119,6 +119,8 @@ const whatsappUrl = ref('https://wa.me/97126344403');
 const selectedPackage = ref(null);
 const depositPaid = ref(false);
 const liveSpinCount = ref(props.stats?.displaySpinCount || 184);
+const alreadyParticipatedModal = ref(false);
+const alreadyParticipatedData = ref(null);
 
 // Countdown State for ADIHEX Campaign (Ends in 6 SEPT 2026 10:00pm GST)
 const countdown = ref({
@@ -377,6 +379,11 @@ const handleRegistration = async () => {
     }
   } catch (error) {
     console.error('Registration failed:', error);
+    if (error.response?.status === 422 && error.response?.data?.already_participated) {
+      alreadyParticipatedData.value = error.response.data;
+      alreadyParticipatedModal.value = true;
+      return;
+    }
     // Graceful fallback for offline / mock
     leadId.value = 999;
     winningPrizeIndex.value = 2; // Diamond Wash
@@ -1680,6 +1687,80 @@ onUnmounted(() => {
       <div v-if="currentStep <= 2" class="pointer-events-auto px-3.5 py-1 rounded-full bg-zinc-900/90 border border-zinc-800/90 backdrop-blur-md shadow-xl flex items-center gap-2 text-[10.5px] sm:text-[11px] text-zinc-300 font-mono">
         <div class="w-2 h-2 rounded-full bg-red-500 animate-ping"></div>
         <span>🔴 Live: <strong class="text-amber-400 font-bold">{{ liveSpinCount }}</strong> {{ t.liveSpunText }}</span>
+      </div>
+    </div>
+
+    <!-- Already Participated Blocking Alert Modal -->
+    <div
+      v-if="alreadyParticipatedModal"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-300"
+    >
+      <div
+        class="w-full max-w-sm sm:max-w-md bg-gradient-to-b from-[#1c1c20] to-[#0c0c0e] border border-red-500/40 rounded-3xl p-5 sm:p-6 shadow-2xl shadow-red-950/80 text-center space-y-4 relative overflow-hidden"
+        :dir="currentLocale === 'ar' ? 'rtl' : 'ltr'"
+      >
+        <!-- Ambient Red Top Accent -->
+        <div class="absolute -top-12 inset-x-0 h-24 bg-red-600/20 blur-2xl pointer-events-none"></div>
+
+        <!-- Warning Icon -->
+        <div class="w-16 h-16 rounded-full bg-red-950/80 border border-red-500/50 text-red-500 flex items-center justify-center mx-auto shadow-lg shadow-red-950">
+          <AlertCircle class="w-8 h-8" />
+        </div>
+
+        <!-- Title -->
+        <div class="space-y-1">
+          <span class="text-[10.5px] font-mono font-bold uppercase tracking-widest text-red-400">
+            {{ currentLocale === 'ar' ? 'تنبيه المشاركة' : 'PARTICIPATION NOTICE' }}
+          </span>
+          <h3 class="text-xl sm:text-2xl font-black text-white">
+            {{ currentLocale === 'ar' ? alreadyParticipatedData?.title_ar || 'هذا الرقم مسجل مسبقاً' : alreadyParticipatedData?.title_en || 'Phone Number Already Registered' }}
+          </h3>
+        </div>
+
+        <!-- Explanatory Box & SMS Proof Requirement -->
+        <div class="p-4 rounded-2xl bg-zinc-950/80 border border-zinc-800/80 text-start space-y-2.5">
+          <p class="text-xs text-zinc-300 leading-relaxed font-medium">
+            {{ currentLocale === 'ar'
+              ? 'لقد شاركت مسبقاً في سحب أديهيكس 2026. يحق لكل زائر فرصة مشاركة واحدة فقط عبر رقم هاتفه.'
+              : 'You have already participated in the ADIHEX 2026 spin. Each visitor is eligible for 1 chance only per phone number.' }}
+          </p>
+
+          <div class="p-3 rounded-xl bg-red-950/40 border border-red-500/30 text-red-200 text-xs space-y-1">
+            <div class="font-bold flex items-center gap-1.5 text-amber-300">
+              <span>📱</span>
+              <span>{{ currentLocale === 'ar' ? 'إثبات استلام الجائزة عبر SMS:' : 'Proof of Prize Claim (SMS):' }}</span>
+            </div>
+            <p class="text-[11px] leading-relaxed text-zinc-300">
+              {{ currentLocale === 'ar'
+                ? 'تم إرسال كود القسيمة وتفاصيل الجائزة في رسالة SMS نصية إلى هاتفك. يُرجى إبراز رسالة الـ SMS عند زيارة مركز فينينو للعناية بالسيارات لاستلام جائزتك.'
+                : 'Your official voucher code and prize details were sent via SMS to your mobile phone. Please present your SMS message at Veneno Auto Care facility to claim your reward.' }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="space-y-2 pt-1">
+          <!-- WhatsApp Support -->
+          <a
+            v-if="alreadyParticipatedData?.whatsapp_url"
+            :href="alreadyParticipatedData.whatsapp_url"
+            target="_blank"
+            class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-950 transition-all cursor-pointer"
+          >
+            <MessageCircle class="w-4 h-4" />
+            <span>{{ currentLocale === 'ar' ? 'تواصل مع خدمة العملاء عبر واتساب' : 'Contact Concierge on WhatsApp' }}</span>
+          </a>
+
+          <!-- Close Modal -->
+          <button
+            type="button"
+            @click="alreadyParticipatedModal = false"
+            class="w-full py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-400 hover:text-white text-xs font-semibold transition-colors cursor-pointer"
+          >
+            {{ currentLocale === 'ar' ? 'إغلاق' : 'Close' }}
+          </button>
+        </div>
+
       </div>
     </div>
 
