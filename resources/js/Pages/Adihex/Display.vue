@@ -239,25 +239,25 @@ onUnmounted(() => {
     <!-- Subtle Carbon Fiber Mesh Texture Overlay -->
     <div class="absolute inset-0 bg-[radial-gradient(#1f1f23_1px,transparent_1px)] [background-size:16px_16px] opacity-25 pointer-events-none z-0"></div>
 
-    <!-- Main Fixed Center Column -->
-    <div class="relative z-10 w-full max-w-[420px] sm:max-w-[540px] md:max-w-[620px] h-full flex flex-col justify-between items-center py-2">
+    <!-- Main Screen Layout (Generous Width for Header, Centered Elements) -->
+    <div class="relative z-10 w-full h-full max-w-5xl flex flex-col justify-between items-center py-2 px-2 sm:px-4">
 
       <!-- ==========================================================
-           TOP HEADER: MULTILINGUAL BOLD TITLES (HIGH CONTRAST & POPPING SHADOWS)
+           TOP HEADER: MULTILINGUAL BOLD TITLES (TRUE 7XL SINGLE-LINE)
            ========================================================== -->
-      <header class="w-full flex flex-col items-center text-center pt-2 sm:pt-4 space-y-2 relative">
+      <header class="w-full flex flex-col items-center text-center pt-2 sm:pt-4 space-y-1.5 sm:space-y-2.5 relative">
         <!-- Subtle Deep Ambient Backing to ensure 100% Contrast against particles -->
-        <div class="absolute inset-0 -inset-x-8 bg-gradient-to-b from-black/60 via-black/20 to-transparent blur-xl pointer-events-none -z-10"></div>
+        <div class="absolute inset-0 -inset-x-12 bg-gradient-to-b from-black/70 via-black/25 to-transparent blur-xl pointer-events-none -z-10"></div>
 
-        <!-- English Title with High-Luster White-to-Gold Gradient & Deep Multi-Drop Shadows -->
-        <h1 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight uppercase leading-none" style="filter: drop-shadow(0 4px 10px rgba(0,0,0,1)) drop-shadow(0 10px 25px rgba(0,0,0,0.95)) drop-shadow(0 0 35px rgba(239,68,68,0.55));">
+        <!-- English Title with High-Luster White-to-Gold Gradient & Deep Multi-Drop Shadows (Guaranteed Single Line) -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight uppercase leading-none whitespace-nowrap" style="filter: drop-shadow(0 4px 10px rgba(0,0,0,1)) drop-shadow(0 10px 25px rgba(0,0,0,0.95)) drop-shadow(0 0 35px rgba(239,68,68,0.55));">
           <span class="bg-gradient-to-r from-white via-[#f5d073] to-[#ef4444] bg-clip-text text-transparent">
             SCAN • SPIN • WIN
           </span>
         </h1>
 
-        <!-- Arabic Title with High-Luster Gold-to-Crimson Gradient & Deep Shadows -->
-        <h2 class="text-3xl sm:text-4xl md:text-7xl font-black tracking-normal leading-tight" style="filter: drop-shadow(0 4px 10px rgba(0,0,0,1)) drop-shadow(0 10px 25px rgba(0,0,0,0.95)) drop-shadow(0 0 35px rgba(197,160,89,0.55));" dir="rtl">
+        <!-- Arabic Title with High-Luster Gold-to-Crimson Gradient & Deep Shadows (Guaranteed Single Line) -->
+        <h2 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-normal leading-tight whitespace-nowrap" style="filter: drop-shadow(0 4px 10px rgba(0,0,0,1)) drop-shadow(0 10px 25px rgba(0,0,0,0.95)) drop-shadow(0 0 35px rgba(197,160,89,0.55));" dir="rtl">
           <span class="bg-gradient-to-r from-[#f5d073] via-[#ffffff] to-[#ef4444] bg-clip-text text-transparent font-['Cairo',sans-serif]">
             امسح • أدِر • اربح
           </span>
@@ -267,7 +267,7 @@ onUnmounted(() => {
       <!-- ==========================================================
            HERO CENTERPIECE: PERFECT SCANNABLE QR CODE & SUBTITLE
            ========================================================== -->
-      <main class="w-full flex flex-col items-center justify-center my-auto py-2">
+      <main class="w-full max-w-[420px] sm:max-w-[500px] md:max-w-[560px] flex flex-col items-center justify-center my-auto py-2">
         
         <!-- Luxury Gold & Crimson Frame with Corner Accents -->
         <div class="w-full relative group p-4 sm:p-5 rounded-[2.2rem] sm:rounded-[2.8rem] bg-gradient-to-b from-[#18181c] via-[#0d0d10] to-[#121216] border-2 border-[#c5a059] shadow-[0_0_60px_rgba(197,160,89,0.25)] flex flex-col items-center">
