@@ -157,18 +157,18 @@ const initParticleBackground = () => {
   const render = () => {
     ctx.clearRect(0, 0, width, height);
 
-    // Deep Luxury Vignette
+    // Deep Obsidian Luxury Vignette (High Contrast)
     const radialGrad = ctx.createRadialGradient(
       width / 2,
       height * 0.45,
-      100,
+      80,
       width / 2,
       height * 0.45,
-      Math.max(width, height) * 0.75
+      Math.max(width, height) * 0.8
     );
-    radialGrad.addColorStop(0, 'rgba(185, 28, 28, 0.14)');
-    radialGrad.addColorStop(0.4, 'rgba(197, 160, 89, 0.07)');
-    radialGrad.addColorStop(1, 'rgba(5, 5, 7, 0.96)');
+    radialGrad.addColorStop(0, 'rgba(15, 12, 14, 0.7)');
+    radialGrad.addColorStop(0.35, 'rgba(10, 10, 14, 0.85)');
+    radialGrad.addColorStop(1, 'rgba(4, 4, 6, 0.98)');
     ctx.fillStyle = radialGrad;
     ctx.fillRect(0, 0, width, height);
 
@@ -239,19 +239,22 @@ onUnmounted(() => {
     <div class="relative z-10 w-full max-w-[420px] sm:max-w-[540px] md:max-w-[620px] h-full flex flex-col justify-between items-center py-2">
 
       <!-- ==========================================================
-           TOP HEADER: MULTILINGUAL BOLD TITLES (VENENO GOLD PALETTE)
+           TOP HEADER: MULTILINGUAL BOLD TITLES (HIGH CONTRAST & POPPING SHADOWS)
            ========================================================== -->
-      <header class="w-full flex flex-col items-center text-center pt-2 sm:pt-4 space-y-1.5">
-        <!-- English Title -->
-        <h1 class="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight uppercase leading-none drop-shadow-[0_4px_25px_rgba(239,68,68,0.4)]">
-          <span class="bg-gradient-to-r from-[#ef4444] via-[#e5c07b] to-[#c5a059] bg-clip-text text-transparent">
+      <header class="w-full flex flex-col items-center text-center pt-2 sm:pt-4 space-y-2 relative">
+        <!-- Subtle Deep Ambient Backing to ensure 100% Contrast against particles -->
+        <div class="absolute inset-0 -inset-x-8 bg-gradient-to-b from-black/60 via-black/20 to-transparent blur-xl pointer-events-none -z-10"></div>
+
+        <!-- English Title with High-Luster White-to-Gold Gradient & Deep Multi-Drop Shadows -->
+        <h1 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight uppercase leading-none" style="filter: drop-shadow(0 4px 10px rgba(0,0,0,1)) drop-shadow(0 10px 25px rgba(0,0,0,0.95)) drop-shadow(0 0 35px rgba(239,68,68,0.55));">
+          <span class="bg-gradient-to-r from-white via-[#f5d073] to-[#ef4444] bg-clip-text text-transparent">
             SCAN • SPIN • WIN
           </span>
         </h1>
 
-        <!-- Arabic Title -->
-        <h2 class="text-2xl sm:text-4xl md:text-7xl font-black tracking-normal leading-tight drop-shadow-[0_4px_25px_rgba(197,160,89,0.4)]" dir="rtl">
-          <span class="bg-gradient-to-r from-[#e5c07b] via-[#c5a059] to-[#ef4444] bg-clip-text text-transparent font-['Cairo',sans-serif]">
+        <!-- Arabic Title with High-Luster Gold-to-Crimson Gradient & Deep Shadows -->
+        <h2 class="text-3xl sm:text-4xl md:text-7xl font-black tracking-normal leading-tight" style="filter: drop-shadow(0 4px 10px rgba(0,0,0,1)) drop-shadow(0 10px 25px rgba(0,0,0,0.95)) drop-shadow(0 0 35px rgba(197,160,89,0.55));" dir="rtl">
+          <span class="bg-gradient-to-r from-[#f5d073] via-[#ffffff] to-[#ef4444] bg-clip-text text-transparent font-['Cairo',sans-serif]">
             امسح • أدِر • اربح
           </span>
         </h2>
@@ -283,23 +286,23 @@ onUnmounted(() => {
           </div>
 
           <!-- Scannable Instruction Banner -->
-          <div class="mt-3.5 w-full px-4 py-2.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-red-950/70 via-zinc-900 to-amber-950/70 border border-[#c5a059]/40 text-center shadow-lg flex items-center justify-center gap-2.5">
-            <div class="w-7 h-7 rounded-lg bg-red-600/30 border border-red-500/50 text-[#e5c07b] flex items-center justify-center shrink-0">
+          <div class="mt-3.5 w-full px-4 py-2.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-red-950/80 via-zinc-900 to-amber-950/80 border border-[#c5a059]/60 text-center shadow-[0_4px_20px_rgba(0,0,0,0.8)] flex items-center justify-center gap-2.5">
+            <div class="w-7 h-7 rounded-lg bg-red-600/40 border border-red-500/70 text-[#f5d073] flex items-center justify-center shrink-0">
               <Camera class="w-4 h-4" />
             </div>
-            <span class="text-xs sm:text-sm font-black text-[#e5c07b] uppercase tracking-wider">
+            <span class="text-xs sm:text-sm font-black text-[#f5d073] uppercase tracking-wider drop-shadow">
               POINT YOUR CAMERA TO PLAY • امسح بالكاميرا للمشاركة
             </span>
           </div>
 
         </div>
 
-        <!-- Clean Subtitle Typography (Directly on Background, No Container Box) -->
-        <div class="mt-4 sm:mt-5 text-center space-y-1.5 px-2">
-          <p class="text-xs sm:text-base md:text-lg font-bold text-[#e5c07b] leading-tight tracking-wide drop-shadow">
+        <!-- Clean Subtitle Typography with Maximum Contrast & Legibility -->
+        <div class="mt-4 sm:mt-5 text-center space-y-2 px-2" style="filter: drop-shadow(0 2px 8px rgba(0,0,0,1)) drop-shadow(0 4px 16px rgba(0,0,0,0.9));">
+          <p class="text-sm sm:text-base md:text-lg font-black text-[#f5d073] leading-tight tracking-wide">
             Win Instant VIP Detailing Vouchers & Complimentary Services Up to AED 3,000
           </p>
-          <p class="text-xs sm:text-base md:text-lg font-bold text-zinc-300 leading-tight tracking-normal font-['Cairo',sans-serif] drop-shadow" dir="rtl">
+          <p class="text-sm sm:text-base md:text-lg font-bold text-zinc-200 leading-tight tracking-normal font-['Cairo',sans-serif]" dir="rtl">
             اربح جوائز فورية وقسائم خدمات مجانية تصل إلى 3,000 درهم في جناح فينينو
           </p>
         </div>

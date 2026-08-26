@@ -217,7 +217,7 @@ const t = computed(() => {
     s1_tag: isAr ? 'مرحباً بكم في جناح فينينو للعناية بالسيارات' : 'WELCOME TO VENENO AUTO CARE × ADIHEX 2026',
     s1_title1: isAr ? 'امسح.' : 'SCAN.',
     s1_title2: isAr ? 'أدِر.' : 'SPIN.',
-    s1_title3: isAr ? 'اربح.' : 'WIN.',
+    s1_title3: isAr ? 'اربح' : 'WIN',
     s1_desc: isAr
       ? 'اختر لغتك المفضلة لبدء تجربة السحب الفوري وحصريات معرض الصيد والفروسية.'
       : 'Select your preferred language to begin your exclusive ADIHEX giveaway experience.',
@@ -844,7 +844,7 @@ const downloadPrizeCertificate = () => {
     ctx.textBaseline = 'middle';
     ctx.fillStyle = '#ef4444';
     ctx.font = isAr ? '900 50px "Cairo", "Segoe UI", sans-serif' : '900 50px "Outfit", sans-serif';
-    ctx.fillText(isAr ? 'فينينو للعناية بالسيارات' : 'VENENO AUTO CARE', width / 2, 170);
+    ctx.fillText(isAr ? 'فينينو للعناية بالسيارات' : 'VENENO AUTO CARE CENTER', width / 2, 170);
 
     // 5. Header Gold Subtitle
     ctx.fillStyle = '#c5a059';
@@ -907,7 +907,7 @@ const downloadPrizeCertificate = () => {
 
     ctx.fillStyle = '#a1a1aa';
     ctx.font = isAr ? '22px "Cairo", "Segoe UI", sans-serif' : '22px "Outfit", sans-serif';
-    ctx.fillText(isAr ? 'هدية حصرية لزوار جناح فينينو في أديهيكس 2026' : 'Exclusive Reward • Veneno Auto Care ADIHEX 2026', width / 2, 720);
+    ctx.fillText(isAr ? 'هدية حصرية لزوار جناح فينينو في أديهيكس 2026' : 'Exclusive Reward • Veneno Auto Care Center ADIHEX 2026', width / 2, 720);
 
     // 9. Official Voucher Code Box
     drawRoundRect(180, 810, width - 360, 200, 20, '#881337', true, '#ef4444');
@@ -956,7 +956,7 @@ const downloadPrizeCertificate = () => {
 
     ctx.fillStyle = '#71717a';
     ctx.font = isAr ? '20px "Cairo", "Segoe UI", sans-serif' : '20px "Outfit", sans-serif';
-    ctx.fillText(isAr ? 'مركز فينينو للعناية بالسيارات — أبوظبي، مصفح M37' : 'Veneno Auto Care Center — Musaffah M37, Abu Dhabi, UAE', width / 2, 1440);
+    ctx.fillText(isAr ? 'مركز فينينو للعناية بالسيارات — أبوظبي، مصفح M37' : 'Veneno Auto Care Center — Musaffah M43, Abu Dhabi, UAE', width / 2, 1440);
     ctx.fillText(isAr ? 'واتساب: 026344403 • الموقع: veneno.ae' : 'WhatsApp Concierge: +971 2 634 4403 • Website: veneno.ae', width / 2, 1485);
 
     ctx.font = '16px monospace';
@@ -1111,7 +1111,7 @@ onUnmounted(() => {
       <!-- ==========================================================
            STEP 1: LANDING & LANGUAGE SELECTION
            ========================================================== -->
-      <div v-if="currentStep === 1" class="flex-1 flex flex-col justify-center items-center text-center space-y-6 sm:space-y-8 my-auto pt-2 pb-6 sm:pt-4 sm:pb-8 animate-in fade-in zoom-in-95 duration-400">
+      <div v-if="currentStep === 1" class="flex-1 flex flex-col justify-center items-center text-center space-y-6 sm:space-y-8 my-auto pt-1 pb-6 sm:pt-4 sm:pb-8 animate-in fade-in zoom-in-95 duration-400">
         
         <!-- Big & Clear Logos (Same Width): Veneno Top, ADIHEX Down (margin-bottom: 80px) -->
         <div class="flex flex-col items-center justify-center gap-5 sm:gap-6 w-full mb-[80px]" style="margin-bottom: 80px;">
@@ -1119,7 +1119,7 @@ onUnmounted(() => {
           <div class="w-full flex items-center justify-center">
             <img
               src="/images/adihex/veneno-brand-logo.png"
-              alt="Veneno Auto Care"
+              alt="Veneno Auto Care Center"
               class="w-full max-w-[270px] sm:max-w-xs md:max-w-sm h-auto object-contain drop-shadow-[0_4px_24px_rgba(255,255,255,0.15)]"
             />
           </div>
@@ -1137,12 +1137,12 @@ onUnmounted(() => {
         <!-- Luxury Handwriting Welcome Text (No Label Style) & Main Title -->
         <div class="space-y-3 sm:space-y-4 max-w-xl mx-auto px-2 mt-2 sm:mt-4">
           <div class="font-script text-2xl sm:text-3xl md:text-4xl text-white font-normal tracking-wide drop-shadow-[0_2px_10px_rgba(255,255,255,0.3)] leading-relaxed">
-            Welcome to Veneno Auto Care
+            Welcome to Veneno Auto Care Center
           </div>
 
           <!-- SCAN. SPIN. WIN. -->
           <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight uppercase">
-            SCAN. <span class="text-red-500">SPIN.</span> <span class="text-amber-400">WIN.</span>
+            SCAN. <span class="text-red-500">SPIN.</span> <span class="text-amber-400">WIN</span>
           </h1>
 
           <!-- Subtitle Description (As is) -->
