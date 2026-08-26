@@ -84,7 +84,7 @@ const qrCanvasRef = ref(null);
 const bgCanvasRef = ref(null);
 let bgAnimationId = null;
 
-// Generate Ultra-Sharp Luxury QR Code with Embedded Veneno Emblem
+// Generate Ultra-Sharp Luxury QR Code with Embedded Veneno Official Emblem
 const generateLuxuryQR = async () => {
   if (!qrCanvasRef.value) return;
   const canvas = qrCanvasRef.value;
@@ -106,48 +106,49 @@ const generateLuxuryQR = async () => {
 
     const ctx = canvas.getContext('2d');
     const center = qrSize / 2;
-    const emblemRadius = 46;
+    const emblemSize = 104;
+    const emblemRadius = 22;
+    const halfSize = emblemSize / 2;
+    const x = center - halfSize;
+    const y = center - halfSize;
 
-    // Draw central black shield circle
-    ctx.beginPath();
-    ctx.arc(center, center, emblemRadius, 0, Math.PI * 2);
-    ctx.fillStyle = '#0a0a0c';
-    ctx.fill();
-    ctx.lineWidth = 4;
-    ctx.strokeStyle = '#c5a059';
-    ctx.stroke();
+    // Load the official Veneno square badge icon
+    const emblemImg = new Image();
+    emblemImg.crossOrigin = 'anonymous';
+    emblemImg.src = '/images/adihex/veneno-qr-emblem.png';
 
-    // Draw Veneno Stylized Red V Emblem in the center
-    ctx.save();
-    ctx.translate(center, center);
-    
-    // Glowing red V shape
-    ctx.beginPath();
-    ctx.moveTo(-22, -18);
-    ctx.lineTo(0, 22);
-    ctx.lineTo(22, -18);
-    ctx.lineTo(12, -18);
-    ctx.lineTo(0, 10);
-    ctx.lineTo(-12, -18);
-    ctx.closePath();
-    ctx.fillStyle = '#ef4444';
-    ctx.shadowColor = '#ef4444';
-    ctx.shadowBlur = 10;
-    ctx.fill();
+    await new Promise((resolve) => {
+      emblemImg.onload = () => {
+        ctx.save();
+        
+        // White outer backing with gold border for crisp QR matrix isolation
+        ctx.beginPath();
+        if (typeof ctx.roundRect === 'function') {
+          ctx.roundRect(x - 5, y - 5, emblemSize + 10, emblemSize + 10, emblemRadius + 3);
+        } else {
+          ctx.rect(x - 5, y - 5, emblemSize + 10, emblemSize + 10);
+        }
+        ctx.fillStyle = '#ffffff';
+        ctx.fill();
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#c5a059'; // Luxury gold stroke
+        ctx.stroke();
 
-    // Gold accent inner wing
-    ctx.beginPath();
-    ctx.moveTo(-10, -10);
-    ctx.lineTo(0, 8);
-    ctx.lineTo(10, -10);
-    ctx.lineTo(6, -10);
-    ctx.lineTo(0, 2);
-    ctx.lineTo(-6, -10);
-    ctx.closePath();
-    ctx.fillStyle = '#fef08a';
-    ctx.fill();
+        // Clip and draw official red Veneno icon
+        ctx.beginPath();
+        if (typeof ctx.roundRect === 'function') {
+          ctx.roundRect(x, y, emblemSize, emblemSize, emblemRadius);
+        } else {
+          ctx.rect(x, y, emblemSize, emblemSize);
+        }
+        ctx.clip();
+        ctx.drawImage(emblemImg, x, y, emblemSize, emblemSize);
+        ctx.restore();
 
-    ctx.restore();
+        resolve();
+      };
+      emblemImg.onerror = resolve;
+    });
   } catch (err) {
     console.error('QR Generation failed:', err);
   }
