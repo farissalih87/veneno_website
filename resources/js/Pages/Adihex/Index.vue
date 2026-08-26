@@ -4,6 +4,7 @@ import { Head, router } from '@inertiajs/vue3';
 import confetti from 'canvas-confetti';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import TermsModal from '@/Components/Adihex/TermsModal.vue';
 import {
   Check,
   ChevronRight,
@@ -121,6 +122,18 @@ const depositPaid = ref(false);
 const liveSpinCount = ref(props.stats?.displaySpinCount || 184);
 const alreadyParticipatedModal = ref(false);
 const alreadyParticipatedData = ref(null);
+const showTermsModal = ref(false);
+const termsAccepted = ref(false);
+const depositTermsAccepted = ref(false);
+
+const onTermsAcceptedFromModal = () => {
+  if (currentStep.value === 2) {
+    termsAccepted.value = true;
+  }
+  if (currentStep.value === 6) {
+    depositTermsAccepted.value = true;
+  }
+};
 
 // Countdown State for ADIHEX Campaign (Ends in 6 SEPT 2026 10:00pm GST)
 const countdown = ref({
@@ -240,6 +253,14 @@ const t = computed(() => {
     serviceIntentTitle: isAr ? 'الخدمات التي تهتم بها (اختر ما يناسبك):' : 'INTERESTED SERVICES (SELECT):',
     btnSpinNow: isAr ? 'أدِر العجلة الآن ➔' : 'SPIN THE WHEEL NOW ➔',
     antiGamingText: isAr ? '🔒 لفة واحدة مضمونة لكل رقم هاتف خلال 24 ساعة' : '🔒 Single-spin guarantee per mobile number within 24 hours',
+    termsAgree1: isAr ? 'أوافق على' : 'I agree to the',
+    termsLink: isAr ? 'الشروط والأحكام' : 'Terms & Conditions',
+    termsAgree2: isAr ? 'واستلام كود القسيمة عبر رسالة SMS على هاتفي.' : 'and to receive my official voucher code via SMS.',
+    depositTermsAgree1: isAr ? 'أوافق على' : 'I agree to the',
+    depositTermsLink: isAr ? 'شروط الحجز والعربون' : 'Deposit & Reservation Terms',
+    depositTermsAgree2: isAr
+      ? '(صلاحية 60 يوماً، يُخصم 100%، وقابل للاسترداد خلال 30 يوماً من تاريخ الطلب الخطي).'
+      : '(60-day validity, 100% deductible, refundable within 30 days of written request).',
 
     // Step 3
     s3_title: isAr ? 'عجلة الحظ الفاخرة' : 'Veneno Luxury Spin Wheel',
@@ -251,8 +272,8 @@ const t = computed(() => {
     s4_mabrook: isAr ? 'ألف مبروك! لقد فزت بـ' : 'MABROOK! YOU WON',
     s4_secured_title: isAr ? 'تم تأمين وتسجيل كود جائزتك' : 'Voucher Code Secured & Registered',
     s4_secured_desc: isAr
-      ? 'تم ربط كود جائزتك برقم هاتفك. تابع الآن لاستكشاف باقات المعرض وتأكيد استلام بطاقة VIP وتنزيلها.'
-      : 'Your official voucher code is registered to your mobile number. Explore exclusive show packages next to confirm and download your official VIP Pass.',
+      ? 'تم ربط كود قسيمتك الرسمي برقم هاتفك. استكشف باقات المعرض الحصرية في الخطوة التالية لتأكيد وتنزيل قسيمتك. يُرجى إبراز الرسالة النصية (SMS) في هاتفك لاستلام جائزتك.'
+      : 'Your official voucher code is registered to your mobile number. Explore exclusive show packages next to confirm and download your Voucher. Present the SMS in Your Phone to Collect your prize.',
     btnSeeOffers: isAr ? 'استكشف عروض المعرض الحصرية ➔' : 'SEE EXCLUSIVE ADIHEX OFFERS ➔',
 
     // Step 5
@@ -283,8 +304,8 @@ const t = computed(() => {
     s7_title1: isAr ? 'تم تأكيد طلبك!' : 'All Set!',
     s7_title2: isAr ? 'مبروك!' : 'Mabrook!',
     s7_desc: isAr
-      ? 'تم حفظ جائزتك وتفاصيل الحجز بنجاح. أظهر هذا الإشعار عند زيارة مركزنا.'
-      : 'Your prize and reservation details have been confirmed and sent to your phone.',
+      ? 'تم تأكيد تفاصيل جائزتك وحجزك وإرسالها إلى هاتفك. يُرجى إبراز الرسالة النصية (SMS) في هاتفك لاستلام جائزتك.'
+      : 'Your prize and reservation details have been confirmed and sent to your phone. Present the SMS in Your Phone to Collect your prize.',
     summary_name: isAr ? 'اسم العميل:' : 'Customer Name:',
     summary_phone: isAr ? 'رقم الهاتف:' : 'Mobile Number:',
     summary_prize: isAr ? 'الجائزة الرابحة:' : 'Won Prize:',
@@ -655,18 +676,25 @@ const selectPackage = (pkg) => {
 
 // Step 5 Skip: Skip Reservation, Claim Free Spin Prize
 const skipToConfirmation = async () => {
+  sounds.init();
   isSubmitting.value = true;
   try {
-    await window.axios.post('/api/adihex/reserve', {
-      lead_id: leadId.value,
-      package_id: 'skip',
-      action: 'skip',
-    });
-  } catch (e) {}
+    if (leadId.value) {
+      await window.axios.post('/api/adihex/reserve', {
+        lead_id: leadId.value,
+        package_id: 'skip',
+        action: 'skip',
+      });
+    }
+  } catch (e) {
+    console.warn('Skip reservation notice:', e);
+  } finally {
+    isSubmitting.value = false;
+  }
   selectedPackage.value = null;
   depositPaid.value = false;
-  isSubmitting.value = false;
   currentStep.value = 7;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   triggerConfetti();
 };
 
@@ -1046,11 +1074,11 @@ onUnmounted(() => {
     <div :class="[currentStep === 1 ? 'min-h-[100dvh] h-[100dvh] py-2 px-3 sm:py-5 sm:px-6 overflow-hidden' : 'min-h-screen pt-6 pb-20 sm:pt-8 sm:pb-24 px-4 sm:px-8', 'w-full max-w-lg sm:max-w-xl md:max-w-2xl flex flex-col justify-between z-10 transition-all']">
       
       <!-- Top Branding Header (Visible on Steps 2 to 7) -->
-      <header v-if="currentStep > 1" class="flex items-center justify-between py-3 border-b border-zinc-800/80 mb-5 animate-in fade-in duration-300">
-        <div class="flex items-center gap-3.5">
-          <img src="/images/adihex/veneno-header-icon.png" alt="Veneno" class="h-16 w-16 sm:h-20 sm:w-20 object-contain drop-shadow-md rounded-2xl" />
-          <span class="text-zinc-700 text-xl sm:text-2xl font-light select-none">|</span>
-          <img src="/images/adihex/adihex-header-icon.png" alt="ADIHEX 2026" class="h-16 w-16 sm:h-20 sm:w-20 object-contain drop-shadow-md" />
+      <header v-if="currentStep > 1" class="flex items-center justify-between py-2 sm:py-2.5 border-b border-zinc-800/80 mb-4 sm:mb-5 animate-in fade-in duration-300">
+        <div class="flex items-center gap-2.5 sm:gap-3">
+          <img src="/images/adihex/veneno-header-icon.png" alt="Veneno" class="h-12 w-12 sm:h-[60px] sm:w-[60px] object-contain drop-shadow-md rounded-xl sm:rounded-2xl" />
+          <span class="text-zinc-700 text-lg sm:text-xl font-light select-none">|</span>
+          <img src="/images/adihex/adihex-header-icon.png" alt="ADIHEX 2026" class="h-12 w-12 sm:h-[60px] sm:w-[60px] object-contain drop-shadow-md" />
         </div>
 
         <div class="flex items-center gap-2">
@@ -1058,7 +1086,7 @@ onUnmounted(() => {
           <button
             type="button"
             @click="setLanguage(currentLocale === 'en' ? 'ar' : 'en')"
-            class="px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-zinc-900/90 border border-zinc-800 hover:border-zinc-700 active:scale-95 transition-all shadow-sm flex items-center gap-2 cursor-pointer group"
+            class="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl sm:rounded-2xl bg-zinc-900/90 border border-zinc-800 hover:border-zinc-700 active:scale-95 transition-all shadow-sm flex items-center gap-2 cursor-pointer group"
             :title="currentLocale === 'en' ? 'العربية' : 'English'"
           >
             <span class="text-xs sm:text-sm font-bold text-zinc-200 group-hover:text-white transition-colors" :class="currentLocale === 'en' ? 'font-arabic' : 'font-sans'">
@@ -1066,7 +1094,7 @@ onUnmounted(() => {
             </span>
 
             <!-- Show UAE Flag if in English to switch to Arabic -->
-            <svg v-if="currentLocale === 'en'" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 drop-shadow-sm" viewBox="0 0 256 256">
+            <svg v-if="currentLocale === 'en'" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 drop-shadow-sm" viewBox="0 0 256 256">
               <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
                 <path d="M 2.57 30 l 84.859 0 C 81.254 12.534 64.611 0.015 45.033 0 l -0.068 0 C 25.388 0.015 8.745 12.534 2.57 30 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,111,46); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
                 <path d="M 87.429 60 L 2.57 60 C 8.749 77.476 25.408 90 45 90 S 81.25 77.476 87.429 60 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
@@ -1076,7 +1104,7 @@ onUnmounted(() => {
             </svg>
 
             <!-- Show UK Flag if in Arabic to switch to English -->
-            <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 drop-shadow-sm" viewBox="0 0 256 256">
+            <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 drop-shadow-sm" viewBox="0 0 256 256">
               <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
                 <path d="M 88.35 57.052 c 0.034 -0.123 0.076 -0.243 0.109 -0.367 l -0.004 -0.002 C 89.457 52.957 90 49.043 90 45 c 0 -4.033 -0.54 -7.938 -1.538 -11.657 l 0.004 -0.002 c -0.039 -0.146 -0.088 -0.289 -0.128 -0.434 c -0.137 -0.492 -0.28 -0.982 -0.434 -1.468 c -0.081 -0.257 -0.167 -0.512 -0.253 -0.768 c -0.073 -0.217 -0.139 -0.437 -0.215 -0.653 h -0.015 c -1.645 -4.653 -4.021 -8.96 -7.01 -12.768 L 59.997 27.458 V 2.57 c -4.368 -1.544 -9.046 -2.427 -13.915 -2.542 h -2.164 c -4.868 0.115 -9.545 0.998 -13.913 2.541 v 24.889 L 9.589 17.249 c -2.989 3.809 -5.366 8.116 -7.01 12.769 H 2.564 c -0.076 0.216 -0.143 0.436 -0.216 0.653 c -0.086 0.255 -0.172 0.509 -0.253 0.765 c -0.154 0.486 -0.297 0.977 -0.434 1.47 c -0.04 0.145 -0.089 0.287 -0.128 0.432 l 0.004 0.002 C 0.54 37.061 0 40.966 0 45 c 0 4.043 0.543 7.957 1.545 11.684 l -0.004 0.002 c 0.033 0.123 0.074 0.242 0.108 0.365 c 0.146 0.524 0.298 1.046 0.462 1.562 c 0.075 0.236 0.154 0.47 0.233 0.705 c 0.077 0.231 0.148 0.464 0.229 0.693 H 2.59 c 1.647 4.651 4.025 8.955 7.016 12.761 l 20.4 -10.2 v 24.86 C 34.697 89.089 39.741 90 45 90 c 5.26 0 10.305 -0.911 14.997 -2.57 V 62.572 l 20.398 10.199 c 2.991 -3.806 5.368 -8.11 7.015 -12.76 h 0.015 c 0.081 -0.229 0.152 -0.463 0.23 -0.694 c 0.079 -0.234 0.158 -0.468 0.233 -0.704 C 88.052 58.096 88.205 57.575 88.35 57.052 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(243,244,245); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
                 <path d="M 53.999 0.902 c -2.565 -0.521 -5.213 -0.81 -7.917 -0.874 h -2.164 c -2.703 0.064 -5.35 0.354 -7.914 0.874 v 35.116 H 0.899 C 0.311 38.92 0 41.924 0 45 c 0 3.087 0.312 6.1 0.904 9.012 h 35.1 v 35.087 C 38.911 89.689 41.919 90 45 90 c 3.082 0 6.091 -0.311 8.999 -0.902 V 54.012 h 35.097 C 89.688 51.1 90 48.087 90 45 c 0 -3.076 -0.311 -6.08 -0.899 -8.983 H 53.999 V 0.902 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(204,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
@@ -1094,17 +1122,13 @@ onUnmounted(() => {
         </div>
       </header>
 
-      <!-- Wizard Step Progress Track (Visible on Steps 2 to 7) -->
-      <div v-if="currentStep > 1" class="mb-5 space-y-1.5 animate-in fade-in duration-300">
-        <div class="w-full h-1.5 rounded-full bg-zinc-900 overflow-hidden border border-zinc-800">
+      <!-- Wizard Step Progress Bar (Visible on Steps 2 to 7, text removed) -->
+      <div v-if="currentStep > 1" class="mb-4 sm:mb-5 animate-in fade-in duration-300">
+        <div class="w-full h-1.5 rounded-full bg-zinc-900 overflow-hidden border border-zinc-800/80 shadow-inner">
           <div
             class="h-full bg-gradient-to-r from-red-600 via-red-500 to-amber-600 transition-all duration-500 rounded-full"
             :style="{ width: `${((currentStep - 1) / 6) * 100}%` }"
           ></div>
-        </div>
-        <div class="flex items-center justify-between text-[11px] font-mono text-zinc-400">
-          <span class="text-red-400 font-bold tracking-wider">{{ t.progress }}</span>
-          <span class="text-zinc-500">{{ t.adnecTag }}</span>
         </div>
       </div>
 
@@ -1261,7 +1285,6 @@ onUnmounted(() => {
       <div v-if="currentStep === 2" class="flex-1 flex flex-col justify-center space-y-5 animate-in fade-in slide-in-from-bottom-3 duration-300">
         <div class="space-y-1">
           <h2 class="text-2xl font-black text-white">{{ t.s2_title }}</h2>
-          <p class="text-xs text-zinc-400 leading-relaxed">{{ t.s2_desc }}</p>
         </div>
 
         <form @submit.prevent="handleRegistration" class="space-y-3.5">
@@ -1343,11 +1366,32 @@ onUnmounted(() => {
             </div>
           </div>
 
+          <!-- Terms & Conditions Consent Checkbox (Step 2) -->
+          <div class="pt-1 flex items-start gap-2.5 text-start">
+            <input
+              id="terms-checkbox"
+              v-model="termsAccepted"
+              type="checkbox"
+              class="mt-0.5 w-4 h-4 rounded border-zinc-700 bg-zinc-900 text-amber-500 focus:ring-amber-500/30 focus:ring-offset-0 cursor-pointer shrink-0 accent-amber-500"
+            />
+            <label for="terms-checkbox" class="text-[11px] sm:text-xs text-zinc-300 leading-snug cursor-pointer select-none">
+              <span>{{ t.termsAgree1 }} </span>
+              <button
+                type="button"
+                @click.stop="showTermsModal = true"
+                class="text-amber-400 hover:text-amber-300 underline underline-offset-2 font-bold cursor-pointer inline transition-colors"
+              >
+                {{ t.termsLink }}
+              </button>
+              <span> {{ t.termsAgree2 }}</span>
+            </label>
+          </div>
+
           <!-- Submit Button -->
           <button
             type="submit"
-            :disabled="isSubmitting"
-            class="w-full mt-2 py-3.5 rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white font-bold text-sm uppercase tracking-wider shadow-xl shadow-red-600/30 flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-50"
+            :disabled="isSubmitting || !termsAccepted"
+            class="w-full mt-2 py-3.5 rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white font-bold text-sm uppercase tracking-wider shadow-xl shadow-red-600/30 flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
           >
             <span v-if="!isSubmitting">{{ t.btnSpinNow }}</span>
             <span v-else class="animate-pulse">{{ t.spinning }}</span>
@@ -1419,8 +1463,11 @@ onUnmounted(() => {
             <h2 class="text-2xl sm:text-3xl font-black text-white">
               {{ wonPrize ? (currentLocale === 'ar' ? wonPrize.label_ar : wonPrize.label_en) : 'Free Diamond Car Wash' }}
             </h2>
-            <p class="text-xs sm:text-sm font-medium text-amber-300">
-              {{ wonPrize ? (currentLocale === 'ar' ? wonPrize.value_ar : wonPrize.value_en) : 'Worth AED 250 • Complimentary at Veneno' }}
+            <p
+              v-if="wonPrize && (currentLocale === 'ar' ? wonPrize.value_ar : wonPrize.value_en)"
+              class="text-xs sm:text-sm font-medium text-amber-300"
+            >
+              {{ currentLocale === 'ar' ? wonPrize.value_ar : wonPrize.value_en }}
             </p>
           </div>
         </div>
@@ -1451,74 +1498,67 @@ onUnmounted(() => {
       <!-- ==========================================================
            STEP 5: EXCLUSIVE ADIHEX SHOW PACKAGES
            ========================================================== -->
-      <div v-if="currentStep === 5" class="flex-1 flex flex-col justify-center space-y-4 animate-in fade-in slide-in-from-bottom-3 duration-300">
-        <div class="space-y-1">
-          <span class="text-[10px] font-mono uppercase tracking-widest text-amber-400 font-bold">{{ t.s5_tag }}</span>
-          <h2 class="text-xl sm:text-2xl font-black text-white">{{ t.s5_title }}</h2>
-          <p class="text-xs text-zinc-400 leading-relaxed">{{ t.s5_desc }}</p>
+      <div v-if="currentStep === 5" class="flex-1 flex flex-col space-y-5 animate-in fade-in slide-in-from-bottom-3 duration-300 w-full py-1 pb-16 sm:pb-20">
+        <!-- Step Header -->
+        <div class="space-y-1.5 text-center sm:text-start">
+          <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">{{ t.s5_title }}</h2>
+          <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed max-w-xl">{{ t.s5_desc }}</p>
         </div>
 
-        <!-- Package Cards List -->
-        <div class="space-y-3 max-h-[62vh] overflow-y-auto pr-1">
+        <!-- Package Cards List (Natural Page Flow, No Nested Scroll Container) -->
+        <div class="space-y-4 w-full">
           <div
             v-for="pkg in props.packages"
             :key="pkg.id"
-            class="group overflow-hidden rounded-2xl bg-zinc-900/90 border border-zinc-800/90 hover:border-amber-500/50 transition-all flex flex-row items-stretch shadow-xl hover:shadow-2xl hover:shadow-black/50"
+            class="group overflow-hidden rounded-3xl bg-gradient-to-b from-zinc-900/95 via-zinc-900/90 to-zinc-950 border border-zinc-800/90 hover:border-amber-500/60 transition-all duration-300 shadow-2xl hover:shadow-black/70 flex flex-col relative"
           >
-            <!-- Full Height Square Edge Image (Left in LTR, Right in RTL) -->
-            <div class="aspect-square self-stretch min-w-[110px] sm:min-w-[135px] max-w-[145px] shrink-0 relative overflow-hidden bg-zinc-950">
+            <!-- Top Image Banner with Luxury Overlays (Top Badges Removed) -->
+            <div class="relative w-full h-40 xs:h-44 sm:h-52 overflow-hidden bg-zinc-950">
               <img
                 :src="pkg.image"
                 :alt="currentLocale === 'ar' ? pkg.name_ar : pkg.name_en"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
               />
-              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-zinc-900/30 rtl:bg-gradient-to-l pointer-events-none"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-black/30"></div>
+
+              <!-- Price & Savings Float (Vertically Centered Alignment) -->
+              <div class="absolute bottom-2.5 inset-x-3 flex items-center justify-between gap-2 z-10">
+                <div class="px-3 py-1.5 rounded-xl bg-black/85 backdrop-blur-md border border-zinc-700/80 shadow-md flex items-center gap-2">
+                  <span class="text-base sm:text-lg font-black text-amber-400 font-mono leading-none">AED {{ Number(pkg.promo_price).toLocaleString() }}</span>
+                  <span class="text-[11px] sm:text-xs line-through text-zinc-400 font-mono leading-none">AED {{ Number(pkg.original_price).toLocaleString() }}</span>
+                </div>
+
+                <!-- Savings Tag (Vertically Aligned with Price Tag) -->
+                <div class="px-3 py-1.5 rounded-xl bg-red-600/95 backdrop-blur-md text-white text-[10.5px] sm:text-[11px] font-mono font-bold shadow-md leading-none flex items-center shrink-0">
+                  {{ currentLocale === 'ar' ? `وفر ${Number(pkg.original_price - pkg.promo_price).toLocaleString()} د.إ` : `Save AED ${Number(pkg.original_price - pkg.promo_price).toLocaleString()}` }}
+                </div>
+              </div>
             </div>
 
             <!-- Card Body Content -->
-            <div class="flex-1 p-3 sm:p-3.5 flex flex-col justify-between min-w-0">
+            <div class="p-3.5 sm:p-4.5 flex flex-col justify-between space-y-3">
               <div class="space-y-1">
-                <!-- Header: Title & Pricing -->
-                <div class="flex items-start justify-between gap-2">
-                  <h3 class="text-sm sm:text-base font-black text-white leading-snug">
-                    {{ currentLocale === 'ar' ? pkg.name_ar : pkg.name_en }}
-                  </h3>
-                  <div class="text-right shrink-0">
-                    <span class="text-[10px] sm:text-[11px] line-through text-zinc-500 font-mono block">AED {{ Number(pkg.original_price).toLocaleString() }}</span>
-                    <span class="text-sm sm:text-base font-black text-amber-400 font-mono block">AED {{ Number(pkg.promo_price).toLocaleString() }}</span>
-                  </div>
-                </div>
-
-                <!-- Description -->
-                <p class="text-[11px] sm:text-xs text-zinc-400 leading-snug line-clamp-2">
+                <h3 class="text-base sm:text-lg font-black text-white tracking-tight leading-snug">
+                  {{ currentLocale === 'ar' ? pkg.name_ar : pkg.name_en }}
+                </h3>
+                <p class="text-xs text-zinc-300 leading-relaxed font-normal">
                   {{ currentLocale === 'ar' ? pkg.desc_ar : pkg.desc_en }}
                 </p>
               </div>
 
-              <!-- Bottom Action Button Row -->
-              <div class="flex justify-end pt-2">
-                <button
-                  type="button"
-                  @click="selectPackage(pkg)"
-                  class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-red-600 via-red-500 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white font-bold text-xs shadow-md shadow-red-950/50 flex items-center gap-1 transition-transform active:scale-95 cursor-pointer whitespace-nowrap"
-                >
-                  <span>{{ t.reserveFor50 }}</span>
-                  <ChevronRight class="w-3.5 h-3.5 rtl:rotate-180" />
-                </button>
-              </div>
+              <!-- Deposit CTA Button -->
+              <button
+                type="button"
+                @click="selectPackage(pkg)"
+                class="w-full py-3 px-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-amber-600 hover:from-red-500 hover:to-amber-500 active:scale-[0.98] text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-red-950/50 flex items-center justify-center gap-2 transition-all cursor-pointer group-hover:brightness-105"
+              >
+                <span>{{ t.reserveFor50 }}</span>
+                <ChevronRight class="w-4 h-4 rtl:rotate-180 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
+              </button>
             </div>
           </div>
         </div>
-
-        <!-- Skip Button (Enlarged prominent link) -->
-        <button
-          type="button"
-          @click="skipToConfirmation"
-          class="w-full py-3.5 text-center text-sm sm:text-base font-semibold text-zinc-400 hover:text-white transition-all underline underline-offset-4 decoration-zinc-700 hover:decoration-amber-400 cursor-pointer"
-        >
-          {{ t.btnSkipPackages }}
-        </button>
       </div>
 
       <!-- ==========================================================
@@ -1559,12 +1599,33 @@ onUnmounted(() => {
           <span>{{ stripeErrorMessage }}</span>
         </div>
 
+        <!-- Deposit Terms & Conditions Consent Checkbox (Step 6) -->
+        <div class="p-3 rounded-2xl bg-zinc-900/80 border border-zinc-800 flex items-start gap-2.5 text-start">
+          <input
+            id="deposit-terms-checkbox"
+            v-model="depositTermsAccepted"
+            type="checkbox"
+            class="mt-0.5 w-4 h-4 rounded border-zinc-700 bg-zinc-900 text-amber-500 focus:ring-amber-500/30 focus:ring-offset-0 cursor-pointer shrink-0 accent-amber-500"
+          />
+          <label for="deposit-terms-checkbox" class="text-[11px] sm:text-xs text-zinc-300 leading-snug cursor-pointer select-none">
+            <span>{{ t.depositTermsAgree1 }} </span>
+            <button
+              type="button"
+              @click.stop="showTermsModal = true"
+              class="text-amber-400 hover:text-amber-300 underline underline-offset-2 font-bold cursor-pointer inline transition-colors"
+            >
+              {{ t.depositTermsLink }}
+            </button>
+            <span> {{ t.depositTermsAgree2 }}</span>
+          </label>
+        </div>
+
         <!-- Confirm and Pay Button (Styled like Step 2 form button) -->
         <button
           type="button"
           @click="handleStripeSubmit"
-          :disabled="isSubmitting || isStripeLoading"
-          class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white font-bold text-sm uppercase tracking-wider shadow-xl shadow-red-600/30 flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+          :disabled="isSubmitting || isStripeLoading || !depositTermsAccepted"
+          class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white font-bold text-sm uppercase tracking-wider shadow-xl shadow-red-600/30 flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
         >
           <span v-if="!isSubmitting">{{ t.btnConfirmPay50 }}</span>
           <span v-else class="flex items-center gap-2 animate-pulse">
@@ -1692,6 +1753,23 @@ onUnmounted(() => {
       </div>
     </div>
 
+    <!-- Persistent Fixed Bottom Footer for Step 5 (Skip to Free Prize Only - 25px Bottom Margin) -->
+    <div
+      v-if="currentStep === 5"
+      class="fixed bottom-[25px] inset-x-0 z-50 flex items-center justify-center px-4 pointer-events-none"
+    >
+      <div class="pointer-events-auto w-full max-w-sm sm:max-w-md bg-zinc-950/90 backdrop-blur-md border border-zinc-800/90 rounded-2xl py-2.5 px-4 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.85)]">
+        <button
+          type="button"
+          @click="skipToConfirmation"
+          :disabled="isSubmitting"
+          class="w-full text-xs sm:text-sm font-semibold text-zinc-300 hover:text-white active:text-amber-300 transition-all underline underline-offset-4 decoration-zinc-600 hover:decoration-amber-400 cursor-pointer active:scale-95 text-center py-1 disabled:opacity-50"
+        >
+          <span>{{ t.btnSkipPackages }}</span>
+        </button>
+      </div>
+    </div>
+
     <!-- Already Participated Blocking Alert Modal -->
     <div
       v-if="alreadyParticipatedModal"
@@ -1766,6 +1844,13 @@ onUnmounted(() => {
       </div>
     </div>
 
+    <!-- Bilingual Terms & Conditions Modal -->
+    <TermsModal
+      :show="showTermsModal"
+      :locale="currentLocale"
+      @close="showTermsModal = false"
+      @accept="onTermsAcceptedFromModal"
+    />
   </div>
 </template>
 

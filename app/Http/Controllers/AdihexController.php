@@ -80,8 +80,8 @@ class AdihexController extends Controller
             'id' => 'platinum_20',
             'label_en' => '20% Off Platinum Package',
             'label_ar' => 'خصم 20% على باقة البلاتينيوم',
-            'value_en' => 'Grand Prize • Ultra Prestige',
-            'value_ar' => 'الجائزة الكبرى • الحماية الملكية',
+            'value_en' => '',
+            'value_ar' => '',
             'weight' => 3, // Capped at 2 winners/day
             'color' => '#E50914', // Glowing Crimson Red
             'textColor' => '#FFFFFF',
@@ -210,6 +210,21 @@ class AdihexController extends Controller
             'stats' => [
                 'displaySpinCount' => $displaySpinCount,
             ],
+        ]);
+    }
+
+    /**
+     * Show the ADIHEX 2026 Official Terms & Conditions Standalone Page
+     */
+    public function terms(Request $request, ?string $locale = null): Response
+    {
+        $currentLocale = $locale ?: $request->get('locale', 'ar');
+        if (!in_array($currentLocale, ['en', 'ar'])) {
+            $currentLocale = 'ar';
+        }
+
+        return Inertia::render('Adihex/Terms', [
+            'initialLocale' => $currentLocale,
         ]);
     }
 

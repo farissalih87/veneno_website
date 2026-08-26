@@ -15,9 +15,12 @@ Route::get('/services/{slug}', [StorefrontController::class, 'serviceDetail'])->
 
 // ADIHEX 2026 Campaign Portal & Digital Signage Kiosk
 Route::get('/adihex', [AdihexController::class, 'index'])->name('adihex.index');
+Route::get('/adihex/terms', [AdihexController::class, 'terms'])->name('adihex.terms');
 Route::get('/adihex/display', [AdihexController::class, 'display'])->name('adihex.display');
 Route::get('/adihex/screen', [AdihexController::class, 'display'])->name('adihex.screen');
 Route::get('/{locale}/adihex', [AdihexController::class, 'index'])
+    ->where('locale', 'en|ar');
+Route::get('/{locale}/adihex/terms', [AdihexController::class, 'terms'])
     ->where('locale', 'en|ar');
 Route::get('/{locale}/adihex/display', [AdihexController::class, 'display'])
     ->where('locale', 'en|ar');
