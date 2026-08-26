@@ -1114,7 +1114,7 @@ onUnmounted(() => {
       <div v-if="currentStep === 1" class="flex-1 flex flex-col justify-center items-center text-center space-y-6 sm:space-y-8 my-auto pt-1 pb-6 sm:pt-4 sm:pb-8 animate-in fade-in zoom-in-95 duration-400">
         
         <!-- Big & Clear Logos (Same Width): Veneno Top, ADIHEX Down (margin-bottom: 80px) -->
-        <div class="flex flex-col items-center justify-center gap-5 sm:gap-6 w-full mb-[80px]" style="margin-bottom: 80px;">
+        <div class="flex flex-col items-center justify-center gap-5 sm:gap-6 w-full mb-[80px]" >
           <!-- Veneno White Text Logo -->
           <div class="w-full flex items-center justify-center">
             <img

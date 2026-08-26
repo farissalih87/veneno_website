@@ -157,19 +157,23 @@ const initParticleBackground = () => {
   const render = () => {
     ctx.clearRect(0, 0, width, height);
 
-    // Deep Obsidian Luxury Vignette (High Contrast)
-    const radialGrad = ctx.createRadialGradient(
+    // Clean Pure Dark Obsidian Canvas Background (Eliminates any muddy rings)
+    ctx.fillStyle = '#070709';
+    ctx.fillRect(0, 0, width, height);
+
+    // Subtle Crimson & Gold Core Aura Focused Strictly Behind QR
+    const coreAura = ctx.createRadialGradient(
       width / 2,
       height * 0.45,
-      80,
+      30,
       width / 2,
       height * 0.45,
-      Math.max(width, height) * 0.8
+      Math.min(width, height) * 0.65
     );
-    radialGrad.addColorStop(0, 'rgba(15, 12, 14, 0.7)');
-    radialGrad.addColorStop(0.35, 'rgba(10, 10, 14, 0.85)');
-    radialGrad.addColorStop(1, 'rgba(4, 4, 6, 0.98)');
-    ctx.fillStyle = radialGrad;
+    coreAura.addColorStop(0, 'rgba(239, 68, 68, 0.12)');
+    coreAura.addColorStop(0.45, 'rgba(197, 160, 89, 0.05)');
+    coreAura.addColorStop(1, 'rgba(7, 7, 9, 0)');
+    ctx.fillStyle = coreAura;
     ctx.fillRect(0, 0, width, height);
 
     for (let p of particles) {
