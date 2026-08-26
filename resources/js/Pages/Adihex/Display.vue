@@ -1,46 +1,20 @@
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import QRCode from 'qrcode';
-import { 
-  Sparkles, 
-  Maximize2, 
-  Minimize2, 
-  Globe, 
-  ShieldCheck, 
-  Flame, 
-  Trophy, 
-  Camera, 
-  Zap 
-} from 'lucide-vue-next';
+import { Camera } from 'lucide-vue-next';
 
 const props = defineProps({
-  initialLocale: { type: String, default: 'ar' },
-  prizes: { type: Array, default: () => [] },
-  packages: { type: Array, default: () => [] },
   targetUrl: { type: String, default: 'https://veneno.ae/adihex' },
-  stats: { type: Object, default: () => ({ displaySpinCount: 184 }) },
 });
 
-// Current Locale & Auto-Cycle (Every 8 seconds)
-const currentLocale = ref(props.initialLocale || 'ar');
-let localeInterval = null;
-const isAutoCycling = ref(true);
-
-const toggleLanguage = () => {
-  currentLocale.value = currentLocale.value === 'ar' ? 'en' : 'ar';
-};
-
-// Fullscreen State
-const isFullscreen = ref(false);
+// Fullscreen State (Double click anywhere on screen)
 const toggleFullscreen = () => {
   if (!document.fullscreenElement) {
     document.documentElement.requestFullscreen().catch(() => {});
-    isFullscreen.value = true;
   } else {
     if (document.exitFullscreen) {
       document.exitFullscreen().catch(() => {});
-      isFullscreen.value = false;
     }
   }
 };
@@ -56,10 +30,6 @@ const requestWakeLock = async () => {
     console.log('Wake Lock Error:', err);
   }
 };
-
-// Active Rotating Prize Index
-const activePrizeIndex = ref(0);
-let prizeInterval = null;
 
 // Countdown to ADIHEX Close (6 Sept 2026 22:00:00 GST)
 const countdown = ref({ days: '00', hours: '00', minutes: '00', seconds: '00' });
@@ -169,18 +139,18 @@ const initParticleBackground = () => {
   });
 
   const particles = [];
-  const numParticles = 65;
+  const numParticles = 75;
 
   for (let i = 0; i < numParticles; i++) {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 2.2 + 0.8,
+      radius: Math.random() * 2.4 + 0.8,
       speedY: Math.random() * 0.7 + 0.3,
       speedX: (Math.random() - 0.5) * 0.4,
       alpha: Math.random() * 0.7 + 0.3,
       fadeSpeed: Math.random() * 0.01 + 0.005,
-      isGold: Math.random() > 0.3, // 70% Gold embers, 30% Crimson embers
+      isGold: Math.random() > 0.3,
     });
   }
 
@@ -196,13 +166,12 @@ const initParticleBackground = () => {
       height * 0.45,
       Math.max(width, height) * 0.75
     );
-    radialGrad.addColorStop(0, 'rgba(185, 28, 28, 0.12)'); // Central Crimson Aura
-    radialGrad.addColorStop(0.4, 'rgba(197, 160, 89, 0.06)'); // Gold halo
-    radialGrad.addColorStop(1, 'rgba(5, 5, 7, 0.95)'); // Deep Titanium/Black edges
+    radialGrad.addColorStop(0, 'rgba(185, 28, 28, 0.14)');
+    radialGrad.addColorStop(0.4, 'rgba(197, 160, 89, 0.07)');
+    radialGrad.addColorStop(1, 'rgba(5, 5, 7, 0.96)');
     ctx.fillStyle = radialGrad;
     ctx.fillRect(0, 0, width, height);
 
-    // Draw and update rising embers
     for (let p of particles) {
       p.y -= p.speedY;
       p.x += p.speedX;
@@ -238,30 +207,11 @@ onMounted(() => {
   initParticleBackground();
   requestWakeLock();
 
-  // Auto-cycle language every 8s
-  localeInterval = setInterval(() => {
-    if (isAutoCycling.value) {
-      currentLocale.value = currentLocale.value === 'ar' ? 'en' : 'ar';
-    }
-  }, 8000);
-
-  // Rotate featured prize every 3.5s
-  prizeInterval = setInterval(() => {
-    activePrizeIndex.value = (activePrizeIndex.value + 1) % (props.prizes.length || 7);
-  }, 3500);
-
-  // Countdown timer tick
   calculateCountdown();
   countdownTimer = setInterval(calculateCountdown, 1000);
-
-  document.addEventListener('fullscreenchange', () => {
-    isFullscreen.value = !!document.fullscreenElement;
-  });
 });
 
 onUnmounted(() => {
-  if (localeInterval) clearInterval(localeInterval);
-  if (prizeInterval) clearInterval(prizeInterval);
   if (countdownTimer) clearInterval(countdownTimer);
   if (bgAnimationId) cancelAnimationFrame(bgAnimationId);
   if (wakeLock) {
@@ -276,8 +226,8 @@ onUnmounted(() => {
   </Head>
 
   <div 
-    class="relative w-screen h-screen overflow-hidden select-none bg-[#070709] text-white flex flex-col justify-between p-6 sm:p-10 font-sans"
-    :dir="currentLocale === 'ar' ? 'rtl' : 'ltr'"
+    @dblclick="toggleFullscreen"
+    class="relative w-screen h-screen overflow-hidden select-none bg-[#070709] text-white flex flex-col justify-between items-center p-6 sm:p-10 font-sans"
   >
     <!-- Background Canvas Engine (60 FPS Gold Embers & Ambient Aura) -->
     <canvas ref="bgCanvasRef" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
@@ -285,52 +235,31 @@ onUnmounted(() => {
     <!-- Subtle Carbon Fiber Mesh Texture Overlay -->
     <div class="absolute inset-0 bg-[radial-gradient(#1f1f23_1px,transparent_1px)] [background-size:16px_16px] opacity-25 pointer-events-none z-0"></div>
 
-    <!-- Discreet Floating Kiosk Controls (Top Edge) -->
-    <div class="absolute top-4 inset-x-6 flex items-center justify-between z-30 pointer-events-auto">
-      <button
-        type="button"
-        @click="toggleLanguage"
-        class="px-3 py-1 rounded-xl bg-zinc-950/60 hover:bg-zinc-900 border border-zinc-800/80 text-amber-300 font-bold text-xs flex items-center gap-1.5 transition-all shadow-md active:scale-95 cursor-pointer backdrop-blur-md"
-      >
-        <Globe class="w-3.5 h-3.5" />
-        <span>{{ currentLocale === 'ar' ? 'English' : 'العربية' }}</span>
-      </button>
-
-      <button
-        type="button"
-        @click="toggleFullscreen"
-        class="p-2 rounded-xl bg-zinc-950/60 hover:bg-zinc-900 border border-zinc-800/80 text-zinc-400 hover:text-white transition-all shadow-md active:scale-95 cursor-pointer backdrop-blur-md"
-        :title="isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen (22-inch Kiosk)'"
-      >
-        <Minimize2 v-if="isFullscreen" class="w-4 h-4" />
-        <Maximize2 v-else class="w-4 h-4" />
-      </button>
-    </div>
-
     <!-- ==========================================================
-         TOP HERO TITLE: SCAN • SPIN • WIN (MATCHES QR CONTAINER WIDTH)
+         TOP HEADER: MULTILINGUAL BOLD TITLES (MATCHES QR WIDTH)
          ========================================================== -->
-    <header class="relative z-10 pt-10 sm:pt-14 flex flex-col items-center text-center">
-      <div class="w-full max-w-sm sm:max-w-md md:max-w-lg space-y-2">
-        <h1 class="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight uppercase leading-none drop-shadow-lg">
-          <span class="bg-gradient-to-r from-red-500 via-amber-400 to-amber-200 bg-clip-text text-transparent">
-            {{ currentLocale === 'ar' ? 'امسح • دوّر • اربح' : 'SCAN • SPIN • WIN' }}
-          </span>
-        </h1>
-        <p class="text-sm sm:text-base md:text-lg font-bold text-zinc-200 leading-snug tracking-wide">
-          {{ currentLocale === 'ar' 
-            ? 'اربح جوائز فورية وقسائم خدمات مجانية تصل إلى 3,000 درهم في جناح فينينو' 
-            : 'Win Instant VIP Detailing Vouchers & Complimentary Services Up to AED 3,000' }}
-        </p>
-      </div>
+    <header class="relative z-10 pt-4 sm:pt-6 flex flex-col items-center text-center w-full max-w-sm sm:max-w-md md:max-w-lg space-y-1.5">
+      <!-- English Title -->
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight uppercase leading-tight drop-shadow-xl">
+        <span class="bg-gradient-to-r from-red-500 via-amber-400 to-amber-200 bg-clip-text text-transparent">
+          SCAN • SPIN • WIN
+        </span>
+      </h1>
+
+      <!-- Arabic Title -->
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-normal leading-tight drop-shadow-xl" dir="rtl">
+        <span class="bg-gradient-to-r from-amber-200 via-amber-400 to-red-500 bg-clip-text text-transparent font-['Cairo',sans-serif]">
+          امسح • دوّر • اربح
+        </span>
+      </h2>
     </header>
 
     <!-- ==========================================================
          HERO CENTERPIECE: ULTRA LUXURY SCANNABLE QR CODE
          ========================================================== -->
-    <main class="relative z-10 flex flex-col items-center justify-center my-auto py-2">
+    <main class="relative z-10 flex flex-col items-center justify-center my-auto w-full max-w-sm sm:max-w-md md:max-w-lg">
       <!-- Luxury Gold & Crimson Frame with Corner Accents -->
-      <div class="relative group p-4 sm:p-5 rounded-[2.5rem] bg-gradient-to-b from-[#18181c] via-[#0d0d10] to-[#121216] border-2 border-[#c5a059] shadow-[0_0_60px_rgba(239,68,68,0.25)] flex flex-col items-center">
+      <div class="w-full relative group p-4 sm:p-5 rounded-[2.5rem] bg-gradient-to-b from-[#18181c] via-[#0d0d10] to-[#121216] border-2 border-[#c5a059] shadow-[0_0_60px_rgba(239,68,68,0.25)] flex flex-col items-center">
         
         <!-- Corner Gold / Red Brackets -->
         <div class="absolute -top-2 -left-2 w-7 h-7 border-t-4 border-l-4 border-red-500 rounded-tl-xl pointer-events-none"></div>
@@ -350,57 +279,40 @@ onUnmounted(() => {
         </div>
 
         <!-- Scannable Instruction Banner -->
-        <div class="mt-4 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-red-950/80 via-zinc-900 to-amber-950/80 border border-amber-500/40 text-center shadow-lg flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-xl bg-red-600/30 border border-red-500/50 text-amber-300 flex items-center justify-center shrink-0">
+        <div class="mt-3.5 w-full px-4 py-2.5 rounded-2xl bg-gradient-to-r from-red-950/80 via-zinc-900 to-amber-950/80 border border-amber-500/40 text-center shadow-lg flex items-center justify-center gap-2.5">
+          <div class="w-7 h-7 rounded-xl bg-red-600/30 border border-red-500/50 text-amber-300 flex items-center justify-center shrink-0">
             <Camera class="w-4 h-4" />
           </div>
           <div class="text-start">
             <span class="block text-xs sm:text-sm font-black text-amber-300 uppercase tracking-wider">
-              {{ currentLocale === 'ar' ? 'امسح بكاميرا هاتفك للمشاركة' : 'POINT YOUR CAMERA TO PLAY' }}
-            </span>
-            <span class="block text-[10px] sm:text-[11px] font-mono text-zinc-300">
-              {{ props.targetUrl }}
+              POINT YOUR CAMERA TO PLAY • امسح بالكاميرا للمشاركة
             </span>
           </div>
         </div>
 
       </div>
 
-      <!-- Live Dynamic Prize Carousel Ticker -->
-      <div class="mt-5 w-full max-w-md">
-        <div class="p-3.5 rounded-2xl bg-zinc-950/90 border border-zinc-800/90 shadow-xl backdrop-blur-xl flex items-center justify-between gap-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center shrink-0">
-              <Trophy class="w-5 h-5" />
-            </div>
-            <div class="text-start">
-              <span class="text-[10px] font-mono uppercase tracking-widest text-zinc-400 font-bold block">
-                {{ currentLocale === 'ar' ? '🎁 جوائز السحب الفوري:' : '🎁 FEATURED PRIZE:' }}
-              </span>
-              <span class="text-xs sm:text-sm font-black text-white block transition-all duration-300">
-                {{ props.prizes[activePrizeIndex] 
-                  ? (currentLocale === 'ar' ? props.prizes[activePrizeIndex].label_ar : props.prizes[activePrizeIndex].label_en)
-                  : (currentLocale === 'ar' ? 'غسيل دايموند مجاني بقيمة 250 درهم' : 'Free Diamond Car Wash (Worth AED 250)') }}
-              </span>
-            </div>
-          </div>
-
-          <div class="px-2.5 py-1 rounded-lg bg-red-600/20 border border-red-500/40 text-[10.5px] font-mono font-black text-red-400 shrink-0">
-            {{ currentLocale === 'ar' ? '100% مجاناً' : '100% FREE' }}
-          </div>
-        </div>
+      <!-- Multilingual Replaced Subtitle Container (Replaces Prize Carousel) -->
+      <div class="mt-4 w-full p-4 rounded-2xl bg-zinc-950/90 border border-zinc-800/90 shadow-xl backdrop-blur-xl text-center space-y-2">
+        <p class="text-xs sm:text-sm md:text-base font-bold text-amber-300 leading-snug tracking-wide">
+          Win Instant VIP Detailing Vouchers & Complimentary Services Up to AED 3,000
+        </p>
+        <div class="h-[1px] w-3/4 mx-auto bg-gradient-to-r from-transparent via-amber-500/40 to-transparent"></div>
+        <p class="text-xs sm:text-sm md:text-base font-bold text-zinc-100 leading-snug tracking-normal font-['Cairo',sans-serif]" dir="rtl">
+          اربح جوائز فورية وقسائم خدمات مجانية تصل إلى 3,000 درهم في جناح فينينو
+        </p>
       </div>
     </main>
 
     <!-- ==========================================================
-         FOOTER: EXHIBITION COUNTDOWN & VENENO LOCATOR
+         FOOTER: EXHIBITION COUNTDOWN ONLY
          ========================================================== -->
-    <footer class="relative z-10 flex flex-col items-center text-center space-y-3 pb-2">
-      <!-- 4-Box Countdown Timer Card (Ends in 6 SEPT 2026 10:00pm) -->
+    <footer class="relative z-10 flex flex-col items-center text-center pb-2 w-full">
+      <!-- 4-Box Countdown Timer Card Only -->
       <div class="w-full max-w-sm px-4 py-2.5 rounded-2xl bg-zinc-950/90 border border-zinc-800/90 backdrop-blur-xl shadow-xl flex flex-col items-center">
         <div class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5 font-mono">
           <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-          <span>{{ currentLocale === 'ar' ? 'اختتام فعاليات المعرض في 6 سبتمبر 2026' : 'EXHIBITION CONCLUDES 6 SEPT 2026' }}</span>
+          <span>ADIHEX 2026 • اختتام الفعاليات في 6 سبتمبر</span>
         </div>
 
         <div class="grid grid-cols-4 gap-2 w-full max-w-[260px]">
@@ -408,39 +320,30 @@ onUnmounted(() => {
             <div class="w-full h-10 rounded-lg bg-[#1a1a1d] border border-zinc-700/70 flex items-center justify-center">
               <span class="text-base font-black text-white font-mono">{{ countdown.days }}</span>
             </div>
-            <span class="text-[8px] font-bold text-amber-400 mt-0.5">{{ currentLocale === 'ar' ? 'أيام' : 'DAYS' }}</span>
+            <span class="text-[8px] font-bold text-amber-400 mt-0.5">DAYS / أيام</span>
           </div>
 
           <div class="flex flex-col items-center">
             <div class="w-full h-10 rounded-lg bg-[#1a1a1d] border border-zinc-700/70 flex items-center justify-center">
               <span class="text-base font-black text-white font-mono">{{ countdown.hours }}</span>
             </div>
-            <span class="text-[8px] font-bold text-amber-400 mt-0.5">{{ currentLocale === 'ar' ? 'ساعات' : 'HOURS' }}</span>
+            <span class="text-[8px] font-bold text-amber-400 mt-0.5">HOURS / ساعات</span>
           </div>
 
           <div class="flex flex-col items-center">
             <div class="w-full h-10 rounded-lg bg-[#1a1a1d] border border-zinc-700/70 flex items-center justify-center">
               <span class="text-base font-black text-white font-mono">{{ countdown.minutes }}</span>
             </div>
-            <span class="text-[8px] font-bold text-amber-400 mt-0.5">{{ currentLocale === 'ar' ? 'دقائق' : 'MINS' }}</span>
+            <span class="text-[8px] font-bold text-amber-400 mt-0.5">MINS / دقائق</span>
           </div>
 
           <div class="flex flex-col items-center">
             <div class="w-full h-10 rounded-lg bg-[#1a1a1d] border border-zinc-700/70 flex items-center justify-center">
               <span class="text-base font-black text-red-500 font-mono">{{ countdown.seconds }}</span>
             </div>
-            <span class="text-[8px] font-bold text-red-400 mt-0.5">{{ currentLocale === 'ar' ? 'ثواني' : 'SECS' }}</span>
+            <span class="text-[8px] font-bold text-red-400 mt-0.5">SECS / ثواني</span>
           </div>
         </div>
-      </div>
-
-      <!-- Workshop Location & Website Pill -->
-      <div class="flex items-center justify-center gap-3 text-[11px] font-mono text-zinc-400">
-        <span>📍 مصفح M37، أبوظبي</span>
-        <span>•</span>
-        <span class="text-amber-400 font-bold">veneno.ae</span>
-        <span>•</span>
-        <span>02 634 4403</span>
       </div>
     </footer>
 
