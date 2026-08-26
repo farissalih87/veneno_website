@@ -252,7 +252,7 @@ onUnmounted(() => {
         <!-- Arabic Title -->
         <h2 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-normal leading-tight drop-shadow-[0_4px_25px_rgba(197,160,89,0.4)]" dir="rtl">
           <span class="bg-gradient-to-r from-[#e5c07b] via-[#c5a059] to-[#ef4444] bg-clip-text text-transparent font-['Cairo',sans-serif]">
-            امسح • دوّر • اربح
+            امسح • أدِر • اربح
           </span>
         </h2>
       </header>

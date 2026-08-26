@@ -216,7 +216,7 @@ const t = computed(() => {
     // Step 1
     s1_tag: isAr ? 'مرحباً بكم في جناح فينينو للعناية بالسيارات' : 'WELCOME TO VENENO AUTO CARE × ADIHEX 2026',
     s1_title1: isAr ? 'امسح.' : 'SCAN.',
-    s1_title2: isAr ? 'دوّر.' : 'SPIN.',
+    s1_title2: isAr ? 'أدِر.' : 'SPIN.',
     s1_title3: isAr ? 'اربح.' : 'WIN.',
     s1_desc: isAr
       ? 'اختر لغتك المفضلة لبدء تجربة السحب الفوري وحصريات معرض الصيد والفروسية.'
@@ -228,7 +228,7 @@ const t = computed(() => {
 
     // Step 2
     s2_tag: isAr ? 'الخطوة 2: التسجيل السريع' : 'STEP 2: FAST REGISTRATION',
-    s2_title: isAr ? 'سجّل ودوّر عجلة الحظ' : 'Register to Unlock Spin',
+    s2_title: isAr ? 'سجّل وأدِر عجلة الحظ' : 'Register to Unlock Spin',
     s2_desc: isAr
       ? 'أدخل بياناتك لربط جائزتك وضمان استلام كود القسيمة الفوري.'
       : 'Enter details to unlock your lucky spin and secure your instant voucher code.',
@@ -238,7 +238,7 @@ const t = computed(() => {
     email: isAr ? 'البريد الإلكتروني (اختياري)' : 'EMAIL (OPTIONAL)',
     emailPlaceholder: isAr ? 'sultan@example.ae' : 'sultan@example.ae',
     serviceIntentTitle: isAr ? 'الخدمات التي تهتم بها (اختر ما يناسبك):' : 'INTERESTED SERVICES (SELECT):',
-    btnSpinNow: isAr ? 'دوّر العجلة الآن ➔' : 'SPIN THE WHEEL NOW ➔',
+    btnSpinNow: isAr ? 'أدِر العجلة الآن ➔' : 'SPIN THE WHEEL NOW ➔',
     antiGamingText: isAr ? '🔒 لفة واحدة مضمونة لكل رقم هاتف خلال 24 ساعة' : '🔒 Single-spin guarantee per mobile number within 24 hours',
 
     // Step 3
