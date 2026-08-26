@@ -43,23 +43,31 @@ Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.st
 Route::get('/confirmation/{bookingCode}', [BookingController::class, 'confirmation'])->name('bookings.confirmation');
 
 // Authentication Routes
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register'])->name('register');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/quick-login/{role}', [AuthController::class, 'quickLogin'])->name('quick-login');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register'])->name('register');
+});
 
-// Customer VIP Portal (Authenticated or Guest Demo Access)
-Route::get('/customer-portal', [CustomerPortalController::class, 'index'])->name('customer.portal');
+// Logout (Authenticated)
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-// Technician Portal (Bay Floor)
-Route::get('/technician-portal', [TechnicianPortalController::class, 'index'])->name('technician.portal');
-Route::post('/technician/bookings/{booking}/stage', [TechnicianPortalController::class, 'updateStage'])->name('technician.bookings.stage');
+// Protected Portals & Dashboard CRM
+Route::middleware(['auth'])->group(function () {
+    // Customer VIP Portal
+    Route::get('/customer-portal', [CustomerPortalController::class, 'index'])->name('customer.portal');
 
-// Admin / Manager Dashboard CRM
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::patch('/dashboard/inquiries/{inquiry}', [DashboardController::class, 'updateInquiryStatus'])->name('dashboard.inquiries.update');
-Route::delete('/dashboard/inquiries/{inquiry}', [DashboardController::class, 'destroyInquiry'])->name('dashboard.inquiries.destroy');
-Route::post('/dashboard/campaigns', [DashboardController::class, 'storeCampaign'])->name('dashboard.campaigns.store');
-Route::get('/dashboard/adihex/export', [AdihexController::class, 'exportLeads'])->name('dashboard.adihex.export');
+    // Technician Portal (Bay Floor)
+    Route::get('/technician-portal', [TechnicianPortalController::class, 'index'])->name('technician.portal');
+    Route::post('/technician/bookings/{booking}/stage', [TechnicianPortalController::class, 'updateStage'])->name('technician.bookings.stage');
+
+    // Admin & Operations Management Dashboard CRM
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::patch('/inquiries/{inquiry}', [DashboardController::class, 'updateInquiryStatus'])->name('dashboard.inquiries.update');
+        Route::delete('/inquiries/{inquiry}', [DashboardController::class, 'destroyInquiry'])->name('dashboard.inquiries.destroy');
+        Route::post('/campaigns', [DashboardController::class, 'storeCampaign'])->name('dashboard.campaigns.store');
+        Route::get('/adihex/export', [AdihexController::class, 'exportLeads'])->name('dashboard.adihex.export');
+    });
+});
 
