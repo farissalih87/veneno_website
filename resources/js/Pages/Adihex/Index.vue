@@ -855,7 +855,7 @@ const downloadPrizeCertificate = () => {
     // 7. Customer Info Section
     ctx.fillStyle = '#a1a1aa';
     ctx.font = isAr ? '22px "Cairo", "Segoe UI", sans-serif' : '22px "Outfit", sans-serif';
-    ctx.fillText(isAr ? 'بيانات العميل:' : 'CUSTOMER / CLIENT:', width / 2, 340);
+    ctx.fillText(isAr ? 'بيانات العميل' : 'CUSTOMER / CLIENT', width / 2, 340);
 
     ctx.fillStyle = '#ffffff';
     ctx.font = isAr ? 'bold 42px "Cairo", "Segoe UI", sans-serif' : 'bold 42px "Outfit", sans-serif';
@@ -891,7 +891,7 @@ const downloadPrizeCertificate = () => {
 
     ctx.fillStyle = '#c5a059';
     ctx.font = isAr ? 'bold 26px "Cairo", "Segoe UI", sans-serif' : 'bold 26px "Outfit", sans-serif';
-    ctx.fillText(isAr ? 'مبروك! لقد فزت بـ:' : 'CONGRATULATIONS! YOU WON:', width / 2, 580);
+    ctx.fillText(isAr ? 'مبروك! لقد فزت بـ' : 'CONGRATULATIONS! YOU WON', width / 2, 580);
 
     ctx.fillStyle = '#f59e0b';
     ctx.font = isAr ? '900 40px "Cairo", "Segoe UI", sans-serif' : '900 40px "Outfit", sans-serif';
@@ -919,7 +919,7 @@ const downloadPrizeCertificate = () => {
 
       ctx.fillStyle = '#c5a059';
       ctx.font = isAr ? 'bold 24px "Cairo", "Segoe UI", sans-serif' : 'bold 24px "Outfit", sans-serif';
-      ctx.fillText(isAr ? 'باقة المعرض المحجوزة:' : 'RESERVED SHOW PACKAGE:', width / 2, 1105);
+      ctx.fillText(isAr ? 'باقة المعرض المحجوزة' : 'RESERVED SHOW PACKAGE', width / 2, 1105);
 
       ctx.fillStyle = '#ffffff';
       ctx.font = isAr ? 'bold 34px "Cairo", "Segoe UI", sans-serif' : 'bold 34px "Outfit", sans-serif';
@@ -949,8 +949,8 @@ const downloadPrizeCertificate = () => {
 
     ctx.fillStyle = '#71717a';
     ctx.font = isAr ? '20px "Cairo", "Segoe UI", sans-serif' : '20px "Outfit", sans-serif';
-    ctx.fillText(isAr ? 'مركز فينينو للعناية بالسيارات • مصفح M37، أبوظبي، الإمارات' : 'Veneno Auto Care Center • Musaffah M37, Abu Dhabi, UAE', width / 2, 1440);
-    ctx.fillText(isAr ? 'واتساب: 97126344403+ • الموقع: www.veneno.ae' : 'WhatsApp Concierge: +971 2 634 4403 • Website: www.veneno.ae', width / 2, 1485);
+    ctx.fillText(isAr ? 'مركز فينينو للعناية بالسيارات — أبوظبي، مصفح M37' : 'Veneno Auto Care Center — Musaffah M37, Abu Dhabi, UAE', width / 2, 1440);
+    ctx.fillText(isAr ? 'واتساب: 026344403 • الموقع: veneno.ae' : 'WhatsApp Concierge: +971 2 634 4403 • Website: veneno.ae', width / 2, 1485);
 
     ctx.font = '16px monospace';
     ctx.fillStyle = '#52525b';
@@ -1695,38 +1695,5 @@ onUnmounted(() => {
 
 .font-script {
   font-family: 'Great Vibes', 'Alex Brush', cursive;
-}
-
-:deep(.text-amber-400),
-.text-amber-400 {
-  color: #fbbf24 !important;
-}
-
-:deep(.bg-amber-400),
-.bg-amber-400 {
-  background-color: #fbbf24 !important;
-}
-
-:deep(.border-amber-400),
-.border-amber-400 {
-  border-color: #fbbf24 !important;
-}
-
-:deep(.to-amber-600),
-.to-amber-600 {
-  --tw-gradient-to: #d97706 !important;
-  --tw-gradient-stops: var(--tw-gradient-via-stops) !important;
-}
-
-:deep(.via-red-500),
-.via-red-500 {
-  --tw-gradient-via: #ef4444 !important;
-  --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position) !important;
-  --tw-gradient-stops: var(--tw-gradient-via-stops) !important;
-}
-
-:deep(.bg-gradient-to-r),
-.bg-gradient-to-r {
-  background-image: linear-gradient(to right, var(--tw-gradient-stops)) !important;
 }
 </style>
