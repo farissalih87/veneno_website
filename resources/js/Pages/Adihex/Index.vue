@@ -407,8 +407,8 @@ const handleRegistration = async () => {
     }
     // Graceful fallback for offline / mock
     leadId.value = 999;
-    winningPrizeIndex.value = 2; // Diamond Wash
-    wonPrize.value = props.prizes[2] || {
+    winningPrizeIndex.value = 3; // Free Diamond Car Wash
+    wonPrize.value = props.prizes[3] || {
       id: 'wash_diamond',
       label_en: 'Free Diamond Car Wash',
       label_ar: 'غسيل دايموند مجاني',
@@ -440,6 +440,30 @@ const initWheel = () => {
   wheelCtx.scale(dpr, dpr);
 
   drawWheel(currentRotation);
+};
+
+const formatSegmentLines = (label) => {
+  const customMap = {
+    'بوليش وتلميع مجاني': ['بوليش وتلميع', 'مجاني'],
+    'خصم 20% على التظليل': ['خصم %20', 'على التظليل'],
+    'قسيمة 100 درهم': ['قسيمة', '100 درهم'],
+    'غسيل دايموند مجاني': ['غسيل دايموند', 'مجاني'],
+    'غسيل سلايم مجاني': ['غسيل سلايم', 'مجاني'],
+    'خصم 20% على جميع الخدمات': ['خصم %20', 'جميع الخدمات'],
+    'خصم 20% على باقة Platinum': ['خصم %20', 'باقة Platinum'],
+    'Free Polish & Detailing': ['Free Polish', '& Detailing'],
+    '20% Off Window Tinting': ['20% Off', 'Window Tinting'],
+    'AED 100 Gift Voucher': ['AED 100', 'Gift Voucher'],
+    'Free Diamond Car Wash': ['Free Diamond', 'Car Wash'],
+    'Free Slime Wash': ['Free Slime', 'Wash'],
+    '20% Off All Services': ['20% Off', 'All Services'],
+    '20% Off Platinum Package': ['20% Off', 'Platinum Pkg'],
+  };
+  if (customMap[label]) return customMap[label];
+  const words = label.split(' ');
+  if (words.length <= 1) return [label, ''];
+  const mid = Math.ceil(words.length / 2);
+  return [words.slice(0, mid).join(' '), words.slice(mid).join(' ')];
 };
 
 const drawWheel = (rotationAngle) => {
@@ -517,25 +541,7 @@ const drawWheel = (rotationAngle) => {
     wheelCtx.shadowBlur = 4;
 
     const rawLabel = currentLocale.value === 'ar' ? prize.label_ar : prize.label_en;
-    
-    // Split into 2 compact lines for horizontal readability
-    const words = rawLabel.split(' ');
-    let line1 = '';
-    let line2 = '';
-
-    if (words.length === 1) {
-      line1 = words[0];
-    } else if (words.length === 2) {
-      line1 = words[0];
-      line2 = words[1];
-    } else if (words.length === 3) {
-      line1 = words[0] + ' ' + words[1];
-      line2 = words[2];
-    } else {
-      const mid = Math.ceil(words.length / 2);
-      line1 = words.slice(0, mid).join(' ');
-      line2 = words.slice(mid).join(' ');
-    }
+    const [line1, line2] = formatSegmentLines(rawLabel);
 
     if (line2) {
       wheelCtx.fillText(line1, 0, -7.5);

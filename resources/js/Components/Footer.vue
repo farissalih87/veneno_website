@@ -275,6 +275,15 @@ const scrollToTop = () => {
                 <ArrowUpRight class="w-3 h-3 opacity-0 group-hover:opacity-100 text-white transition-opacity rtl:rotate-90" />
               </a>
             </li>
+            <li class="pt-1.5">
+              <Link :href="currentLocale === 'ar' ? '/ar/adihex' : '/adihex'" class="p-2 rounded-xl bg-gradient-to-r from-amber-500/15 via-red-950/30 to-zinc-900 border border-amber-500/40 hover:border-amber-400 text-amber-300 hover:text-white transition-all flex items-center justify-between group">
+                <span class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span>
+                  <span class="font-bold font-mono text-[11px]">ADIHEX 2026 • SPIN & WIN</span>
+                </span>
+                <ArrowUpRight class="w-3 h-3 text-amber-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform rtl:rotate-90" />
+              </Link>
+            </li>
           </ul>
         </div>
 

@@ -78,14 +78,16 @@ class AdihexLead extends Model
     {
         $loc = $locale ?: ($this->locale ?: 'en');
         $map = [
-            'discount_10' => ['en' => '10% Discount Voucher', 'ar' => 'قسيمة خصم 10%'],
-            'wash_slime' => ['en' => 'Free Slime Wash', 'ar' => 'غسيل سلايم مجاني'],
+            'polish_detailing' => ['en' => 'Free Polish & Detailing', 'ar' => 'بوليش وتلميع مجاني'],
+            'tint_20' => ['en' => '20% Off Window Tinting', 'ar' => 'خصم 20% على التظليل'],
+            'voucher_100' => ['en' => 'AED 100 Gift Voucher', 'ar' => 'قسيمة 100 درهم'],
             'wash_diamond' => ['en' => 'Free Diamond Car Wash', 'ar' => 'غسيل دايموند مجاني'],
-            'voucher_100' => ['en' => 'AED 100 Gift Voucher', 'ar' => 'قسيمة بقيمة 100 درهم'],
-            'tint_10' => ['en' => '10% Off Window Tinting', 'ar' => 'خصم 10% على التظليل'],
-            'polish_detailing' => ['en' => 'Free Headlight Restoration', 'ar' => 'تلميع مصابيح مجاني'],
-            'wash_ceramic' => ['en' => 'Free Ceramic Maintenance Wash', 'ar' => 'غسيل صيانة سيراميك مجاني'],
-            'platinum_20' => ['en' => '20% Off Ultimate Package (Grand Prize)', 'ar' => 'خصم 20% على الباقة الشاملة (الجائزة الكبرى)'],
+            'wash_slime' => ['en' => 'Free Slime Wash', 'ar' => 'غسيل سلايم مجاني'],
+            'discount_20' => ['en' => '20% Off All Services', 'ar' => 'خصم 20% على جميع الخدمات'],
+            'platinum_20' => ['en' => '20% Off Platinum Package', 'ar' => 'خصم 20% على باقة Platinum'],
+            // Backwards compatibility
+            'discount_10' => ['en' => '20% Off All Services', 'ar' => 'خصم 20% على جميع الخدمات'],
+            'tint_10' => ['en' => '20% Off Window Tinting', 'ar' => 'خصم 20% على التظليل'],
         ];
 
         if (isset($map[$this->won_prize_tier][$loc])) {

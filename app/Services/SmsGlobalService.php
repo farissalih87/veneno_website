@@ -28,6 +28,11 @@ class SmsGlobalService
         // Strip non-digits
         $cleaned = preg_replace('/[^\d]/', '', $phone);
 
+        // Strip leading 00 (e.g. 00971 -> 971)
+        if (str_starts_with($cleaned, '00')) {
+            $cleaned = substr($cleaned, 2);
+        }
+
         // If local UAE number like 0501234567 -> 971501234567
         if (str_starts_with($cleaned, '05')) {
             $cleaned = '971' . substr($cleaned, 1);

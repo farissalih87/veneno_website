@@ -13,28 +13,42 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class AdihexController extends Controller
 {
     /**
-     * Prize Table Configuration & Probabilities
+     * Prize Table Configuration & Probabilities (ADIHEX 2026 Official Daily Allocation)
+     * Total Daily Allocation: 92 Vouchers | 100%
      */
     private array $prizes = [
         [
-            'id' => 'discount_10',
-            'label_en' => '10% Discount Voucher',
-            'label_ar' => 'قسيمة خصم 10%',
-            'value_en' => 'Valid on any service at Veneno',
-            'value_ar' => 'صالحة على جميع خدمات فينينو',
-            'weight' => 25,
-            'color' => '#8B0000', // Deep Crimson
-            'textColor' => '#FFFFFF',
+            'id' => 'polish_detailing',
+            'label_en' => 'Free Polish & Detailing',
+            'label_ar' => 'بوليش وتلميع مجاني',
+            'value_en' => 'Worth AED 650 • High Excitement',
+            'value_ar' => 'بقيمة 650 درهم • لمعان استثنائي',
+            'weight' => 1,
+            'daily_limit' => 1, // 1.09% (1/92)
+            'color' => '#C5A059', // Champagne Gold
+            'textColor' => '#0A0A0A',
         ],
         [
-            'id' => 'wash_slime',
-            'label_en' => 'Free Slime Wash',
-            'label_ar' => 'غسيل سلايم مجاني',
-            'value_en' => 'Worth AED 180 • Complimentary',
-            'value_ar' => 'بقيمة 180 درهم • مجاناً',
+            'id' => 'tint_20',
+            'label_en' => '20% Off Window Tinting',
+            'label_ar' => 'خصم 20% على التظليل',
+            'value_en' => 'Premium Nano-Ceramic Heat Rejection',
+            'value_ar' => 'عزل حراري نانو سيراميك فاخر',
             'weight' => 20,
+            'daily_limit' => 20, // 21.74% (20/92)
             'color' => '#1A1A1A', // Deep Carbon
             'textColor' => '#E5C07B',
+        ],
+        [
+            'id' => 'voucher_100',
+            'label_en' => 'AED 100 Gift Voucher',
+            'label_ar' => 'قسيمة 100 درهم',
+            'value_en' => 'Direct credit towards bookings',
+            'value_ar' => 'رصيد مباشر للحجوزات',
+            'weight' => 10,
+            'daily_limit' => 10, // 10.87% (10/92)
+            'color' => '#8B0000', // Deep Crimson
+            'textColor' => '#FFFFFF',
         ],
         [
             'id' => 'wash_diamond',
@@ -42,47 +56,41 @@ class AdihexController extends Controller
             'label_ar' => 'غسيل دايموند مجاني',
             'value_en' => 'Worth AED 250 • Complimentary',
             'value_ar' => 'بقيمة 250 درهم • مجاناً',
-            'weight' => 20,
+            'weight' => 5,
+            'daily_limit' => 5, // 5.43% (5/92)
             'color' => '#C5A059', // Champagne Gold
             'textColor' => '#0A0A0A',
         ],
         [
-            'id' => 'voucher_100',
-            'label_en' => 'AED 100 Gift Voucher',
-            'label_ar' => 'قسيمة بقيمة 100 درهم',
-            'value_en' => 'Direct credit towards bookings',
-            'value_ar' => 'رصيد مباشر للحجوزات',
-            'weight' => 15,
-            'color' => '#8B0000',
-            'textColor' => '#FFFFFF',
-        ],
-        [
-            'id' => 'tint_10',
-            'label_en' => '10% Off Window Tinting',
-            'label_ar' => 'خصم 10% على التظليل',
-            'value_en' => 'Premium Nano-Ceramic Heat Rejection',
-            'value_ar' => 'عزل حراري نانو سيراميك فاخر',
-            'weight' => 10,
-            'color' => '#1A1A1A',
+            'id' => 'wash_slime',
+            'label_en' => 'Free Slime Wash',
+            'label_ar' => 'غسيل سلايم مجاني',
+            'value_en' => 'Worth AED 180 • Complimentary',
+            'value_ar' => 'بقيمة 180 درهم • مجاناً',
+            'weight' => 1,
+            'daily_limit' => 1, // 1.09% (1/92)
+            'color' => '#1A1A1A', // Deep Carbon
             'textColor' => '#E5C07B',
         ],
         [
-            'id' => 'polish_detailing',
-            'label_en' => 'Free Polish & Detailing',
-            'label_ar' => 'بوليش وتلميع مجاني',
-            'value_en' => 'Worth AED 650 • High Excitement',
-            'value_ar' => 'بقيمة 650 درهم • لمعان استثنائي',
-            'weight' => 7,
-            'color' => '#C5A059',
-            'textColor' => '#0A0A0A',
+            'id' => 'discount_20',
+            'label_en' => '20% Off All Services',
+            'label_ar' => 'خصم 20% على جميع الخدمات',
+            'value_en' => 'Valid on any service at Veneno',
+            'value_ar' => 'صالحة على جميع خدمات فينينو',
+            'weight' => 50,
+            'daily_limit' => 50, // 54.35% (50/92)
+            'color' => '#8B0000', // Deep Crimson
+            'textColor' => '#FFFFFF',
         ],
         [
             'id' => 'platinum_20',
             'label_en' => '20% Off Platinum Package',
-            'label_ar' => 'خصم 20% على باقة البلاتينيوم',
-            'value_en' => '',
-            'value_ar' => '',
-            'weight' => 3, // Capped at 2 winners/day
+            'label_ar' => 'خصم 20% على باقة Platinum',
+            'value_en' => 'Full Body G100 Self-Healing PPF',
+            'value_ar' => 'حماية كاملة بجلاد PPF الذاتي',
+            'weight' => 5,
+            'daily_limit' => 5, // 5.43% (5/92)
             'color' => '#E50914', // Glowing Crimson Red
             'textColor' => '#FFFFFF',
         ],
@@ -164,11 +172,11 @@ class AdihexController extends Controller
         $todaySpinsCount = AdihexLead::whereDate('created_at', Carbon::today())->count();
         $displaySpinCount = 184 + $todaySpinsCount; // Baseline booth social proof + real leads
 
-        // Grand prize remaining today
+        // Grand prize remaining today (5 slots per day)
         $platinumWinnersToday = AdihexLead::whereDate('created_at', Carbon::today())
             ->where('won_prize_tier', 'platinum_20')
             ->count();
-        $remainingPlatinumSlots = max(0, 2 - $platinumWinnersToday);
+        $remainingPlatinumSlots = max(0, 5 - $platinumWinnersToday);
 
         // Check if campaign is expired (after 6 Sept 2026)
         $campaignCutoff = Carbon::create(2026, 9, 6, 23, 59, 59);
@@ -271,24 +279,35 @@ class AdihexController extends Controller
         }
 
         // Server-Side Deterministic Weighted RNG with Daily Cap Check
-        $platinumWinnersToday = AdihexLead::whereDate('created_at', Carbon::today())
-            ->where('won_prize_tier', 'platinum_20')
-            ->count();
+        $todayWins = AdihexLead::whereDate('created_at', Carbon::today())
+            ->select('won_prize_tier', \Illuminate\Support\Facades\DB::raw('count(*) as count'))
+            ->groupBy('won_prize_tier')
+            ->pluck('count', 'won_prize_tier')
+            ->toArray();
 
         $activeWeights = [];
+        $overflowWeight = 0;
+        $discount20Index = 5;
+
         foreach ($this->prizes as $idx => $prize) {
-            $weight = $prize['weight'];
-            // If Platinum Grand Prize cap (2/day) reached, shift weight to 10% Discount
-            if ($prize['id'] === 'platinum_20' && $platinumWinnersToday >= 2) {
-                $weight = 0;
+            $prizeId = $prize['id'];
+            $limit = $prize['daily_limit'] ?? 50;
+            $wonToday = $todayWins[$prizeId] ?? 0;
+
+            if ($wonToday >= $limit && $prizeId !== 'discount_20') {
+                $overflowWeight += $prize['weight'];
+                $activeWeights[$idx] = 0;
+            } else {
+                $activeWeights[$idx] = $prize['weight'];
             }
-            $activeWeights[$idx] = $weight;
+
+            if ($prizeId === 'discount_20') {
+                $discount20Index = $idx;
+            }
         }
 
-        // If platinum weight was zeroed, add the 3% weight to discount_10
-        if ($platinumWinnersToday >= 2) {
-            $activeWeights[0] += 3;
-        }
+        // Add overflow weight from reached daily caps to 20% Off All Services
+        $activeWeights[$discount20Index] += $overflowWeight;
 
         $winningIndex = $this->calculateWeightedRandom($activeWeights);
         $wonPrize = $this->prizes[$winningIndex];
@@ -325,6 +344,14 @@ class AdihexController extends Controller
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
         ]);
+
+        // Instant SMS Dispatch: Send official voucher code & prize to phone right away
+        try {
+            $smsService = new \App\Services\SmsGlobalService();
+            $smsService->sendAdihexVoucherSms($lead);
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('[ADIHEX] Instant spin SMS dispatch failed: ' . $e->getMessage());
+        }
 
         return response()->json([
             'success' => true,

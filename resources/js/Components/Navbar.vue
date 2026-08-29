@@ -122,6 +122,15 @@ const scrollTo = (elementId) => {
           <a href="#contact" @click.prevent="scrollTo('contact')" class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors cursor-pointer">
             {{ t('nav.contact') }}
           </a>
+
+          <!-- ADIHEX 2026 Special Showcase Link -->
+          <Link 
+            :href="currentLocale === 'ar' ? '/ar/adihex' : '/adihex'" 
+            class="relative inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500/15 via-red-500/10 to-amber-500/15 border border-amber-500/40 text-amber-300 hover:text-white hover:border-amber-400 text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm shadow-amber-500/10 hover:shadow-amber-500/25 cursor-pointer"
+          >
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+            <span>{{ t('nav.adihex') }}</span>
+          </Link>
         </nav>
 
         <!-- Right Side: Language Switcher & Get a Quote CTA -->
@@ -208,6 +217,20 @@ const scrollTo = (elementId) => {
     <!-- Mobile Drawer -->
     <div v-if="isMobileMenuOpen" class="xl:hidden glass-panel border-b border-zinc-800 px-6 py-6 space-y-4 animate-in fade-in slide-in-from-top-4 duration-200">
       <Link href="/" @click="isMobileMenuOpen = false" class="block text-base font-semibold text-zinc-200">{{ t('nav.home') }}</Link>
+      
+      <!-- ADIHEX 2026 Mobile Highlight -->
+      <Link 
+        :href="currentLocale === 'ar' ? '/ar/adihex' : '/adihex'" 
+        @click="isMobileMenuOpen = false" 
+        class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-amber-500/20 via-red-950/40 to-zinc-900 border border-amber-500/40 text-amber-300 font-bold text-sm"
+      >
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+          <span>{{ t('nav.adihex') }}</span>
+        </div>
+        <span class="text-[10px] px-2 py-0.5 rounded-full bg-red-600/30 text-red-300 border border-red-500/40 font-mono">SPIN & WIN</span>
+      </Link>
+
       <a href="#about" @click.prevent="scrollTo('about')" class="block text-base font-semibold text-zinc-200">{{ t('nav.about') }}</a>
       <a href="#why-us" @click.prevent="scrollTo('why-us')" class="block text-base font-semibold text-zinc-200">{{ t('nav.whyUs') }}</a>
       <a href="#services" @click.prevent="scrollTo('services')" class="block text-base font-semibold text-zinc-200">{{ t('nav.services') }}</a>

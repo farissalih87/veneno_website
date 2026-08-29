@@ -7,6 +7,7 @@
   },
   "nav": {
     "home": "Home",
+    "adihex": "ADIHEX 2026",
     "about": "About Us",
     "whyUs": "Why Us",
     "services": "Services",
@@ -249,5 +250,27 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "rights": "All Rights Reserved. Registered in Abu Dhabi, United Arab Emirates."
+  },
+  "adihexSpotlight": {
+    "badge": "Official Exhibition Partner • ADIHEX 2026",
+    "titleLine1": "Veneno Auto Care at",
+    "titleLine2": "ADIHEX 2026 Abu Dhabi",
+    "subtitle": "Join us at the Abu Dhabi International Hunting & Equestrian Exhibition at ADNEC Abu Dhabi. Spin our luxury lucky wheel for guaranteed daily prizes and unlock exclusive exhibition show packages.",
+    "venueBadge": "ADNEC Abu Dhabi • 31 Aug – 6 Sept 2026",
+    "ctaSpin": "Spin & Win Prizes",
+    "ctaExplore": "Explore Show Packages",
+    "feature1Title": "92 Daily Prizes",
+    "feature1Desc": "Free Polish, PPF discounts & car washes",
+    "feature2Title": "Exclusive Show Pricing",
+    "feature2Desc": "Save up to AED 5,000 on flagship PPF packages",
+    "feature3Title": "60-Day Validity",
+    "feature3Desc": "Lock in your offer with AED 500 deposit",
+    "feature4Title": "Instant SMS Pass",
+    "feature4Desc": "Official digital voucher sent directly to phone",
+    "countdownLabel": "Exhibition Countdown",
+    "days": "Days",
+    "hours": "Hours",
+    "mins": "Mins",
+    "secs": "Secs"
   }
 }

@@ -7,13 +7,13 @@
 // PRIZES & PROBABILITY SPECIFICATION
 // ==========================================================================
 const PRIZES = [
-  { id: 'disc10', nameEn: '10% Discount Voucher', nameAr: 'قسيمة خصم 10%', weight: 25, value: 'AED 350', color: '#16161c', textColor: '#FFFFFF' },
-  { id: 'slime_wash', nameEn: 'Free Slime Wash', nameAr: 'غسيل سلايم مجاني', weight: 20, value: 'AED 150', color: '#E31E24', textColor: '#FFFFFF' },
-  { id: 'diamond_wash', nameEn: 'Free Diamond Car Wash', nameAr: 'غسيل دايموند مجاني', weight: 20, value: 'AED 250', color: '#C9A84C', textColor: '#000000' },
-  { id: 'voucher100', nameEn: 'AED 100 Gift Voucher', nameAr: 'قسيمة بقيمة 100 درهم', weight: 15, value: 'AED 100', color: '#16161c', textColor: '#FFFFFF' },
-  { id: 'tint10', nameEn: '10% Off Window Tinting', nameAr: 'خصم 10% على التظليل الحراري', weight: 10, value: 'AED 250', color: '#E31E24', textColor: '#FFFFFF' },
-  { id: 'polish_detail', nameEn: 'Free Polish & Detailing', nameAr: 'تلميع وبوليش مجاني', weight: 7, value: 'AED 750', color: '#C9A84C', textColor: '#000000' },
-  { id: 'platinum20', nameEn: '20% Off Platinum Package', nameAr: 'خصم 20% على الباقة البلاتينية', weight: 3, value: 'AED 3,000', color: '#E31E24', textColor: '#FFFFFF' }
+  { id: 'polish_detailing', nameEn: 'Free Polish & Detailing', nameAr: 'بوليش وتلميع مجاني', weight: 1, value: 'AED 650', color: '#C9A84C', textColor: '#000000' },
+  { id: 'tint_20', nameEn: '20% Off Window Tinting', nameAr: 'خصم 20% على التظليل', weight: 20, value: 'AED 400', color: '#16161c', textColor: '#FFFFFF' },
+  { id: 'voucher_100', nameEn: 'AED 100 Gift Voucher', nameAr: 'قسيمة 100 درهم', weight: 10, value: 'AED 100', color: '#E31E24', textColor: '#FFFFFF' },
+  { id: 'wash_diamond', nameEn: 'Free Diamond Car Wash', nameAr: 'غسيل دايموند مجاني', weight: 5, value: 'AED 250', color: '#C9A84C', textColor: '#000000' },
+  { id: 'wash_slime', nameEn: 'Free Slime Wash', nameAr: 'غسيل سلايم مجاني', weight: 1, value: 'AED 180', color: '#16161c', textColor: '#FFFFFF' },
+  { id: 'discount_20', nameEn: '20% Off All Services', nameAr: 'خصم 20% على جميع الخدمات', weight: 50, value: 'AED 500+', color: '#E31E24', textColor: '#FFFFFF' },
+  { id: 'platinum_20', nameEn: '20% Off Platinum Package', nameAr: 'خصم 20% على باقة Platinum', weight: 5, value: 'AED 2,000', color: '#E31E24', textColor: '#FFFFFF' }
 ];
 
 // ==========================================================================
